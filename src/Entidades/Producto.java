@@ -87,9 +87,9 @@ public class Producto {
     }
 
     @Override
-    public String toString() {
+    public String toString() {//igual que el cliente puede estar sujeto a ediciones
         return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", descripcion=" + descripcion + ", precioActual=" + precioActual + ", stock=" + stock + ", estado=" + estado + '}';
-    } //igual que el cliente puede estar sujeto a ediciones
+    } 
     
     
     

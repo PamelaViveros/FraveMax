@@ -86,12 +86,9 @@ public class Cliente {
         this.estadoCliente = estadoCliente;
     }
     
-    
-    //dejo el paquete para hacer la interfaz entonces
-
     @Override
-    public String toString() {
+    public String toString() {//cualquier cosa lo editamos segun convenga
         return "Cliente{" + "idCliente=" + idCliente + ", apellido=" + apellido + ", nombre=" + nombre + ", domicilio=" + domicilio + ", telefono=" + telefono + '}';
-    }//cualquier cosa lo editamos segun convenga
+    }
     
 }
