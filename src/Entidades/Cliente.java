@@ -16,20 +16,23 @@ public class Cliente {
     private String nombre;
     private String domicilio;
     private int telefono;
+    private boolean estadoCliente;
 
-    public Cliente(int idCliente, String apellido, String nombre, String domicilio, int telefono) {
+    public Cliente(int idCliente, String apellido, String nombre, String domicilio, int telefono, boolean estadoCliente) {
         this.idCliente = idCliente;
         this.apellido = apellido;
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.telefono = telefono;
+        this.estadoCliente = estadoCliente;
     }
 
-    public Cliente(String apellido, String nombre, String domicilio, int telefono) {
+    public Cliente(String apellido, String nombre, String domicilio, int telefono, boolean estadoCliente) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.telefono = telefono;
+        this.estadoCliente = estadoCliente;
     }
 
     public Cliente() {
@@ -75,6 +78,13 @@ public class Cliente {
         this.telefono = telefono;
     }
     
+    public boolean getEstadoCliente(){
+        return estadoCliente;
+    }
+    
+    public void setEstadoCliente(boolean estadoCliente){
+        this.estadoCliente = estadoCliente;
+    }
     
     
     //dejo el paquete para hacer la interfaz entonces
