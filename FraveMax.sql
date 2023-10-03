@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 02, 2023 at 09:33 PM
+-- Generation Time: Oct 03, 2023 at 09:09 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -84,7 +84,8 @@ CREATE TABLE `Ventas` (
 -- Indexes for table `Cliente`
 --
 ALTER TABLE `Cliente`
-  ADD PRIMARY KEY (`idCliente`);
+  ADD PRIMARY KEY (`idCliente`),
+  ADD UNIQUE KEY `Telefono` (`Telefono`);
 
 --
 -- Indexes for table `DetalleVenta`
