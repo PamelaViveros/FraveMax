@@ -5,7 +5,7 @@
  */
 package AccesoADatos;
 
-import Entidades.Cliente;
+import Entidades.Producto;
 import Entidades.Venta;
 
 import java.sql.Connection;
@@ -35,12 +35,19 @@ public class VentaData {
     
     public void guardarVenta(Venta v) {
         
-        String sql="INSERT INTO Venta (IdCliente, FechaVent) VALUES (?,?)";
+        String sql="INSERT INTO Ventas (IdCliente, FechaVent) VALUES (?,?)";
         
         try{
             PreparedStatement ps=con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-             ps.setInt(1, v.getCliente().getIdCliente());
+             ps.setInt(1, v.getIdCliente());
             ps.setDate(2, Date.valueOf(v.getFechaVenta())); //Parseo LocalDate a Date
+            int res=ps.executeUpdate();
+            if (res==1) {
+                JOptionPane.showMessageDialog(null, "Venta guardada con éxito");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al guardar la venta");
+            }
+            
             
             ps.close();
             
@@ -53,7 +60,7 @@ public class VentaData {
     
     
     public Venta buscarVenta(int idVenta){
-         Venta venta=null;
+         Venta venta=new Venta();
         
         String sql="SELECT  FechaVent , idCliente FROM ventas WHERE idVenta= ?";
         PreparedStatement ps=null;
@@ -63,7 +70,7 @@ public class VentaData {
             ResultSet rs = ps.executeQuery();
               if (rs.next()) {
                  venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate()); 
-                   venta.setCliente((Cliente) rs.getObject("idCliente"));  //Casteo el id cliente a Cliente
+                   venta.setIdCliente(rs.getInt("idCliente"));
                  
                   
                  }
@@ -75,9 +82,9 @@ public class VentaData {
     
     
     public List<Venta> buscarVentasxCliente(int idCliente){
-        Venta venta=null;
+       
         
-        String sql="SELECT idVenta, FechaVenta FROM ventas WHERE idCliente= ?";
+        String sql="SELECT idVenta, FechaVent FROM ventas WHERE idCliente= ?";
         PreparedStatement ps=null;
         
         try {
@@ -85,7 +92,8 @@ public class VentaData {
             ps.setInt(1, idCliente);
             ResultSet rs = ps.executeQuery();
             
-             if (rs.next()) {
+             while (rs.next()) {
+                 Venta venta=new Venta();
                  venta.setIdVenta(rs.getInt("idVenta"));
                   venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
                   
@@ -99,7 +107,7 @@ public class VentaData {
     }
     
     public List <Venta> buscarVentasxFecha(LocalDate fecha){
-         Venta venta=null;
+         
        
         String sql="SELECT idVenta, idCliente FROM ventas WHERE FechaVent= ?";
         PreparedStatement ps=null;
@@ -109,10 +117,11 @@ public class VentaData {
             ps.setDate(1, Date.valueOf(fecha));
             ResultSet rs = ps.executeQuery();
             
-             if (rs.next()) {
+            while (rs.next()) {
+                Venta venta=new Venta();
                  venta.setIdVenta(rs.getInt("idVenta"));
-                 venta.setCliente((Cliente) rs.getObject("idCliente"));
-                  
+                venta.setIdCliente(rs.getInt("idCliente"));
+                  venta.setFechaVenta(fecha);
                   
                  ventas.add(venta);
              }
@@ -125,4 +134,43 @@ public class VentaData {
         
         
     }
+    
+    public void  limpiarLista(){
+            ventas.clear();
+            
+        }
+    
+    
+    ///////////////////////////////////////////////////Este metodo no va aca///////////////////////////////////////////////////////////////
+    public void actualizarStock(int idProducto, int cantVendida){
+         Producto prod=new Producto();
+        String sql="SELECT Stock  FROM producto WHERE idProducto = ?;";
+        PreparedStatement ps=null;
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idProducto);
+            ResultSet rs = ps.executeQuery();
+             if (rs.next()) {
+                
+                 prod.setStock(rs.getInt("Stock")-cantVendida);
+                            }
+          sql="UPDATE Producto SET Stock ="+prod.getStock()+" WHERE idProducto= "+idProducto+" ";
+            ps = con.prepareStatement(sql);
+            int res=ps.executeUpdate();
+            if (res==1) {
+                JOptionPane.showMessageDialog(null, "Stock actualizado. Restante: "+ prod.getStock());
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al actualizar el Stock");
+            }
+             
+             
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "No fue posible actualizar");
+        }
+            
+       
+    }
+        
+      
 }
