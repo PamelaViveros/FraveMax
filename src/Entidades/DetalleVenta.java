@@ -13,39 +13,38 @@ import java.time.LocalDate;
  */
 public class DetalleVenta {
     
-    private int idVenta;
+    private int idDetalleVenta;
     private int cantidad;
-    private LocalDate fechaVenta;
-    private Venta venta;
+    private String fechaVenta;
+    private int idVenta;
     private double precioVenta;
-    private Producto producto;
+    private int idProducto;
 
-    public DetalleVenta(int idVenta, int cantidad, LocalDate fechaVenta, Venta venta, double precioVenta, Producto producto) {
-        this.idVenta = idVenta;
+    public DetalleVenta(int idDetalleVenta, int cantidad, String fechaVenta, int idVenta, double precioVenta, int idProducto) {
+        this.idDetalleVenta = idDetalleVenta;
         this.cantidad = cantidad;
         this.fechaVenta = fechaVenta;
-        this.venta = venta;
+        this.idVenta = idVenta;
         this.precioVenta = precioVenta;
-        this.producto = producto;
+        this.idProducto = idProducto;
     }
 
-    public DetalleVenta(int cantidad, LocalDate fechaVenta, Venta venta, double precioVenta, Producto producto) {
+    public DetalleVenta(int cantidad, String fechaVenta, int idVenta, double precioVenta, int idProducto) {
         this.cantidad = cantidad;
         this.fechaVenta = fechaVenta;
-        this.venta = venta;
-        this.precioVenta = precioVenta;
-        this.producto = producto;
-    }
-
-    public DetalleVenta() {
-    }
-
-    public int getIdVenta() {
-        return idVenta;
-    }
-
-    public void setIdVenta(int idVenta) {
         this.idVenta = idVenta;
+        this.precioVenta = precioVenta;
+        this.idProducto = idProducto;
+    }
+
+    public DetalleVenta(){}
+
+    public int getIdDetalleVenta() {
+        return idDetalleVenta;
+    }
+
+    public void setIdDetalleVenta(int idDetalleVenta) {
+        this.idDetalleVenta = idDetalleVenta;
     }
 
     public int getCantidad() {
@@ -56,20 +55,20 @@ public class DetalleVenta {
         this.cantidad = cantidad;
     }
 
-    public LocalDate getFechaVenta() {
+    public String getFechaVenta() {
         return fechaVenta;
     }
 
-    public void setFechaVenta(LocalDate fechaVenta) {
+    public void setFechaVenta(String fechaVenta) {
         this.fechaVenta = fechaVenta;
     }
 
-    public Venta getVenta() {
-        return venta;
+    public int getIdVenta() {
+        return idVenta;
     }
 
-    public void setVenta(Venta venta) {
-        this.venta = venta;
+    public void setIdVenta(int idVenta) {
+        this.idVenta = idVenta;
     }
 
     public double getPrecioVenta() {
@@ -80,17 +79,19 @@ public class DetalleVenta {
         this.precioVenta = precioVenta;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
+    
+    
     @Override
     public String toString() {
-        return "DetalleVenta{" + "idVenta=" + idVenta + ", cantidad=" + cantidad + ", fechaVenta=" + fechaVenta + ", venta=" + venta + ", precioVenta=" + precioVenta + ", producto=" + producto + '}';
+        return "DetalleVenta{" + "idDetalleVenta=" + idDetalleVenta + ", cantidad=" + cantidad + ", fechaVenta=" + fechaVenta + ", idVenta=" + idVenta + ", precioVenta=" + precioVenta + ", idProducto=" + idProducto + '}';
     }
     
     
