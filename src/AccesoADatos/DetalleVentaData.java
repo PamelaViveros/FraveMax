@@ -1,4 +1,3 @@
-
 package AccesoADatos;
 
 import Entidades.DetalleVenta;
@@ -41,7 +40,7 @@ public class DetalleVentaData {
                 JOptionPane.showMessageDialog(null, "Detalle de venta guardado.");
                 
             }
-            
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al entrar a la tabla detalleventa.");
         }
@@ -52,7 +51,7 @@ public class DetalleVentaData {
     
         DetalleVenta dv = null;
         
-        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad FROM detalleventa WHERE idDetalleVent = ? ";
+        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad FROM detalleventa WHERE idDetalleVent = ?  and estado = 1";
     
         PreparedStatement ps = null;
         
@@ -82,4 +81,25 @@ public class DetalleVentaData {
         
         return dv;
     }
+    
+    public void eliminarDetalleVenta(int id){
+        
+        String sql = "UPDATE detalleventa SET estado = 0 WHERE idDetalleVenta = ? ";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,id);
+            
+            int fila = ps.executeUpdate();
+
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, " Se eliminó el detalle de la venta.");
+            }
+            ps.close();            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al entrar a la tabla detalleventa.");
+        } 
+    }
 }
+
