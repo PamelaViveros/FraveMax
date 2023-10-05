@@ -61,7 +61,7 @@ public class ClienteData {
     
     public Cliente buscarCliente(int id){
     
-        Cliente cliente = null;
+        Cliente c = null;
         String sql = "SELECT Apellido, Nombre, Domicilio, Telefono FROM `cliente` "
                 + "WHERE idCliente = ? OR Telefono = ?";
         PreparedStatement ps = null;
@@ -74,7 +74,7 @@ public class ClienteData {
             
             if (rs.next()){
             
-                Cliente c = new Cliente();
+                c = new Cliente();
                 
                 c.setApellido(rs.getString("Apellido"));
                 c.setNombre(rs.getString("Nombre"));
@@ -95,13 +95,13 @@ public class ClienteData {
                       
         }
         
-        return cliente;
+        return c;
         
     }
     
     public Cliente buscarCliente(String apell){
     
-        Cliente cliente = null;
+        Cliente c = null;
         String sql = " SELECT Apellido, Nombre, Domicilio, Telefono FROM `cliente` "
                 + "WHERE Apellido LIKE '?%' ";
         PreparedStatement ps = null;
@@ -114,13 +114,14 @@ public class ClienteData {
             int cont = 0;
             while (rs.next()){
             
-                Cliente c = new Cliente();
+                c = new Cliente();
                 
                 c.setApellido(rs.getString("Apellido"));
                 c.setNombre(rs.getString("Nombre"));
                 c.setDomicilio(rs.getString("Domicilio"));
                 c.setTelefono(rs.getInt("Telefono"));                        
                 cont++;
+                
             } 
             if( cont == 0) {
             
@@ -136,7 +137,7 @@ public class ClienteData {
                       
         }
         
-        return cliente;
+        return c;
         
     }
     
