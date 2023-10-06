@@ -36,9 +36,9 @@ public class VentaData {
     public void guardarVenta(Venta v) {
         
         String sql="INSERT INTO Ventas (IdCliente, FechaVent) VALUES (?,?)";
-        
+        PreparedStatement ps=null;
         try{
-            PreparedStatement ps=con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+             ps=con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
              ps.setInt(1, v.getIdCliente());
             ps.setDate(2, Date.valueOf(v.getFechaVenta())); //Parseo LocalDate a Date
             int res=ps.executeUpdate();
@@ -56,6 +56,30 @@ public class VentaData {
         } 
         
         
+    }
+    
+    public List<Venta> listarVentas(){
+         String sql="SELECT * FROM ventas ";
+        PreparedStatement ps=null;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+             while (rs.next()) {
+                 Venta venta=new Venta();
+                 venta.setIdVenta(rs.getInt("idVenta"));
+                 venta.setIdCliente(rs.getInt("idCliente"));
+                  venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
+                  
+                 ventas.add(venta);
+             }
+            
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+        }
+        return ventas;
     }
     
     
