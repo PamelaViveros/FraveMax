@@ -128,7 +128,35 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
         }
         return producto;
+    }
+    
+    public Producto buscarPorNombre(String nombre) {
+        String sql = "SELECT idProducto, NombreProducto, Descripcion, PrecioActual, Stock, Estado FROM Producto WHERE NombreProducto=?";
+        
+        Producto producto = null;
 
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombreProducto(rs.getString("NombreProducto"));
+                producto.setDescripcion(rs.getString("Descripcion"));
+                producto.setPrecioActual(rs.getDouble("PrecioActual"));
+                producto.setStock(rs.getInt("Stock"));
+                producto.setEstado(rs.getBoolean("Estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el Producto");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
+        }
+        return producto;
     }
     
     public List<Producto> listarProductos() {
