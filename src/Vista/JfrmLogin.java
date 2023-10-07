@@ -1,6 +1,13 @@
 
 package Vista;
 
+import AccesoADatos.UsuarioData;
+import Entidades.Usuario;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author chexs
@@ -11,10 +18,17 @@ public class JfrmLogin extends javax.swing.JFrame {
     public JfrmLogin() {
         initComponents();
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setTitle("Login - VENTAS");
-        this.setSize(700, 500);
+        this.setSize(new Dimension (700, 500));
     }
-
+    @Override
+    public Image getIconImage(){
+        
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imag/ventas.png"));
+        return retValue;
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,7 +51,7 @@ public class JfrmLogin extends javax.swing.JFrame {
         jbIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 500));
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
@@ -52,7 +66,7 @@ public class JfrmLogin extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Lucida Calligraphy", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setText("Arg Programa");
+        jLabel3.setText("Arg Programa / ULP");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/carrito1.png"))); // NOI18N
 
@@ -103,8 +117,18 @@ public class JfrmLogin extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/password.png"))); // NOI18N
 
         jtUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtUsuarioKeyPressed(evt);
+            }
+        });
 
         jpPassword.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jpPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jpPasswordKeyPressed(evt);
+            }
+        });
 
         jbIniciarSesion.setBackground(new java.awt.Color(51, 153, 255));
         jbIniciarSesion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -125,28 +149,25 @@ public class JfrmLogin extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
+                .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(89, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jpPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jpPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
+                .addComponent(jLabel2)
+                .addGap(58, 58, 58)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(61, 61, 61)
-                        .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,8 +184,24 @@ public class JfrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIniciarSesionActionPerformed
-        // TODO add your handling code here:
+        
+        this.Login();
+        
     }//GEN-LAST:event_jbIniciarSesionActionPerformed
+
+    private void jtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtUsuarioKeyPressed
+        //Al ingresar usuario y apretar enter salta al casillero del Password
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            jpPassword.requestFocus();
+        }
+    }//GEN-LAST:event_jtUsuarioKeyPressed
+
+    private void jpPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpPasswordKeyPressed
+        
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            this.Login();
+        }
+    }//GEN-LAST:event_jpPasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -214,4 +251,37 @@ public class JfrmLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField jpPassword;
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void Login(){
+        
+        if (!jtUsuario.getText().isEmpty() && !jpPassword.getText().isEmpty() ) {
+            
+            UsuarioData usuario_data = new UsuarioData();           
+            
+            Usuario usuario = new Usuario();
+            
+            usuario.setApellido(jtUsuario.getText().trim());
+            usuario.setPassword(jpPassword.getText().trim());
+            //loginUsuario metodo en UsuarioData
+            if (usuario_data.loginUsuario(usuario)) {
+                
+                //JOptionPane.showMessageDialog(null, "Login Correcto...");
+                JfrMenu menu = new JfrMenu();
+                menu.setVisible(true);
+                this.dispose();
+                
+            } else {
+            
+                JOptionPane.showMessageDialog(null, "Usuario o Clave Incorrecto");
+                
+            }
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Ingrese Usuario Y Clave");
+            
+        }
+    
+    }
+
 }

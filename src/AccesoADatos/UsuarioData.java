@@ -8,6 +8,7 @@ package AccesoADatos;
 import Entidades.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class UsuarioData {
     
     public void guardarUsuario(Usuario u){
         
-        String sql="INSERT INTO usuario (apellido, nombre, password, estado) VALUES (?, ?, ?, ?)";
+        String sql="INSERT INTO usuario (Apellido, Nombre, Password, Estado) VALUES (?, ?, ?, ?)";
         PreparedStatement ps=null;
         try{
             
@@ -76,7 +77,7 @@ public class UsuarioData {
     }
     
     public void modificarUsuario(Usuario u){
-        String sql = "UPDATE usuario SET apellido=?, nombre=?,password=? , Estado=? WHERE idUsuario=?";
+        String sql = "UPDATE usuario SET Apellido=?, Nombre=?, Password=? , Estado=? WHERE idUsuario=?";
         
          try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -99,5 +100,30 @@ public class UsuarioData {
         }
     }
     
+    public boolean loginUsuario (Usuario obj){
     
+        boolean resp = false;
+        
+        Connection con = Conexion.getConexion();
+        String sql = "SELECT `Apellido`, `Password` FROM `usuario` WHERE"
+                + " `Apellido` = '"+ obj.getApellido() +"' AND `Password` = '"+ obj.getPassword() +"'";
+        
+        Statement st;
+        
+        try {
+            
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            while (rs.next()) {                
+                resp = true;
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error al Iniciar Sesión");
+            JOptionPane.showMessageDialog(null, "Error al Iniciar Sesión" + e.getMessage());
+        }
+        
+        return resp;
+    }
 }
