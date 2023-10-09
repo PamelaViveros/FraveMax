@@ -10,7 +10,7 @@ package Entidades;
  * @author Gaming
  */
 public class Cliente {
-    
+
     private int idCliente;
     private String apellido;
     private String nombre;
@@ -77,18 +77,18 @@ public class Cliente {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-    
-    public boolean getEstadoCliente(){
+
+    public boolean getEstadoCliente() {
         return estadoCliente;
     }
-    
-    public void setEstadoCliente(boolean estadoCliente){
+
+    public void setEstadoCliente(boolean estadoCliente) {
         this.estadoCliente = estadoCliente;
     }
-    
+
     @Override
     public String toString() {//cualquier cosa lo editamos segun convenga
-        return "Cliente{" + "idCliente=" + idCliente + ", apellido=" + apellido + ", nombre=" + nombre + ", domicilio=" + domicilio + ", telefono=" + telefono + '}';
+        return idCliente + ", " + apellido + ", " + nombre + ", " + domicilio;
     }
-    
+
 }

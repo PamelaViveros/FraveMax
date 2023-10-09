@@ -1,6 +1,10 @@
 
 package Vista;
 
+import Vista.ReporteDeVentas.PorProducto;
+import Vista.ReporteDeVentas.PorFecha;
+import Vista.ReporteDeVentas.PorCliente;
+import Vista.ReporteDeVentas.PorUsuario;
 import java.awt.Dimension;
 
 /**
@@ -27,6 +31,7 @@ public class JfrMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Fondo = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmItem4_nuevo_usuario = new javax.swing.JMenuItem();
@@ -52,6 +57,7 @@ public class JfrMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1050, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 550));
 
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/usuario.png"))); // NOI18N
@@ -102,18 +108,38 @@ public class JfrMenu extends javax.swing.JFrame {
 
         jMenuItem1_buscar_por_cliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem1_buscar_por_cliente.setText("Por Cliente");
+        jMenuItem1_buscar_por_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1_buscar_por_clienteActionPerformed(evt);
+            }
+        });
         jMenu8_buscar_ventas.add(jMenuItem1_buscar_por_cliente);
 
         jMenuItem2_buscar_por_producto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem2_buscar_por_producto.setText("Por Producto");
+        jMenuItem2_buscar_por_producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2_buscar_por_productoActionPerformed(evt);
+            }
+        });
         jMenu8_buscar_ventas.add(jMenuItem2_buscar_por_producto);
 
         jMenuItem3_buscar_por_fecha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem3_buscar_por_fecha.setText("Por Fecha");
+        jMenuItem3_buscar_por_fecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3_buscar_por_fechaActionPerformed(evt);
+            }
+        });
         jMenu8_buscar_ventas.add(jMenuItem3_buscar_por_fecha);
 
         jMenuItem10_buscar_por_usuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem10_buscar_por_usuario.setText("Por Usuario");
+        jMenuItem10_buscar_por_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10_buscar_por_usuarioActionPerformed(evt);
+            }
+        });
         jMenu8_buscar_ventas.add(jMenuItem10_buscar_por_usuario);
 
         jMenu3.add(jMenu8_buscar_ventas);
@@ -168,12 +194,54 @@ public class JfrMenu extends javax.swing.JFrame {
         jMenu7_cerrar_sesion.setText("Cerrar Sesión");
         jMenu7_cerrar_sesion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jMenu7_cerrar_sesion.setPreferredSize(new java.awt.Dimension(160, 30));
+        jMenu7_cerrar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu7_cerrar_sesionMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu7_cerrar_sesion);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1_buscar_por_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_buscar_por_clienteActionPerformed
+        PorCliente pc = new PorCliente();
+        
+        Fondo.removeAll();
+        Fondo.repaint();
+         pc.setVisible(true);
+        Fondo.add(pc);
+    }//GEN-LAST:event_jMenuItem1_buscar_por_clienteActionPerformed
+
+    private void jMenuItem2_buscar_por_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_buscar_por_productoActionPerformed
+        PorProducto pp = new PorProducto();
+        
+        Fondo.removeAll();
+        Fondo.repaint();
+         pp.setVisible(true);
+        Fondo.add(pp);
+    }//GEN-LAST:event_jMenuItem2_buscar_por_productoActionPerformed
+
+    private void jMenuItem3_buscar_por_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3_buscar_por_fechaActionPerformed
+         PorFecha pf = new PorFecha();
+        
+        
+    }//GEN-LAST:event_jMenuItem3_buscar_por_fechaActionPerformed
+
+    private void jMenu7_cerrar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7_cerrar_sesionMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jMenu7_cerrar_sesionMouseClicked
+
+    private void jMenuItem10_buscar_por_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10_buscar_por_usuarioActionPerformed
+        PorUsuario pu = new PorUsuario();
+        
+        Fondo.removeAll();
+        Fondo.repaint();
+         pu.setVisible(true);
+        Fondo.add(pu);
+    }//GEN-LAST:event_jMenuItem10_buscar_por_usuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,6 +279,7 @@ public class JfrMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Fondo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

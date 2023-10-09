@@ -35,12 +35,13 @@ public class VentaData {
     
     public void guardarVenta(Venta v) {
         
-        String sql="INSERT INTO Ventas (IdCliente, FechaVent) VALUES (?,?)";
+        String sql="INSERT INTO Ventas (IdCliente, FechaVent, Estado) VALUES (?,?,?)";
         PreparedStatement ps=null;
         try{
              ps=con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
              ps.setInt(1, v.getIdCliente());
             ps.setDate(2, Date.valueOf(v.getFechaVenta())); //Parseo LocalDate a Date
+            ps.setBoolean(3, true);
             int res=ps.executeUpdate();
             if (res==1) {
                 JOptionPane.showMessageDialog(null, "Venta guardada con éxito");
@@ -59,7 +60,7 @@ public class VentaData {
     }
     
     public List<Venta> listarVentas(){
-         String sql="SELECT * FROM ventas ";
+         String sql="SELECT * FROM ventas WHERE Estado=1";
         PreparedStatement ps=null;
         
         try {
@@ -86,7 +87,7 @@ public class VentaData {
     public Venta buscarVenta(int idVenta){
          Venta venta=new Venta();
         
-        String sql="SELECT  FechaVent , idCliente FROM ventas WHERE idVenta= ?";
+        String sql="SELECT  FechaVent , idCliente FROM ventas WHERE idVenta= ? AND Estado=1";
         PreparedStatement ps=null;
           try {
             ps = con.prepareStatement(sql);
@@ -108,7 +109,7 @@ public class VentaData {
     public List<Venta> buscarVentasxCliente(int idCliente){
        
         
-        String sql="SELECT idVenta, FechaVent FROM ventas WHERE idCliente= ?";
+        String sql="SELECT idVenta, FechaVent FROM ventas WHERE idCliente= ? AND Estado=1";
         PreparedStatement ps=null;
         
         try {
@@ -133,7 +134,7 @@ public class VentaData {
     public List <Venta> buscarVentasxFecha(LocalDate fecha){
          
        
-        String sql="SELECT idVenta, idCliente FROM ventas WHERE FechaVent= ?";
+        String sql="SELECT idVenta, idCliente FROM ventas WHERE FechaVent= ? AND Estado=1";
         PreparedStatement ps=null;
         
         try {
@@ -164,7 +165,7 @@ public class VentaData {
             
         }
     
-    
+    /*
     ///////////////////////////////////////////////////Este metodo no va aca///////////////////////////////////////////////////////////////
     public void actualizarStock(int idProducto, int cantVendida){
          Producto prod=new Producto();
@@ -194,7 +195,7 @@ public class VentaData {
         }
             
        
-    }
+    }*/
         
       
 }

@@ -100,6 +100,32 @@ public class UsuarioData {
         }
     }
     
+    public List<Usuario> listarUsuarios(){
+       
+        String sql="SELECT * FROM Usuario WHERE Estado=1";
+        
+         PreparedStatement ps=null;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+             while (rs.next()) {
+               Usuario usuario= new Usuario();
+                 usuario.setIdUsuario(rs.getInt("idUsuario"));
+                 usuario.setApellido(rs.getString("Apellido"));
+                 usuario.setNombre(rs.getString("Nombre"));
+                 usuario.setPassword(rs.getString("Password"));
+                 usuarios.add(usuario);
+             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No fue posible listar los usuarios"+ ex.getMessage());
+        }
+        return usuarios;
+    }
+    
+    
     public boolean loginUsuario (Usuario obj){
     
         boolean resp = false;

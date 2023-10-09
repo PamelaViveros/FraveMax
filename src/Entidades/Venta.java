@@ -16,21 +16,22 @@ public class Venta {
     private  int idVenta;
     private int idCliente;
     private LocalDate fechaVenta;
+    public int idUsuario;
 
-    public Venta(int idCliente, LocalDate fechaVenta) {
-        this.idCliente = idCliente;
-        this.fechaVenta = fechaVenta;
+    public Venta() {
     }
 
-    public Venta(int idVenta, int idCliente, LocalDate fechaVenta) {
+    public Venta(int idCliente, LocalDate fechaVenta, int idUsuario) {
+        this.idCliente = idCliente;
+        this.fechaVenta = fechaVenta;
+        this.idUsuario = idUsuario;
+    }
+
+    public Venta(int idVenta, int idCliente, LocalDate fechaVenta, int idUsuario) {
         this.idVenta = idVenta;
         this.idCliente = idCliente;
         this.fechaVenta = fechaVenta;
-    }
-
-    
-
-    public Venta() {
+        this.idUsuario = idUsuario;
     }
 
     public int getIdVenta() {
@@ -57,6 +58,15 @@ public class Venta {
         this.fechaVenta = fechaVenta;
     }
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
+    
     @Override
     public String toString() {
         return "Venta{" + "idVenta=" + idVenta + ", idCliente=" + idCliente + ", fechaVenta=" + fechaVenta + '}';

@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 public class ProductoData {
 
     private Connection con = null;
-
+ public static List<Producto> productos = new ArrayList<>();
 
 
     public ProductoData() {
@@ -162,7 +162,7 @@ public class ProductoData {
     public List<Producto> listarProductos() {
         String sql = "SELECT idProducto, NombreProducto, Descripcion, PrecioActual, Stock FROM Producto WHERE Estado=1";
 
-        ArrayList<Producto> productos = new ArrayList<>();
+       
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
