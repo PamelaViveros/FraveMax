@@ -63,7 +63,7 @@ public class ClienteData {
     
         Cliente c = null;
         String sql = "SELECT Apellido, Nombre, Domicilio, Telefono FROM `cliente` "
-                + "WHERE idCliente = ? OR Telefono = ?";
+                + "WHERE idCliente = ? ";
         PreparedStatement ps = null;
         
         try {

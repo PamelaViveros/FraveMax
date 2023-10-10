@@ -6,11 +6,13 @@
 package Vista.ReporteDeVentas;
 
 import AccesoADatos.DetalleVentaData;
+import AccesoADatos.ProductoData;
 import AccesoADatos.UsuarioData;
 import static AccesoADatos.UsuarioData.usuarios;
 import AccesoADatos.VentaData;
 import static AccesoADatos.VentaData.ventas;
 import Entidades.DetalleVenta;
+import Entidades.Producto;
 import Entidades.Usuario;
 import Entidades.Venta;
 import javax.swing.table.DefaultTableModel;
@@ -25,12 +27,14 @@ public class PorUsuario extends javax.swing.JInternalFrame {
     UsuarioData uData = new UsuarioData();
     VentaData vData = new VentaData();
     DetalleVentaData dvData = new DetalleVentaData();
+    ProductoData pData = new ProductoData();
     
     public PorUsuario() {
         initComponents();
+        cabecera();
         uData.listarUsuarios();
         cargaCombo();
-        cabecera();
+       
         
     }
 
@@ -72,6 +76,16 @@ public class PorUsuario extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(tVentas);
+        if (tVentas.getColumnModel().getColumnCount() > 0) {
+            tVentas.getColumnModel().getColumn(0).setResizable(false);
+            tVentas.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tVentas.getColumnModel().getColumn(1).setResizable(false);
+            tVentas.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tVentas.getColumnModel().getColumn(2).setResizable(false);
+            tVentas.getColumnModel().getColumn(2).setPreferredWidth(330);
+            tVentas.getColumnModel().getColumn(3).setResizable(false);
+            tVentas.getColumnModel().getColumn(3).setPreferredWidth(79);
+        }
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -87,13 +101,10 @@ public class PorUsuario extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jcbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jcbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -101,6 +112,10 @@ public class PorUsuario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addGap(9, 9, 9))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,9 +124,9 @@ public class PorUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jcbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -126,8 +141,10 @@ public class PorUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jcbUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsuariosActionPerformed
-      // borrarFilas();
-        cargaTabla();
+      
+      borrarFilas();
+            cargaTablaxUsuario();
+         
     }//GEN-LAST:event_jcbUsuariosActionPerformed
 
 
@@ -146,7 +163,7 @@ public void cargaCombo(){
         jcbUsuarios.addItem(usuario);
     }
     
-    
+    usuarios.clear();
 }
 
 public void cabecera(){
@@ -154,26 +171,29 @@ public void cabecera(){
     modelo.addColumn("id Venta");
         modelo.addColumn("idCliente");
         modelo.addColumn("Cantidad");
+        modelo.addColumn("Nombre producto");
         modelo.addColumn("Fecha de venta");
     tVentas.setModel(modelo);
     
 }
 
-public void cargaTabla(){
-    Usuario user;
-    user= (Usuario)jcbUsuarios.getSelectedItem();
+public void cargaTablaxUsuario(){
+    Usuario user= (Usuario)jcbUsuarios.getSelectedItem();
     
-    vData.listarVentas();
+    vData.ventasPorUsuario(user.getIdUsuario());
 
         for (Venta venta : ventas) {
           DetalleVenta dv=dvData.detallarVenta(venta.getIdVenta());
-            if (venta.getIdUsuario()== user.getIdUsuario()) {
+          Producto prod= pData.buscarPorId(dv.getIdProducto());
+           
                 modelo.addRow(new Object[]{
                     venta.getIdVenta(),
                     venta.getIdCliente(),
                     dv.getCantidad(),
-                    venta.getFechaVenta(),});
-            }
+                    prod.getNombreProducto(),
+                    venta.getFechaVenta(),
+                });
+            
         }
 
         ventas.clear();

@@ -7,9 +7,13 @@ package Vista.ReporteDeVentas;
 
 import AccesoADatos.ClienteData;
 import static AccesoADatos.ClienteData.clientes;
+import AccesoADatos.DetalleVentaData;
+import AccesoADatos.ProductoData;
 import AccesoADatos.VentaData;
 import static AccesoADatos.VentaData.ventas;
 import Entidades.Cliente;
+import Entidades.DetalleVenta;
+import Entidades.Producto;
 import Entidades.Venta;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,18 +24,23 @@ import javax.swing.table.DefaultTableModel;
 public class PorCliente extends javax.swing.JInternalFrame {
 
    DefaultTableModel modelo = new DefaultTableModel();
-    VentaData vd = new VentaData();
-    ClienteData cd = new ClienteData();
+    VentaData vData = new VentaData();
+    DetalleVentaData dvData = new DetalleVentaData();
+    ClienteData cData = new ClienteData();
+    ProductoData pData = new ProductoData();
    
     public boolean isCellEditable(int f, int c) {
         return false;
     }
     public PorCliente() {
         initComponents();
-         cd.listaClientes();
         cabecera();
+         cData.listaClientes(); 
+         cargaCombo();
+         
         
-        cargaCombo();
+        
+       
     }
 
     /**
@@ -77,6 +86,15 @@ public class PorCliente extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tVentasxCliente);
+        if (tVentasxCliente.getColumnModel().getColumnCount() > 0) {
+            tVentasxCliente.getColumnModel().getColumn(0).setResizable(false);
+            tVentasxCliente.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tVentasxCliente.getColumnModel().getColumn(1).setResizable(false);
+            tVentasxCliente.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tVentasxCliente.getColumnModel().getColumn(2).setPreferredWidth(330);
+            tVentasxCliente.getColumnModel().getColumn(3).setResizable(false);
+            tVentasxCliente.getColumnModel().getColumn(3).setPreferredWidth(79);
+        }
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -129,13 +147,10 @@ public class PorCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClientesActionPerformed
-       borrarFilas();
-        if (jcbClientes.getSelectedIndex()==-1) {
-            CargaTabla();
-        }else{
+       
+            borrarFilas();
             VentasPorCliente();
-        }
-
+        
     }//GEN-LAST:event_jcbClientesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -154,7 +169,11 @@ public class PorCliente extends javax.swing.JInternalFrame {
 
 private void cabecera() {
         modelo.addColumn("ID Venta");
-        modelo.addColumn("Fecha de Venta");
+        modelo.addColumn("Cantidad");
+         modelo.addColumn("Nombre producto");
+        modelo.addColumn("Fecha de venta");
+        modelo.addColumn("ID Vendedor");
+        
         
 
         tVentasxCliente.setModel(modelo);
@@ -165,37 +184,31 @@ public void cargaCombo(){
     for (Cliente cliente : clientes) {
         jcbClientes.addItem(cliente);
     }
-    jcbClientes.setSelectedIndex(-1);
+   
     clientes.clear();
 }
 
-public void VentasPorCliente(){
-     
-     
-     Cliente c=(Cliente)jcbClientes.getSelectedItem();
-    int id=c.getIdCliente();
-    vd.buscarVentasxCliente(id);
+    public void VentasPorCliente() {
+
+        Cliente c = (Cliente) jcbClientes.getSelectedItem();
+        int id = c.getIdCliente();
+        vData.buscarVentasxCliente(id);
+
+        for (Venta venta : ventas) {
+            DetalleVenta dv= dvData.detallarVenta(venta.getIdVenta());
+            Producto prod = pData.buscarPorId(dv.getIdProducto());
+            modelo.addRow(new Object[]{
+                venta.getIdVenta(),
+                dv.getCantidad(),
+                prod.getNombreProducto(),
+                venta.getFechaVenta(),
+                venta.getIdUsuario(),});
+
+        }
+        ventas.clear();
+    }
+
     
-    for (Venta venta : ventas) {
-        modelo.addRow(new Object[]{
-        venta.getIdVenta(),
-        venta.getFechaVenta()
-    });
-    }
-   ventas.clear();
-}
-
-public void CargaTabla(){
-    vd.listarVentas();
-    for (Venta venta : ventas) {
-        modelo.addRow(new Object[]{
-        venta.getIdVenta(),
-        venta.getFechaVenta()
-    });
-    }
-    ventas.clear();
-}
-
 public void borrarFilas(){
      int f = (tVentasxCliente.getRowCount() - 1);
         for (; f >= 0; f--) {

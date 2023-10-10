@@ -5,11 +5,13 @@
  */
 package Vista.ReporteDeVentas;
 
+import AccesoADatos.ClienteData;
 import AccesoADatos.DetalleVentaData;
 import AccesoADatos.ProductoData;
 import static AccesoADatos.ProductoData.productos;
 import AccesoADatos.VentaData;
 import static AccesoADatos.VentaData.ventas;
+import Entidades.Cliente;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
@@ -22,15 +24,17 @@ import javax.swing.table.DefaultTableModel;
 public class PorProducto extends javax.swing.JInternalFrame {
 
     DefaultTableModel modelo = new DefaultTableModel();
-    VentaData vd = new VentaData();
-    DetalleVentaData dvd = new DetalleVentaData();
-    ProductoData pd = new ProductoData();
+    VentaData vData = new VentaData();
+    DetalleVentaData dvData = new DetalleVentaData();
+    ProductoData pData = new ProductoData();
+    ClienteData cData = new ClienteData();
 
     public PorProducto() {
-        initComponents();
-        pd.listarProductos();
-        CargaCombo();
+        initComponents(); 
         cabecera();
+        pData.listarProductos();
+        CargaCombo();
+       
         
     }
 
@@ -143,14 +147,10 @@ public class PorProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void jcbProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProductosActionPerformed
-        //borrarFilas();
-        if (jcbProductos.getSelectedIndex() == -1) {
-            
-            CargaTabla();
-        } else {
-            
-            CargaTablaxProd();
-        }
+       
+        borrarFilas();
+        CargaTablaxProd();
+        
     }//GEN-LAST:event_jcbProductosActionPerformed
 
 
@@ -166,65 +166,51 @@ public class PorProducto extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void cabecera() {
-        modelo.addColumn("id Venta");
-        modelo.addColumn("idCliente");
+        modelo.addColumn("id Venta"); 
         modelo.addColumn("Cantidad");
+        modelo.addColumn("Nombre Cliente");
+        modelo.addColumn("id Cliente");
         modelo.addColumn("Fecha de venta");
 
         tListaVentas.setModel(modelo);
     }
 
-    public void CargaTabla() {
-        vd.listarVentas();
-
-        for (Venta venta : ventas) {
-            DetalleVenta dv;
-            dv = dvd.detallarVenta(venta.getIdVenta());
-
-            modelo.addRow(new Object[]{
-                venta.getIdVenta(),
-                venta.getIdCliente(),
-                dv.getCantidad(),
-                venta.getFechaVenta(),});
-        }
-        ventas.clear();
-    }
+    
 
     public void CargaCombo() {
-
-        
 
         for (Producto producto : productos) {
             jcbProductos.addItem(producto);
         }
-        jcbProductos.setSelectedIndex(-1);
+        
         productos.clear();
 
     }
 
     public void CargaTablaxProd() {
-        Producto prod;
-        prod = (Producto) jcbProductos.getSelectedItem();
-        vd.listarVentas();
+        Producto prod = (Producto) jcbProductos.getSelectedItem();
+        int id=prod.getIdProducto();
+        vData.porProducto(id);
 
         for (Venta venta : ventas) {
-            DetalleVenta dv;
-            dv = dvd.detallarVenta(venta.getIdVenta());
-            if (dv.getIdProducto() == prod.getIdProducto()) {
+            DetalleVenta dv= dvData.detallarVenta(venta.getIdVenta());
+           Cliente c=cData.buscarCliente(venta.getIdCliente());
+           
                 modelo.addRow(new Object[]{
                     venta.getIdVenta(),
-                    venta.getIdCliente(),
                     dv.getCantidad(),
-                    venta.getFechaVenta(),});
-            }
+                     c.getApellido()+" "+c.getNombre(),
+                    venta.getIdCliente(),
+                    venta.getFechaVenta(),
+                });
         }
 
         ventas.clear();
     }
 
     public void borrarFilas() {
-        int f = (tListaVentas.getRowCount() - 1);
-        for (; f >= 0; f--) {
+        int f = (tListaVentas.getRowCount() -1);
+       for (; f >=0; f--) {
             modelo.removeRow(f);
         }
     }

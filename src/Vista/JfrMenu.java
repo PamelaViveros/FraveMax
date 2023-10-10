@@ -227,11 +227,14 @@ public class JfrMenu extends javax.swing.JFrame {
     private void jMenuItem3_buscar_por_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3_buscar_por_fechaActionPerformed
          PorFecha pf = new PorFecha();
         
-        
+        Fondo.removeAll();
+        Fondo.repaint();
+         pf.setVisible(true);
+        Fondo.add(pf);
     }//GEN-LAST:event_jMenuItem3_buscar_por_fechaActionPerformed
 
     private void jMenu7_cerrar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7_cerrar_sesionMouseClicked
-        this.dispose();
+        
     }//GEN-LAST:event_jMenu7_cerrar_sesionMouseClicked
 
     private void jMenuItem10_buscar_por_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10_buscar_por_usuarioActionPerformed
