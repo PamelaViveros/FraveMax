@@ -5,6 +5,16 @@
  */
 package Vista.ReporteDeVentas;
 
+import AccesoADatos.DetalleVentaData;
+import AccesoADatos.ProductoData;
+import AccesoADatos.UsuarioData;
+import AccesoADatos.VentaData;
+import static AccesoADatos.VentaData.ventas;
+import Entidades.DetalleVenta;
+import Entidades.Producto;
+import Entidades.Venta;
+import java.time.LocalDate;
+import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,10 +22,17 @@ import javax.swing.table.DefaultTableModel;
  * @author Gaming
  */
 public class PorFecha extends javax.swing.JInternalFrame {
-DefaultTableModel modelo= new DefaultTableModel();
-   
+
+    DefaultTableModel modelo = new DefaultTableModel();
+
+    UsuarioData uData = new UsuarioData();
+    VentaData vData = new VentaData();
+    DetalleVentaData dvData = new DetalleVentaData();
+    ProductoData pData = new ProductoData();
+
     public PorFecha() {
         initComponents();
+        cargaTodo();
         cabecera();
     }
 
@@ -37,6 +54,7 @@ DefaultTableModel modelo= new DefaultTableModel();
         setTitle("Ventas por fecha");
         setToolTipText("");
 
+        jcFecha.setDateFormatString("yyyy-MM-dd");
         jcFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jcFechaPropertyChange(evt);
@@ -102,11 +120,15 @@ DefaultTableModel modelo= new DefaultTableModel();
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-      this.dispose();
+        this.dispose();
     }//GEN-LAST:event_SalirActionPerformed
 
     private void jcFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jcFechaPropertyChange
-        
+        try {
+            borrarFilas();
+        cargaTabla();
+        } catch (Exception e) {
+        cargaTodo();}
     }//GEN-LAST:event_jcFechaPropertyChange
 
 
@@ -118,19 +140,62 @@ DefaultTableModel modelo= new DefaultTableModel();
     private javax.swing.JTable tVentas;
     // End of variables declaration//GEN-END:variables
 
-  public void cabecera(){
-       modelo.addColumn("id Venta");
+    public void cabecera() {
+        modelo.addColumn("id Venta");
         modelo.addColumn("idCliente");
+        modelo.addColumn("Producto");
         modelo.addColumn("Cantidad");
-        modelo.addColumn("Fecha de venta");
-      tVentas.setModel(modelo);
-  }  
-    
-    
-    
-    
-    
-public void borrarFilas() {
+        modelo.addColumn("id Usuario");
+        modelo.addColumn("Fecha venta");
+        tVentas.setModel(modelo);
+    }
+
+    public void cargaTabla() {
+        int año = 0, mes = -1, dia = 0;
+        año = jcFecha.getCalendar().get(Calendar.YEAR);
+        mes = jcFecha.getCalendar().get(Calendar.MARCH);
+        dia = jcFecha.getCalendar().get(Calendar.DAY_OF_MONTH);
+        LocalDate fecha = LocalDate.of(año, (mes + 1), dia);
+
+        if (año != 0 && mes != -1 && dia != 0) {
+            vData.buscarVentasxFecha(fecha);
+
+            for (Venta venta : ventas) {
+                DetalleVenta dv = dvData.detallarVenta(venta.getIdVenta());
+                Producto prod = pData.buscarPorId(dv.getIdProducto());
+                modelo.addRow(new Object[]{
+                    venta.getIdVenta(),
+                    venta.getIdCliente(),
+                    prod.getNombreProducto(),
+                    dv.getCantidad(),
+                    venta.getIdUsuario(),
+                    fecha
+                });
+            }
+        }
+        ventas.clear();
+
+    }
+
+    public void cargaTodo() {
+        vData.listarVentas();
+
+        for (Venta venta : ventas) {
+            DetalleVenta dv = dvData.detallarVenta(venta.getIdVenta());
+            Producto prod = pData.buscarPorId(dv.getIdProducto());
+            modelo.addRow(new Object[]{
+                venta.getIdVenta(),
+                venta.getIdCliente(),
+                prod.getNombreProducto(),
+                dv.getCantidad(),
+                venta.getIdUsuario(),
+                venta.getFechaVenta()
+            });
+        }
+        ventas.clear();
+    }
+
+    public void borrarFilas() {
         int f = (tVentas.getRowCount() - 1);
         for (; f >= 0; f--) {
             modelo.removeRow(f);

@@ -1,6 +1,8 @@
 
 package Vista;
 
+import Vista.Facturar.NuevaVenta;
+import Vista.Facturar.NuevoCliente;
 import Vista.ReporteDeVentas.PorProducto;
 import Vista.ReporteDeVentas.PorFecha;
 import Vista.ReporteDeVentas.PorCliente;
@@ -55,7 +57,6 @@ public class JfrMenu extends javax.swing.JFrame {
         jMenu7_cerrar_sesion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1050, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 550));
 
@@ -87,6 +88,11 @@ public class JfrMenu extends javax.swing.JFrame {
         jMenuItem6_nuevo_cliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem6_nuevo_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/nuevo-cliente.png"))); // NOI18N
         jMenuItem6_nuevo_cliente.setText("Nuevo Cliente");
+        jMenuItem6_nuevo_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6_nuevo_clienteActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem6_nuevo_cliente);
 
         jMenuItem7_gest_clientes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -173,6 +179,11 @@ public class JfrMenu extends javax.swing.JFrame {
         jMenuItem11_nueva_venta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem11_nueva_venta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/anadir.png"))); // NOI18N
         jMenuItem11_nueva_venta.setText("Nueva Venta");
+        jMenuItem11_nueva_venta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11_nueva_ventaActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem11_nueva_venta);
 
         jMenuItem12_gest_venta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -246,6 +257,23 @@ public class JfrMenu extends javax.swing.JFrame {
         Fondo.add(pu);
     }//GEN-LAST:event_jMenuItem10_buscar_por_usuarioActionPerformed
 
+    private void jMenuItem11_nueva_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11_nueva_ventaActionPerformed
+        NuevaVenta nuevaVenta = new NuevaVenta();
+        
+         Fondo.removeAll();
+        Fondo.repaint();
+         nuevaVenta.setVisible(true);
+        Fondo.add(nuevaVenta);
+    }//GEN-LAST:event_jMenuItem11_nueva_ventaActionPerformed
+
+    private void jMenuItem6_nuevo_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6_nuevo_clienteActionPerformed
+        NuevoCliente nuevoCliente = new NuevoCliente();
+         Fondo.removeAll();
+        Fondo.repaint();
+        nuevoCliente.setVisible(true);
+        Fondo.add(nuevoCliente);
+    }//GEN-LAST:event_jMenuItem6_nuevo_clienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -282,7 +310,7 @@ public class JfrMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Fondo;
+    public static javax.swing.JPanel Fondo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

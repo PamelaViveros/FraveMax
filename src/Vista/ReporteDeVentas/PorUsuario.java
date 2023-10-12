@@ -72,7 +72,7 @@ public class PorUsuario extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Cliente", "Nombre producto", "Fecha venta"
             }
         ));
         jScrollPane1.setViewportView(tVentas);

@@ -61,6 +61,9 @@
   </Layout>
   <SubComponents>
     <Component class="com.toedter.calendar.JDateChooser" name="jcFecha">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+      </Properties>
       <Events>
         <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jcFechaPropertyChange"/>
       </Events>
