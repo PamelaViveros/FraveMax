@@ -3,6 +3,8 @@ package Vista;
 
 import Vista.Facturar.NuevaVenta;
 import Vista.Facturar.NuevoCliente;
+import Vista.Producto.GestionProductos;
+import Vista.Producto.NuevoProducto;
 import Vista.ReporteDeVentas.PorProducto;
 import Vista.ReporteDeVentas.PorFecha;
 import Vista.ReporteDeVentas.PorCliente;
@@ -161,11 +163,21 @@ public class JfrMenu extends javax.swing.JFrame {
         jMenuItem8_nuevo_producto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem8_nuevo_producto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/nuevo-producto.png"))); // NOI18N
         jMenuItem8_nuevo_producto.setText("Nuevo Producto");
+        jMenuItem8_nuevo_producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8_nuevo_productoActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem8_nuevo_producto);
 
         jMenuItem9_gest_producto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem9_gest_producto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/configuraciones.png"))); // NOI18N
         jMenuItem9_gest_producto.setText("Gestionar Productos");
+        jMenuItem9_gest_producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9_gest_productoActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem9_gest_producto);
 
         jMenuBar1.add(jMenu4);
@@ -273,6 +285,24 @@ public class JfrMenu extends javax.swing.JFrame {
         nuevoCliente.setVisible(true);
         Fondo.add(nuevoCliente);
     }//GEN-LAST:event_jMenuItem6_nuevo_clienteActionPerformed
+
+    private void jMenuItem8_nuevo_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8_nuevo_productoActionPerformed
+        NuevoProducto nuevoProducto = new NuevoProducto();
+        
+        Fondo.removeAll();
+        Fondo.repaint();
+        nuevoProducto.setVisible(true);
+        Fondo.add(nuevoProducto);
+    }//GEN-LAST:event_jMenuItem8_nuevo_productoActionPerformed
+
+    private void jMenuItem9_gest_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9_gest_productoActionPerformed
+        GestionProductos gestionProductos = new GestionProductos();
+        
+        Fondo.removeAll();
+        Fondo.repaint();
+        gestionProductos.setVisible(true);
+        Fondo.add(gestionProductos);
+    }//GEN-LAST:event_jMenuItem9_gest_productoActionPerformed
 
     /**
      * @param args the command line arguments

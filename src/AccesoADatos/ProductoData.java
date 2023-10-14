@@ -162,7 +162,7 @@ public class ProductoData {
     public List<Producto> listarProductos() {
         String sql = "SELECT idProducto, NombreProducto, Descripcion, PrecioActual, Stock FROM Producto WHERE Estado=1";
 
-       
+        productos = new ArrayList();
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
