@@ -19,7 +19,7 @@ public class JfrmLogin extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setTitle("Login - VENTAS");
+        this.setTitle("Login -MENU DE VENTAS");
         this.setSize(new Dimension (700, 500));
     }
     @Override
@@ -266,7 +266,7 @@ public class JfrmLogin extends javax.swing.JFrame {
             if (usuario_data.loginUsuario(usuario)) {
                 
                 //JOptionPane.showMessageDialog(null, "Login Correcto...");
-                JfrMenu menu = new JfrMenu();
+                JfrMenu1 menu = new JfrMenu1();
                 menu.setVisible(true);
                 this.dispose();
                 

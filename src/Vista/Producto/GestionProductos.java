@@ -2,7 +2,7 @@ package Vista.Producto;
 
 import AccesoADatos.ProductoData;
 import Entidades.Producto;
-import static Vista.JfrMenu.Fondo;
+import static Vista.JfrMenu1.jDesktopPaneMenu;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -161,10 +161,10 @@ public class GestionProductos extends javax.swing.JInternalFrame {
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         NuevoProducto nuevoProducto = new NuevoProducto();
         
-        Fondo.removeAll();
-        Fondo.repaint();
+        jDesktopPaneMenu.removeAll();
+        jDesktopPaneMenu.repaint();
         nuevoProducto.setVisible(true);
-        Fondo.add(nuevoProducto);
+        jDesktopPaneMenu.add(nuevoProducto);
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
@@ -183,10 +183,10 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         NuevoProducto nuevoProducto = new NuevoProducto();
         nuevoProducto.editar(producto);
         
-        Fondo.removeAll();
-        Fondo.repaint();
+        jDesktopPaneMenu.removeAll();
+        jDesktopPaneMenu.repaint();
         nuevoProducto.setVisible(true);
-        Fondo.add(nuevoProducto);
+        jDesktopPaneMenu.add(nuevoProducto);
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed

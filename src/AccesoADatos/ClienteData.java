@@ -34,7 +34,7 @@ public class ClienteData {
     
     public void guardarCliente( Cliente c){
     
-        String sql = "INSERT INTO cliente(Apellido, Nombre, Domicilio, Telefono, Estado) "
+        String sql = "INSERT INTO Cliente(Apellido, Nombre, Domicilio, Telefono, Estado) "
                 + "VALUES ( ?, ?, ?, ?, ?, ? )";
         
         try {
@@ -62,7 +62,7 @@ public class ClienteData {
     public Cliente buscarCliente(int id){
     
         Cliente c = null;
-        String sql = "SELECT Apellido, Nombre, Domicilio, Telefono FROM `cliente` "
+        String sql = "SELECT Apellido, Nombre, Domicilio, Telefono FROM `Cliente` "
                 + "WHERE idCliente = ? ";
         PreparedStatement ps = null;
         
@@ -102,7 +102,7 @@ public class ClienteData {
     public Cliente buscarCliente(String apell){
     
         Cliente c = null;
-        String sql = " SELECT Apellido, Nombre, Domicilio, Telefono FROM `cliente` "
+        String sql = " SELECT Apellido, Nombre, Domicilio, Telefono FROM `Cliente` "
                 + "WHERE Apellido LIKE '?%' ";
         PreparedStatement ps = null;
         
@@ -143,7 +143,7 @@ public class ClienteData {
     
     public List<Cliente> listaClientes(){
         
-        String sql = "SELECT * FROM `cliente` WHERE `Estado`= 1";        
+        String sql = "SELECT * FROM `Cliente` WHERE `Estado`= 1";        
         PreparedStatement ps = null;
         
         try {
@@ -175,7 +175,7 @@ public class ClienteData {
     
     public void modificarDatoCliente(Cliente c){
         
-        String sql = "UPDATE `cliente` SET Apellido=?, Nombre=?, Domicilio = ?, "
+        String sql = "UPDATE `Cliente` SET Apellido=?, Nombre=?, Domicilio = ?, "
                 + "Telefono = ?, Estado = ? WHERE idCliente = ?";
         PreparedStatement ps = null;
         
@@ -204,7 +204,7 @@ public class ClienteData {
     
     public void bajaDeCliente(int id){
         
-        String sql = "UPDATE `cliente` SET Estado = 0 WHERE idCliente = ?";
+        String sql = "UPDATE `Cliente` SET Estado = 0 WHERE idCliente = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);

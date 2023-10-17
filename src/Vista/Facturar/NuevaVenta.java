@@ -14,7 +14,8 @@ import AccesoADatos.UsuarioData;
 import AccesoADatos.VentaData;
 import Entidades.Cliente;
 import Entidades.Producto;
-import static Vista.JfrMenu.Fondo;
+import Vista.JInternalCliente;
+import static Vista.JfrMenu1.jDesktopPaneMenu;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -142,11 +143,11 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     private void bNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoClienteActionPerformed
        this.dispose();
         
-             NuevoCliente nuevoCliente = new NuevoCliente();
-         Fondo.removeAll();
-        Fondo.repaint();
+             JInternalCliente nuevoCliente = new JInternalCliente();
+         jDesktopPaneMenu.removeAll();
+        jDesktopPaneMenu.repaint();
         nuevoCliente.setVisible(true);
-        Fondo.add(nuevoCliente);
+        jDesktopPaneMenu.add(nuevoCliente);
     }//GEN-LAST:event_bNuevoClienteActionPerformed
 
 
