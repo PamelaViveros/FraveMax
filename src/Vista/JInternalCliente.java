@@ -9,6 +9,7 @@ import AccesoADatos.ClienteData;
 import Entidades.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,13 +39,15 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jtxt_dni = new javax.swing.JTextField();
         jtxt_domicilio = new javax.swing.JTextField();
         jtxt_apellido = new javax.swing.JTextField();
-        jtxt_telefono = new javax.swing.JTextField();
         jtxt_nombre = new javax.swing.JTextField();
+        jtxt_telefono = new javax.swing.JTextField();
         jbutton_guardar = new javax.swing.JButton();
         jLabel_imgFondo = new javax.swing.JLabel();
 
@@ -60,8 +63,14 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Nombre:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 80, -1));
+        jLabel2.setText("Dni:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 80, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Nombre:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 80, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
@@ -73,25 +82,28 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Domicilio:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 80, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 80, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Teléfono:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 80, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 80, -1));
+
+        jtxt_dni.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        getContentPane().add(jtxt_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 155, 190, -1));
 
         jtxt_domicilio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        getContentPane().add(jtxt_domicilio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 155, 190, -1));
+        getContentPane().add(jtxt_domicilio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 195, 190, -1));
 
         jtxt_apellido.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         getContentPane().add(jtxt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 115, 190, -1));
 
-        jtxt_telefono.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        getContentPane().add(jtxt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 195, 190, -1));
-
         jtxt_nombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         getContentPane().add(jtxt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 75, 190, -1));
+
+        jtxt_telefono.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        getContentPane().add(jtxt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 235, 190, -1));
 
         jbutton_guardar.setBackground(new java.awt.Color(0, 153, 153));
         jbutton_guardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -103,7 +115,7 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
                 jbutton_guardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbutton_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 95, 35));
+        getContentPane().add(jbutton_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 95, 35));
 
         jLabel_imgFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/fondo3.jpg"))); // NOI18N
         getContentPane().add(jLabel_imgFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 320));
@@ -117,15 +129,55 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
         ClienteData clienteData = new ClienteData();
         
         if ( jtxt_nombre.getText().equals("") || jtxt_apellido.getText().equals("") || 
-                jtxt_domicilio.getText().equals("") || jtxt_telefono.getText().equals("")) {
+                jtxt_dni.getText().equals("") || jtxt_domicilio.getText().equals("") || 
+                jtxt_telefono.getText().equals("")) {
             
             JOptionPane.showMessageDialog(null, "Complete todos los campos");
             
             jtxt_nombre.setBackground(Color.RED);
+            jtxt_apellido.setBackground(Color.RED);
+            jtxt_dni.setBackground(Color.RED);
+            jtxt_domicilio.setBackground(Color.RED);
+            jtxt_telefono.setBackground(Color.RED);
             
         } else {
             
-            if ( !clienteData) {
+            if ( clienteData.buscarCliente(Integer.parseInt(jtxt_dni.getText().trim())) == null) {
+                
+                try {
+                    
+                    cliente.setNombre(jtxt_nombre.getText().trim());
+                    cliente.setApellido(jtxt_apellido.getText().trim());
+                    cliente.setDni(Integer.parseInt(jtxt_dni.getText().trim()));
+                    cliente.setDomicilio(jtxt_domicilio.getText().trim());
+                    cliente.setTelefono(Integer.parseInt(jtxt_telefono.getText().trim()));
+                    
+                    if (clienteData.guardarCliente(cliente)) {
+                        
+                        JOptionPane.showMessageDialog(null, "Cliente Cargado con éxito");
+                        
+                        jtxt_nombre.setBackground(Color.GREEN);
+                        jtxt_apellido.setBackground(Color.GREEN);
+                        jtxt_dni.setBackground(Color.GREEN);
+                        jtxt_domicilio.setBackground(Color.GREEN);
+                        jtxt_telefono.setBackground(Color.GREEN);
+                        
+                        this.limpiar();
+                        
+                    } else {
+                        
+                        JOptionPane.showMessageDialog(null, "Error al Cargar Nuevo Cliente");
+                    
+                    }
+                } catch (HeadlessException | NumberFormatException e) {
+                    
+                    System.out.println("Erroe en: " + e);
+                    
+                }
+                
+            } else {
+                
+                JOptionPane.showMessageDialog(null, "El Cliente ya se encuentra registrado"); 
                 
             }
         
@@ -140,11 +192,24 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel_imgFondo;
     private javax.swing.JButton jbutton_guardar;
     private javax.swing.JTextField jtxt_apellido;
+    private javax.swing.JTextField jtxt_dni;
     private javax.swing.JTextField jtxt_domicilio;
     private javax.swing.JTextField jtxt_nombre;
     private javax.swing.JTextField jtxt_telefono;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiar(){
+        
+        jtxt_nombre.setText("");
+        jtxt_apellido.setText("");
+        jtxt_dni.setText("");
+        jtxt_domicilio.setText("");
+        jtxt_telefono.setText("");
+        
+    }
+    
 }

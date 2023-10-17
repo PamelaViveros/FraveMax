@@ -45,7 +45,7 @@ public class ClienteData {
             ps.setInt(3, c.getDni());
             ps.setString(4, c.getDomicilio());
             ps.setInt(5, c.getTelefono());
-            ps.setBoolean(6, c.getEstadoCliente());
+            ps.setBoolean(6, c.isEstadoCliente());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -191,7 +191,7 @@ public class ClienteData {
             ps.setString(3, c.getDomicilio());
             ps.setInt(4, c.getDni());
             ps.setInt(5, c.getTelefono());
-            ps.setBoolean(6, c.getEstadoCliente());
+            ps.setBoolean(6, c.isEstadoCliente());
             
             int cont = ps.executeUpdate();
             
