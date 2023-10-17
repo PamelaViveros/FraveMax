@@ -34,17 +34,18 @@ public class ClienteData {
     
     public void guardarCliente( Cliente c){
     
-        String sql = "INSERT INTO Cliente(Apellido, Nombre, Domicilio, Telefono, Estado) "
-                + "VALUES ( ?, ?, ?, ?, ?, ? )";
+        String sql = "INSERT INTO Cliente(Apellido, Nombre, Dni, Domicilio, Telefono, Estado) "
+                + "VALUES ( ?, ?, ?, ?, ?, ?, ? )";
         
         try {
             
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, c.getApellido());
             ps.setString(2, c.getNombre());
-            ps.setString(3, c.getDomicilio());
-            ps.setInt(4, c.getTelefono());
-            ps.setBoolean(5, c.getEstadoCliente());
+            ps.setInt(3, c.getDni());
+            ps.setString(4, c.getDomicilio());
+            ps.setInt(5, c.getTelefono());
+            ps.setBoolean(6, c.getEstadoCliente());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -59,17 +60,17 @@ public class ClienteData {
         
     }
     
-    public Cliente buscarCliente(int id){
+    public Cliente buscarCliente(int Dni){
     
         Cliente c = null;
-        String sql = "SELECT Apellido, Nombre, Domicilio, Telefono FROM `Cliente` "
-                + "WHERE idCliente = ? ";
+        String sql = "SELECT Apellido, Nombre, Dni, Domicilio, Telefono FROM `Cliente` "
+                + "WHERE Dni = ? ";
         PreparedStatement ps = null;
         
         try {
             
             ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, Dni);
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()){
@@ -78,6 +79,7 @@ public class ClienteData {
                 
                 c.setApellido(rs.getString("Apellido"));
                 c.setNombre(rs.getString("Nombre"));
+                c.setDni(rs.getInt("Dni"));
                 c.setDomicilio(rs.getString("Domicilio"));
                 c.setTelefono(rs.getInt("Telefono"));                        
             
@@ -102,7 +104,7 @@ public class ClienteData {
     public Cliente buscarCliente(String apell){
     
         Cliente c = null;
-        String sql = " SELECT Apellido, Nombre, Domicilio, Telefono FROM `Cliente` "
+        String sql = " SELECT Apellido, Nombre, Dni, Domicilio, Telefono FROM `Cliente` "
                 + "WHERE Apellido LIKE '?%' ";
         PreparedStatement ps = null;
         
@@ -118,6 +120,7 @@ public class ClienteData {
                 
                 c.setApellido(rs.getString("Apellido"));
                 c.setNombre(rs.getString("Nombre"));
+                c.setDni(rs.getInt("Dni"));
                 c.setDomicilio(rs.getString("Domicilio"));
                 c.setTelefono(rs.getInt("Telefono"));                        
                 cont++;
@@ -157,6 +160,7 @@ public class ClienteData {
                 c.setIdCliente(rs.getInt("idCliente"));
                 c.setApellido(rs.getString("Apellido"));
                 c.setNombre(rs.getString("Nombre"));
+                c.setDni(rs.getInt("Dni"));
                 c.setDomicilio(rs.getString("Domicilio"));
                 c.setTelefono(rs.getInt("Telefono"));
                 c.setEstadoCliente(rs.getBoolean("Estado"));
@@ -175,7 +179,7 @@ public class ClienteData {
     
     public void modificarDatoCliente(Cliente c){
         
-        String sql = "UPDATE `Cliente` SET Apellido=?, Nombre=?, Domicilio = ?, "
+        String sql = "UPDATE `Cliente` SET Apellido=?, Nombre=?, Dni=?, Domicilio = ?, "
                 + "Telefono = ?, Estado = ? WHERE idCliente = ?";
         PreparedStatement ps = null;
         
@@ -185,8 +189,9 @@ public class ClienteData {
             ps.setString(1, c.getApellido());
             ps.setString(2, c.getNombre());
             ps.setString(3, c.getDomicilio());
-            ps.setInt(4, c.getTelefono());
-            ps.setBoolean(5, c.getEstadoCliente());
+            ps.setInt(4, c.getDni());
+            ps.setInt(5, c.getTelefono());
+            ps.setBoolean(6, c.getEstadoCliente());
             
             int cont = ps.executeUpdate();
             
@@ -202,13 +207,13 @@ public class ClienteData {
           
     }
     
-    public void bajaDeCliente(int id){
+    public void bajaDeCliente(int dni){
         
-        String sql = "UPDATE `Cliente` SET Estado = 0 WHERE idCliente = ?";
+        String sql = "UPDATE `Cliente` SET Estado = 0 WHERE Dni = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, dni);
             int cont = ps.executeUpdate();
             
             if (cont == 1) {

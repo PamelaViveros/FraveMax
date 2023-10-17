@@ -7,7 +7,9 @@ package Vista;
 
 import AccesoADatos.ClienteData;
 import Entidades.Cliente;
+import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -117,8 +119,15 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
         if ( jtxt_nombre.getText().equals("") || jtxt_apellido.getText().equals("") || 
                 jtxt_domicilio.getText().equals("") || jtxt_telefono.getText().equals("")) {
             
+            JOptionPane.showMessageDialog(null, "Complete todos los campos");
+            
+            jtxt_nombre.setBackground(Color.RED);
             
         } else {
+            
+            if ( !clienteData) {
+                
+            }
         
         }
         
