@@ -14,28 +14,31 @@ public class Cliente {
     private int idCliente;
     private String apellido;
     private String nombre;
+    private int dni;
     private String domicilio;
     private int telefono;
     private boolean estadoCliente;
 
-    public Cliente(int idCliente, String apellido, String nombre, String domicilio, int telefono, boolean estadoCliente) {
+    public Cliente() {
+    }
+
+    public Cliente(String apellido, String nombre, int dni, String domicilio, int telefono, boolean estadoCliente) {
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.dni = dni;
+        this.domicilio = domicilio;
+        this.telefono = telefono;
+        this.estadoCliente = estadoCliente;
+    }
+
+    public Cliente(int idCliente, String apellido, String nombre, int dni, String domicilio, int telefono, boolean estadoCliente) {
         this.idCliente = idCliente;
         this.apellido = apellido;
         this.nombre = nombre;
+        this.dni = dni;
         this.domicilio = domicilio;
         this.telefono = telefono;
         this.estadoCliente = estadoCliente;
-    }
-
-    public Cliente(String apellido, String nombre, String domicilio, int telefono, boolean estadoCliente) {
-        this.apellido = apellido;
-        this.nombre = nombre;
-        this.domicilio = domicilio;
-        this.telefono = telefono;
-        this.estadoCliente = estadoCliente;
-    }
-
-    public Cliente() {
     }
 
     public int getIdCliente() {
@@ -62,6 +65,14 @@ public class Cliente {
         this.nombre = nombre;
     }
 
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
     public String getDomicilio() {
         return domicilio;
     }
@@ -78,7 +89,7 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public boolean getEstadoCliente() {
+    public boolean isEstadoCliente() {
         return estadoCliente;
     }
 
@@ -86,9 +97,11 @@ public class Cliente {
         this.estadoCliente = estadoCliente;
     }
 
+    
+
     @Override
     public String toString() {//cualquier cosa lo editamos segun convenga
-        return idCliente + ", " + apellido + ", " + nombre + ", " + domicilio;
+        return idCliente + ", " + apellido + ", " + nombre + ", " + dni;
     }
 
 }

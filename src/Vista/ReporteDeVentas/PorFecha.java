@@ -77,6 +77,11 @@ public class PorFecha extends javax.swing.JInternalFrame {
         });
 
         jcFecha.setDateFormatString("yyyy/MM/dd");
+        jcFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jcFechaPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
