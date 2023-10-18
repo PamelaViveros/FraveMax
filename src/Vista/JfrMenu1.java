@@ -1,7 +1,7 @@
 
 package Vista;
 
-import Vista.Facturar.NuevaVenta;
+import Vista.Facturar.JInternalNuevaVenta;
 import Vista.Producto.GestionProductos;
 import Vista.Producto.NuevoProducto;
 import Vista.ReporteDeVentas.PorCliente;
@@ -289,7 +289,7 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenuItem11_nueva_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11_nueva_ventaActionPerformed
         
-        NuevaVenta nuevaVenta = new NuevaVenta();
+        JInternalNuevaVenta nuevaVenta = new JInternalNuevaVenta();
         jDesktopPaneMenu.add(nuevaVenta);
         nuevaVenta.setVisible(true);
         
