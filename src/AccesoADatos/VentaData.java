@@ -5,7 +5,6 @@
  */
 package AccesoADatos;
 
-import Entidades.Producto;
 import Entidades.Venta;
 
 import java.sql.Connection;
@@ -219,37 +218,4 @@ public class VentaData {
     }
     
     
-    /*
-    ///////////////////////////////////////////////////Este metodo no va aca///////////////////////////////////////////////////////////////
-    public void actualizarStock(int idProducto, int cantVendida){
-         Producto prod=new Producto();
-        String sql="SELECT Stock  FROM producto WHERE idProducto = ?;";
-        PreparedStatement ps=null;
-        
-        try{
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, idProducto);
-            ResultSet rs = ps.executeQuery();
-             if (rs.next()) {
-                
-                 prod.setStock(rs.getInt("Stock")-cantVendida);
-                            }
-          sql="UPDATE Producto SET Stock ="+prod.getStock()+" WHERE idProducto= "+idProducto+" ";
-            ps = con.prepareStatement(sql);
-            int res=ps.executeUpdate();
-            if (res==1) {
-                JOptionPane.showMessageDialog(null, "Stock actualizado. Restante: "+ prod.getStock());
-            }else{
-                JOptionPane.showMessageDialog(null, "Error al actualizar el Stock");
-            }
-             
-             
-        } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "No fue posible actualizar");
-        }
-            
-       
-    }*/
-        
-      
 }

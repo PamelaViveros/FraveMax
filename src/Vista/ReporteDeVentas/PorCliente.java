@@ -191,8 +191,8 @@ public void cargaCombo(){
     public void VentasPorCliente() {
 
         Cliente c = (Cliente) jcbClientes.getSelectedItem();
-        int id = c.getIdCliente();
-        vData.buscarVentasxCliente(id);
+        
+        vData.buscarVentasxCliente(c.getIdCliente());
 
         for (Venta venta : ventas) {
             DetalleVenta dv= dvData.detallarVenta(venta.getIdVenta());

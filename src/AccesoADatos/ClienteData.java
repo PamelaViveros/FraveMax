@@ -108,6 +108,48 @@ public class ClienteData {
         
     }
     
+    
+    public Cliente buscarClienteXid(int idCliente){
+    
+        Cliente c = null;
+        String sql = "SELECT Apellido, Nombre, Dni, Domicilio, Telefono FROM `Cliente` "
+                + "WHERE idCliente = ? ";
+        PreparedStatement ps = null;
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idCliente);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()){
+            
+                c = new Cliente();
+                
+                c.setApellido(rs.getString("Apellido"));
+                c.setNombre(rs.getString("Nombre"));
+                c.setDni(rs.getInt("Dni"));
+                c.setDomicilio(rs.getString("Domicilio"));
+                c.setTelefono(rs.getInt("Telefono"));                        
+            
+            } else {
+            
+                JOptionPane.showMessageDialog(null, "No existe el Cliente en la Base de Datos");
+                ps.close();
+                
+            }
+                       
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al intentar Acceder a la "
+                    + "base de datos Clientes" + ex.getMessage());
+                      
+        }
+        
+        return c;
+        
+    }
+    
     public Cliente buscarCliente(String apell){
     
         Cliente c = null;

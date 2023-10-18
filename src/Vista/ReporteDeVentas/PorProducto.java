@@ -194,7 +194,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
 
         for (Venta venta : ventas) {
             DetalleVenta dv= dvData.detallarVenta(venta.getIdVenta());
-           Cliente c=cData.buscarCliente(venta.getIdCliente());
+            Cliente c=cData.buscarClienteXid(venta.getIdCliente());
            
                 modelo.addRow(new Object[]{
                     venta.getIdVenta(),
