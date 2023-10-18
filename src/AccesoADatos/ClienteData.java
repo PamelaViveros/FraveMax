@@ -32,8 +32,9 @@ public class ClienteData {
         con = Conexion.getConexion();
     }
     
-    public void guardarCliente( Cliente c){
-    
+    public boolean guardarCliente( Cliente c){
+        
+        boolean resp = false;
         String sql = "INSERT INTO Cliente(Apellido, Nombre, Dni, Domicilio, Telefono, Estado) "
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ? )";
         
@@ -46,9 +47,13 @@ public class ClienteData {
             ps.setString(4, c.getDomicilio());
             ps.setInt(5, c.getTelefono());
             ps.setBoolean(6, c.isEstadoCliente());
-            ps.executeUpdate();
+            
+            if (ps.executeUpdate() > 0){
+                resp = true;
+            }
             
             ResultSet rs = ps.getGeneratedKeys();
+            
             JOptionPane.showMessageDialog(null, "Cliente cargado con éxito");          
             ps.close();
         
@@ -57,6 +62,8 @@ public class ClienteData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cliente" + ex.getMessage());
         
         }
+        
+        return resp;
         
     }
     

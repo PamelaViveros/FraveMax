@@ -23,12 +23,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Gaming
  */
 public class NuevaVenta extends javax.swing.JInternalFrame {
+    
     DefaultTableModel modelo = new DefaultTableModel();
     UsuarioData uData = new UsuarioData();
     VentaData vData = new VentaData();
     DetalleVentaData dvData = new DetalleVentaData();
     ProductoData pData = new ProductoData();
-        ClienteData cData = new ClienteData();
+    ClienteData cData = new ClienteData();
     
     public NuevaVenta() {
         initComponents();
@@ -143,11 +144,12 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     private void bNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoClienteActionPerformed
        this.dispose();
         
-             JInternalCliente nuevoCliente = new JInternalCliente();
-         jDesktopPaneMenu.removeAll();
+        JInternalCliente nuevoCliente = new JInternalCliente();
+        jDesktopPaneMenu.removeAll();
         jDesktopPaneMenu.repaint();
         nuevoCliente.setVisible(true);
         jDesktopPaneMenu.add(nuevoCliente);
+        
     }//GEN-LAST:event_bNuevoClienteActionPerformed
 
 
@@ -175,13 +177,13 @@ public void cargaCombo(){
 }
 
 public void cabecera(){
+    
     modelo.addColumn("ID");
     modelo.addColumn("Nombre");
     modelo.addColumn("Descripción");
     modelo.addColumn("Precio");
     modelo.addColumn("Stock");
-    
-    
+        
     tProductos.setModel(modelo);
 }
 
