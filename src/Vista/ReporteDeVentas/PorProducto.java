@@ -15,6 +15,8 @@ import Entidades.Cliente;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +30,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
     DetalleVentaData dvData = new DetalleVentaData();
     ProductoData pData = new ProductoData();
     ClienteData cData = new ClienteData();
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public PorProducto() {
         initComponents(); 
@@ -59,6 +62,11 @@ public class PorProducto extends javax.swing.JInternalFrame {
         setTitle("Ventas por producto");
 
         bEliminarVenta.setText("Eliminar");
+        bEliminarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEliminarVentaActionPerformed(evt);
+            }
+        });
 
         bVerDetalle.setText("Ver Detalle");
 
@@ -153,6 +161,13 @@ public class PorProducto extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jcbProductosActionPerformed
 
+    private void bEliminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarVentaActionPerformed
+         int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+        vData.eliminarVenta(idVenta);
+         borrarFilas();
+        CargaTablaxProd();
+    }//GEN-LAST:event_bEliminarVentaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bEliminarVenta;
@@ -195,13 +210,14 @@ public class PorProducto extends javax.swing.JInternalFrame {
         for (Venta venta : ventas) {
             DetalleVenta dv= dvData.detallarVenta(venta.getIdVenta());
             Cliente c=cData.buscarClienteXid(venta.getIdCliente());
-           
+           LocalDate fecha=venta.getFechaVenta();
+            String fechaOk=fecha.format(dateTimeFormatter);
                 modelo.addRow(new Object[]{
                     venta.getIdVenta(),
                     dv.getCantidad(),
                      c.getApellido()+" "+c.getNombre(),
                     venta.getIdCliente(),
-                    venta.getFechaVenta(),
+                    fechaOk
                 });
         }
 

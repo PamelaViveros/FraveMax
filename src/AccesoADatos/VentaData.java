@@ -217,5 +217,27 @@ public class VentaData {
         
     }
     
+    public void eliminarVenta(int idVenta){
+        
+        String sql = "UPDATE Ventas SET Estado=0 WHERE idVenta=?";
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idVenta);
+
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Venta eliminada con exito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la venta");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ventas " + ex.getMessage());
+        }
+        
+    }
     
 }

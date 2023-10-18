@@ -14,7 +14,9 @@ import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class PorFecha extends javax.swing.JInternalFrame {
 
     DefaultTableModel modelo = new DefaultTableModel();
-
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     UsuarioData uData = new UsuarioData();
     VentaData vData = new VentaData();
     DetalleVentaData dvData = new DetalleVentaData();
@@ -47,16 +49,17 @@ public class PorFecha extends javax.swing.JInternalFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tVentas = new javax.swing.JTable();
+        tListaVentas = new javax.swing.JTable();
         Salir = new javax.swing.JButton();
         jcFecha = new com.toedter.calendar.JDateChooser();
+        EliminarVenta = new javax.swing.JButton();
 
         setTitle("Ventas por fecha");
         setToolTipText("");
 
         jLabel2.setText("Seleccione fecha de venta");
 
-        tVentas.setModel(new javax.swing.table.DefaultTableModel(
+        tListaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -67,7 +70,7 @@ public class PorFecha extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tVentas);
+        jScrollPane1.setViewportView(tListaVentas);
 
         Salir.setText("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -76,10 +79,17 @@ public class PorFecha extends javax.swing.JInternalFrame {
             }
         });
 
-        jcFecha.setDateFormatString("yyyy/MM/dd");
+        jcFecha.setDateFormatString("dd/MM/yyyy");
         jcFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jcFechaPropertyChange(evt);
+            }
+        });
+
+        EliminarVenta.setText("Eliminar");
+        EliminarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarVentaActionPerformed(evt);
             }
         });
 
@@ -89,6 +99,8 @@ public class PorFecha extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(EliminarVenta)
+                .addGap(18, 18, 18)
                 .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
             .addGroup(layout.createSequentialGroup()
@@ -112,7 +124,9 @@ public class PorFecha extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Salir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Salir)
+                    .addComponent(EliminarVenta))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -124,20 +138,38 @@ public class PorFecha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void jcFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jcFechaPropertyChange
+        if (jcFecha.getDateFormatString() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Selecciona una fecha o ingrese una en formato yyyy/mm/dd");
+            cargaTodo();
+        } else {
+            try {
+                borrarFilas();
+                cargaTabla();
+            } catch (Exception e) {
+                cargaTodo();
+                
+            }
+        }
+    }//GEN-LAST:event_jcFechaPropertyChange
+
+    private void EliminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVentaActionPerformed
+         int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+        vData.eliminarVenta(idVenta);
         try {
             borrarFilas();
         cargaTabla();
         } catch (Exception e) {
         cargaTodo();}
-    }//GEN-LAST:event_jcFechaPropertyChange
+    }//GEN-LAST:event_EliminarVentaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EliminarVenta;
     private javax.swing.JButton Salir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jcFecha;
-    private javax.swing.JTable tVentas;
+    private javax.swing.JTable tListaVentas;
     // End of variables declaration//GEN-END:variables
 
     public void cabecera() {
@@ -147,7 +179,7 @@ public class PorFecha extends javax.swing.JInternalFrame {
         modelo.addColumn("Cantidad");
         modelo.addColumn("id Usuario");
         modelo.addColumn("Fecha venta");
-        tVentas.setModel(modelo);
+        tListaVentas.setModel(modelo);
     }
 
     public void cargaTabla() {
@@ -157,6 +189,7 @@ public class PorFecha extends javax.swing.JInternalFrame {
         dia = jcFecha.getCalendar().get(Calendar.DAY_OF_MONTH);
         LocalDate fecha = LocalDate.of(año, (mes + 1), dia);
 
+String fechaOk = fecha.format(dateTimeFormatter);  //17-02-2022
         if (año != 0 && mes != -1 && dia != 0) {
             vData.buscarVentasxFecha(fecha);
 
@@ -169,7 +202,7 @@ public class PorFecha extends javax.swing.JInternalFrame {
                     prod.getNombreProducto(),
                     dv.getCantidad(),
                     venta.getIdUsuario(),
-                    fecha
+                    fechaOk
                 });
             }
         }
@@ -180,23 +213,27 @@ public class PorFecha extends javax.swing.JInternalFrame {
     public void cargaTodo() {
         vData.listarVentas();
 
+String fechaOk;
         for (Venta venta : ventas) {
             DetalleVenta dv = dvData.detallarVenta(venta.getIdVenta());
             Producto prod = pData.buscarPorId(dv.getIdProducto());
+            LocalDate fecha=venta.getFechaVenta();
+            fechaOk=fecha.format(dateTimeFormatter);
             modelo.addRow(new Object[]{
                 venta.getIdVenta(),
                 venta.getIdCliente(),
                 prod.getNombreProducto(),
                 dv.getCantidad(),
                 venta.getIdUsuario(),
-                venta.getFechaVenta()
+                 fechaOk
+               
             });
         }
         ventas.clear();
     }
 
     public void borrarFilas() {
-        int f = (tVentas.getRowCount() - 1);
+        int f = (tListaVentas.getRowCount() - 1);
         for (; f >= 0; f--) {
             modelo.removeRow(f);
         }
