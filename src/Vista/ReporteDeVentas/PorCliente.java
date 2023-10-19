@@ -15,6 +15,8 @@ import Entidades.Cliente;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +30,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
     DetalleVentaData dvData = new DetalleVentaData();
     ClienteData cData = new ClienteData();
     ProductoData pData = new ProductoData();
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
    
     public boolean isCellEditable(int f, int c) {
         return false;
@@ -57,7 +60,8 @@ public class PorCliente extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tVentasxCliente = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        VerDetalle = new javax.swing.JButton();
+        EliminarV = new javax.swing.JButton();
 
         setTitle("Ventas por cliente");
 
@@ -103,30 +107,41 @@ public class PorCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("Ver detalle");
+        VerDetalle.setText("Ver detalle");
+
+        EliminarV.setText("Eliminar");
+        EliminarV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarVActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(40, 40, 40)
-                .addComponent(jButton1)
-                .addGap(53, 53, 53))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(EliminarV)
+                        .addGap(18, 18, 18)
+                        .addComponent(VerDetalle)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(jcbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {EliminarV, VerDetalle, jButton1});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -139,7 +154,8 @@ public class PorCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(VerDetalle)
+                    .addComponent(EliminarV))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -157,10 +173,18 @@ public class PorCliente extends javax.swing.JInternalFrame {
        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void EliminarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVActionPerformed
+        int idVenta= Integer.parseInt(tVentasxCliente.getValueAt(tVentasxCliente.getSelectedRow(),0).toString());
+        vData.eliminarVenta(idVenta);
+        borrarFilas();
+            VentasPorCliente();
+    }//GEN-LAST:event_EliminarVActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EliminarV;
+    private javax.swing.JButton VerDetalle;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<Cliente> jcbClientes;
@@ -197,11 +221,13 @@ public void cargaCombo(){
         for (Venta venta : ventas) {
             DetalleVenta dv= dvData.detallarVenta(venta.getIdVenta());
             Producto prod = pData.buscarPorId(dv.getIdProducto());
+             LocalDate fecha=venta.getFechaVenta();
+            String fechaOk=fecha.format(dateTimeFormatter);
             modelo.addRow(new Object[]{
                 venta.getIdVenta(),
                 dv.getCantidad(),
                 prod.getNombreProducto(),
-                venta.getFechaVenta(),
+                fechaOk,
                 venta.getIdUsuario(),});
 
         }

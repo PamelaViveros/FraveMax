@@ -15,6 +15,8 @@ import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Usuario;
 import Entidades.Venta;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +30,7 @@ public class PorUsuario extends javax.swing.JInternalFrame {
     VentaData vData = new VentaData();
     DetalleVentaData dvData = new DetalleVentaData();
     ProductoData pData = new ProductoData();
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     public PorUsuario() {
         initComponents();
@@ -50,9 +53,9 @@ public class PorUsuario extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jcbUsuarios = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tVentas = new javax.swing.JTable();
+        tListaVentas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        EliminarVenta = new javax.swing.JButton();
 
         setTitle("Ventas por usuario");
 
@@ -64,7 +67,7 @@ public class PorUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        tVentas.setModel(new javax.swing.table.DefaultTableModel(
+        tListaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -75,16 +78,16 @@ public class PorUsuario extends javax.swing.JInternalFrame {
                 "ID", "Cliente", "Nombre producto", "Fecha venta"
             }
         ));
-        jScrollPane1.setViewportView(tVentas);
-        if (tVentas.getColumnModel().getColumnCount() > 0) {
-            tVentas.getColumnModel().getColumn(0).setResizable(false);
-            tVentas.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tVentas.getColumnModel().getColumn(1).setResizable(false);
-            tVentas.getColumnModel().getColumn(1).setPreferredWidth(50);
-            tVentas.getColumnModel().getColumn(2).setResizable(false);
-            tVentas.getColumnModel().getColumn(2).setPreferredWidth(330);
-            tVentas.getColumnModel().getColumn(3).setResizable(false);
-            tVentas.getColumnModel().getColumn(3).setPreferredWidth(79);
+        jScrollPane1.setViewportView(tListaVentas);
+        if (tListaVentas.getColumnModel().getColumnCount() > 0) {
+            tListaVentas.getColumnModel().getColumn(0).setResizable(false);
+            tListaVentas.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tListaVentas.getColumnModel().getColumn(1).setResizable(false);
+            tListaVentas.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tListaVentas.getColumnModel().getColumn(2).setResizable(false);
+            tListaVentas.getColumnModel().getColumn(2).setPreferredWidth(330);
+            tListaVentas.getColumnModel().getColumn(3).setResizable(false);
+            tListaVentas.getColumnModel().getColumn(3).setPreferredWidth(79);
         }
 
         jButton1.setText("Salir");
@@ -94,7 +97,12 @@ public class PorUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("Eliminar");
+        EliminarVenta.setText("Eliminar");
+        EliminarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarVentaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +116,7 @@ public class PorUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(EliminarVenta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -129,7 +137,7 @@ public class PorUsuario extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(EliminarVenta))
                 .addContainerGap())
         );
 
@@ -147,14 +155,21 @@ public class PorUsuario extends javax.swing.JInternalFrame {
          
     }//GEN-LAST:event_jcbUsuariosActionPerformed
 
+    private void EliminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVentaActionPerformed
+       int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+        vData.eliminarVenta(idVenta);
+        borrarFilas();
+            cargaTablaxUsuario();
+    }//GEN-LAST:event_EliminarVentaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EliminarVenta;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<Usuario> jcbUsuarios;
-    private javax.swing.JTable tVentas;
+    private javax.swing.JTable tListaVentas;
     // End of variables declaration//GEN-END:variables
 
 public void cargaCombo(){
@@ -173,7 +188,7 @@ public void cabecera(){
         modelo.addColumn("Cantidad");
         modelo.addColumn("Nombre producto");
         modelo.addColumn("Fecha de venta");
-    tVentas.setModel(modelo);
+    tListaVentas.setModel(modelo);
     
 }
 
@@ -185,13 +200,14 @@ public void cargaTablaxUsuario(){
         for (Venta venta : ventas) {
           DetalleVenta dv=dvData.detallarVenta(venta.getIdVenta());
           Producto prod= pData.buscarPorId(dv.getIdProducto());
-           
+           LocalDate fecha=venta.getFechaVenta();
+            String fechaOk=fecha.format(dateTimeFormatter);
                 modelo.addRow(new Object[]{
                     venta.getIdVenta(),
                     venta.getIdCliente(),
                     dv.getCantidad(),
                     prod.getNombreProducto(),
-                    venta.getFechaVenta(),
+                    fechaOk
                 });
             
         }
@@ -202,7 +218,7 @@ public void cargaTablaxUsuario(){
 }
 
  public void borrarFilas() {
-        int f = (tVentas.getRowCount() - 1);
+        int f = (tListaVentas.getRowCount() - 1);
         for (; f >= 0; f--) {
             modelo.removeRow(f);
         }
