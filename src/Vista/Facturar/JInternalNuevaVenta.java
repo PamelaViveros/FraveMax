@@ -5,10 +5,15 @@
  */
 package Vista.Facturar;
 
+import AccesoADatos.Conexion;
 import java.awt.Dimension;
-import static java.awt.image.ImageObserver.WIDTH;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
 
 /**
  *
@@ -23,9 +28,12 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         this.setSize(new Dimension(800, 600));
         this.setTitle("Facturacion - Nueva Venta");
         
+        this.cargarCBCliente();
+        this.cargarCBProductos();
+        
         ImageIcon wallpaper = new ImageIcon("src/Imag/fondo3.jpg");
         Icon icono = new ImageIcon(wallpaper.getImage().getScaledInstance(800, 600, WIDTH));
-        jLabel_Wallpaper.setIcon(icono);
+        jLabel_wallpaper.setIcon(icono);
         this.repaint();
         
     }
@@ -61,31 +69,31 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jtxt_Cambio = new javax.swing.JTextField();
         jBut_CalcularCambio = new javax.swing.JButton();
         jBut_Cobrar = new javax.swing.JButton();
-        jLabel_Wallpaper = new javax.swing.JLabel();
+        jLabel_wallpaper = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("Facturación - Nueva Venta");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Cliente:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, 80, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Producto:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 90, 80, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Cantidad:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 90, 70, -1));
@@ -107,14 +115,15 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jBut_buscaCliente.setBackground(new java.awt.Color(51, 204, 255));
         jBut_buscaCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBut_buscaCliente.setText("Buscar");
-        jBut_buscaCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jBut_buscaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 55, 95, -1));
+        jBut_buscaCliente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jBut_buscaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 55, 95, 25));
 
-        jBut_buscaCliente1.setBackground(new java.awt.Color(0, 153, 51));
+        jBut_buscaCliente1.setBackground(new java.awt.Color(0, 102, 0));
         jBut_buscaCliente1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBut_buscaCliente1.setForeground(new java.awt.Color(255, 255, 255));
         jBut_buscaCliente1.setText("Agregar Producto");
-        jBut_buscaCliente1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jBut_buscaCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 88, 165, -1));
+        jBut_buscaCliente1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jBut_buscaCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 88, 165, 25));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -188,7 +197,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jBut_CalcularCambio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBut_CalcularCambio.setForeground(new java.awt.Color(204, 204, 204));
         jBut_CalcularCambio.setText("Cambio $");
-        jBut_CalcularCambio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBut_CalcularCambio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(jBut_CalcularCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 100, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 400, 200));
@@ -198,11 +207,11 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jBut_Cobrar.setForeground(new java.awt.Color(0, 0, 153));
         jBut_Cobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/ImpresoraImg.png"))); // NOI18N
         jBut_Cobrar.setText("Cobrar");
-        jBut_Cobrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBut_Cobrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBut_Cobrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBut_Cobrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         getContentPane().add(jBut_Cobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 135, 130));
-        getContentPane().add(jLabel_Wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 570));
+        getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -224,7 +233,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel_Wallpaper;
+    private javax.swing.JLabel jLabel_wallpaper;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -237,4 +246,61 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtxt_Subtotal;
     private javax.swing.JTextField jtxt_Total_A_Pagar;
     // End of variables declaration//GEN-END:variables
+
+    
+    //Cargar clientes en combobox
+    
+    private void cargarCBCliente(){
+    
+        Connection con = Conexion.getConexion();
+        String sql =  "SELECT * FROM `Cliente`";
+        Statement st;
+        
+        try {
+            
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            jCB_Cliente.removeAllItems();
+            jCB_Cliente.addItem("Seleccione Cliente:");
+            
+            while (rs.next()){
+                
+                jCB_Cliente.addItem(rs.getString("Apellido") + "" + rs.getString("Nombre"));
+            
+            }
+            con.close();
+            
+        } catch (SQLException e) {
+            System.out.println("Error al cargar Clientes " + e);
+        }
+    
+    }
+    
+    private void cargarCBProductos(){
+    
+        Connection con = Conexion.getConexion();
+        String sql =  "SELECT * FROM Producto";
+        Statement st;
+        
+        try {
+            
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            jCB_producto.removeAllItems();
+            jCB_producto.addItem("Seleccione Producto:");
+            
+            while (rs.next()){
+                
+                jCB_producto.addItem(rs.getString("NombreProducto"));
+            
+            }
+            con.close();
+            
+        } catch (SQLException e) {
+            System.out.println("Error al cargar Producto " + e);
+        }
+    
+    }
+
+
 }
