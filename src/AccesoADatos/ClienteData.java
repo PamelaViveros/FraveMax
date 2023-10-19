@@ -36,17 +36,18 @@ public class ClienteData {
         
         boolean resp = false;
         String sql = "INSERT INTO Cliente(Apellido, Nombre, Dni, Domicilio, Telefono, Estado) "
-                + "VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+                + "VALUES ( ?, ?, ?, ?, ?, ? )";
         
         try {
             
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, c.getApellido());
-            ps.setString(2, c.getNombre());
-            ps.setInt(3, c.getDni());
-            ps.setString(4, c.getDomicilio());
-            ps.setInt(5, c.getTelefono());
-            ps.setBoolean(6, c.isEstadoCliente());
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, 0);// es el id y es autoincrement
+            ps.setString(2, c.getApellido());
+            ps.setString(3, c.getNombre());
+            ps.setInt(4, c.getDni());
+            ps.setString(5, c.getDomicilio());
+            ps.setInt(6, c.getTelefono());
+            ps.setBoolean(7, c.isEstadoCliente());
             
             if (ps.executeUpdate() > 0){
                 resp = true;
@@ -65,6 +66,27 @@ public class ClienteData {
         
         return resp;
         
+    }
+    
+    public boolean averiguarCliente(int dni){
+        boolean resp = false;
+        
+        String sql = "SELECT  Dni FROM `Cliente` WHERE Dni = '" + dni +"'; ";
+        Statement st;
+        
+        try {
+            Connection con = Conexion.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            while (rs.next()) {                
+                resp = true;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error al consultar Cliente: " + e);
+        }
+        return  resp;
     }
     
     public Cliente buscarCliente(int Dni){

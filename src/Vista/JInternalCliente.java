@@ -128,21 +128,12 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
         Cliente cliente = new Cliente();
         ClienteData clienteData = new ClienteData();
         
-        if ( jtxt_nombre.getText().equals("") || jtxt_apellido.getText().equals("") || 
-                jtxt_dni.getText().equals("") || jtxt_domicilio.getText().equals("") || 
-                jtxt_telefono.getText().equals("")) {
+        if ( !jtxt_nombre.getText().equals("") && !jtxt_apellido.getText().equals("") && 
+                !jtxt_dni.getText().equals("")) {
+                      
+            JOptionPane.showMessageDialog(null, "Cliente Cargado con éxito");
             
-            JOptionPane.showMessageDialog(null, "Complete todos los campos");
-            
-            jtxt_nombre.setBackground(Color.RED);
-            jtxt_apellido.setBackground(Color.RED);
-            jtxt_dni.setBackground(Color.RED);
-            jtxt_domicilio.setBackground(Color.RED);
-            jtxt_telefono.setBackground(Color.RED);
-            
-        } else {
-            
-            if ( clienteData.buscarCliente(Integer.parseInt(jtxt_dni.getText().trim())) == null) {
+            if (!clienteData.averiguarCliente(Integer.parseInt(jtxt_dni.getText().trim()))) {
                 
                 try {
                     
@@ -151,6 +142,7 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
                     cliente.setDni(Integer.parseInt(jtxt_dni.getText().trim()));
                     cliente.setDomicilio(jtxt_domicilio.getText().trim());
                     cliente.setTelefono(Integer.parseInt(jtxt_telefono.getText().trim()));
+                    cliente.setEstadoCliente(true);
                     
                     if (clienteData.guardarCliente(cliente)) {
                         
@@ -178,9 +170,24 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
             } else {
                 
                 JOptionPane.showMessageDialog(null, "El Cliente ya se encuentra registrado"); 
-                
+                jtxt_nombre.setBackground(Color.WHITE);
+                jtxt_apellido.setBackground(Color.WHITE);
+                jtxt_dni.setBackground(Color.WHITE);
+                jtxt_domicilio.setBackground(Color.WHITE);
+                jtxt_telefono.setBackground(Color.WHITE);
             }
-        
+            
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Complete todos los campos");
+            
+            jtxt_nombre.setBackground(Color.RED);
+            jtxt_apellido.setBackground(Color.RED);
+            jtxt_dni.setBackground(Color.RED);
+            jtxt_domicilio.setBackground(Color.RED);
+            jtxt_telefono.setBackground(Color.RED);
+            
         }
         
     }//GEN-LAST:event_jbutton_guardarActionPerformed
