@@ -6,11 +6,13 @@
 package Vista.Facturar;
 
 import AccesoADatos.Conexion;
+import Entidades.DetalleVenta;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -25,7 +27,11 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla;
     
-    private int idProducto = 0;
+    //Lista para detalle de venta productos
+    ArrayList<DetalleVenta> listaProductos = new ArrayList<>();
+    private DetalleVenta producto;
+    
+    private int id_Producto = 0;
     private String nombre = "";
     private int cantidadProducto_BD = 0;
     private double precioUnitario = 0.0;
@@ -311,7 +317,31 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                         //Validar cantida no mayor al stock
                         if (cantidad <= cantidadProducto_BD) {
                             
+                            subtotal = precioUnitario * cantidad;
+                            subtotal = (double) Math.round(subtotal * 100) / 100;
+                            totalPagar = subtotal + descuento;
+                            descuento = (double) Math.round(descuento * 100) / 100;
+                            totalPagar = (double) Math.round(totalPagar * 100) / 100;
                             
+                            //nuevo producto
+                            producto = new DetalleVenta(auxIdDetalleVent,
+                                1,
+                                id_Producto,
+                                nombre,
+                                Integer.parseInt(jtxt_Cantidad.getText()),
+                                precioUnitario,
+                                subtotal,
+                                descuento,
+                                totalPagar,
+                                1
+                            );
+                            
+                            listaProductos.add(producto);
+                            JOptionPane.showMessageDialog(null, "Producto agregado correctamente");
+                            auxIdDetalleVent++;
+                            jtxt_Cambio.setText("");
+                            
+                            this.cargarCBProductos();
                             
                         } else {
                             JOptionPane.showMessageDialog(null, "Cantidad superior al Stock");

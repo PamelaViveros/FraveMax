@@ -14,30 +14,43 @@ import java.time.LocalDate;
 public class DetalleVenta {
     
     private int idDetalleVenta;
-    private int cantidad;
-    private String fechaVenta;
     private int idVenta;
-    private double precioVenta;
     private int idProducto;
+    
+    private String nombre;
+    private int cantidad;       
+    private double precioUnitario;
+    private double subTotal;
+    private double descuento;
+    private double totalPagar;
+    private double estado;
+    
+      
+    public DetalleVenta(){
+        this.idDetalleVenta = 0;
+        this.idVenta = 0;
+        this.idProducto = 0;
+        this.nombre = "";
+        this.cantidad = 0;
+        this.precioUnitario = 0.0;
+        this.subTotal = 0.0;
+        this.descuento = 0.0;
+        this.totalPagar = 0.0;
+        this.estado = 0;
+    }
 
-    public DetalleVenta(int idDetalleVenta, int cantidad, String fechaVenta, int idVenta, double precioVenta, int idProducto) {
+    public DetalleVenta(int idDetalleVenta, int idVenta, int idProducto, String nombre, int cantidad, double precioUnitario, double subTotal, double descuento, double totalPagar, double estado) {
         this.idDetalleVenta = idDetalleVenta;
-        this.cantidad = cantidad;
-        this.fechaVenta = fechaVenta;
         this.idVenta = idVenta;
-        this.precioVenta = precioVenta;
         this.idProducto = idProducto;
-    }
-
-    public DetalleVenta(int cantidad, String fechaVenta, int idVenta, double precioVenta, int idProducto) {
+        this.nombre = nombre;
         this.cantidad = cantidad;
-        this.fechaVenta = fechaVenta;
-        this.idVenta = idVenta;
-        this.precioVenta = precioVenta;
-        this.idProducto = idProducto;
+        this.precioUnitario = precioUnitario;
+        this.subTotal = subTotal;
+        this.descuento = descuento;
+        this.totalPagar = totalPagar;
+        this.estado = estado;
     }
-
-    public DetalleVenta(){}
 
     public int getIdDetalleVenta() {
         return idDetalleVenta;
@@ -45,22 +58,6 @@ public class DetalleVenta {
 
     public void setIdDetalleVenta(int idDetalleVenta) {
         this.idDetalleVenta = idDetalleVenta;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public String getFechaVenta() {
-        return fechaVenta;
-    }
-
-    public void setFechaVenta(String fechaVenta) {
-        this.fechaVenta = fechaVenta;
     }
 
     public int getIdVenta() {
@@ -71,14 +68,6 @@ public class DetalleVenta {
         this.idVenta = idVenta;
     }
 
-    public double getPrecioVenta() {
-        return precioVenta;
-    }
-
-    public void setPrecioVenta(double precioVenta) {
-        this.precioVenta = precioVenta;
-    }
-
     public int getIdProducto() {
         return idProducto;
     }
@@ -87,15 +76,66 @@ public class DetalleVenta {
         this.idProducto = idProducto;
     }
 
-    
-    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
+    public double getTotalPagar() {
+        return totalPagar;
+    }
+
+    public void setTotalPagar(double totalPagar) {
+        this.totalPagar = totalPagar;
+    }
+
+    public double getEstado() {
+        return estado;
+    }
+
+    public void setEstado(double estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "DetalleVenta{" + "idDetalleVenta=" + idDetalleVenta + ", cantidad=" + cantidad + ", fechaVenta=" + fechaVenta + ", idVenta=" + idVenta + ", precioVenta=" + precioVenta + ", idProducto=" + idProducto + '}';
+        return "DetalleVenta{" + "idDetalleVenta=" + idDetalleVenta + ", idVenta=" + idVenta + ", idProducto=" + idProducto + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", subTotal=" + subTotal + ", descuento=" + descuento + ", totalPagar=" + totalPagar + ", estado=" + estado + '}';
     }
-    
-    
-    
 
-   
+    
 }
