@@ -40,7 +40,7 @@
                               <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                               <Component id="bEliminarVenta" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="bVerDetalle" min="-2" max="-2" attributes="0"/>
+                              <Component id="VerDetalle" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                               <Component id="bSalir" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -72,7 +72,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bEliminarVenta" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bVerDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="VerDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bSalir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="37" max="32767" attributes="0"/>
@@ -91,10 +91,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bEliminarVentaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="bVerDetalle">
+    <Component class="javax.swing.JButton" name="VerDetalle">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver Detalle"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerDetalleActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bSalir">
       <Properties>
@@ -167,6 +170,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tListaVentasMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

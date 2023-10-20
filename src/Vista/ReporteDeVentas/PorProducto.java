@@ -15,8 +15,10 @@ import Entidades.Cliente;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
+import static Vista.JfrMenu1.jDesktopPaneMenu;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -52,7 +54,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         bEliminarVenta = new javax.swing.JButton();
-        bVerDetalle = new javax.swing.JButton();
+        VerDetalle = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jcbProductos = new javax.swing.JComboBox<>();
@@ -68,7 +70,12 @@ public class PorProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        bVerDetalle.setText("Ver Detalle");
+        VerDetalle.setText("Ver Detalle");
+        VerDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerDetalleActionPerformed(evt);
+            }
+        });
 
         bSalir.setText("Salir");
         bSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +103,11 @@ public class PorProducto extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tListaVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tListaVentasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tListaVentas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,7 +130,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
                                 .addGap(104, 104, 104)
                                 .addComponent(bEliminarVenta)
                                 .addGap(38, 38, 38)
-                                .addComponent(bVerDetalle)
+                                .addComponent(VerDetalle)
                                 .addGap(57, 57, 57)
                                 .addComponent(bSalir)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -142,7 +154,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bEliminarVenta)
-                    .addComponent(bVerDetalle)
+                    .addComponent(VerDetalle)
                     .addComponent(bSalir))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
@@ -158,6 +170,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
        
         borrarFilas();
         CargaTablaxProd();
+         VerDetalle.setEnabled(false);
         
     }//GEN-LAST:event_jcbProductosActionPerformed
 
@@ -166,13 +179,35 @@ public class PorProducto extends javax.swing.JInternalFrame {
         vData.eliminarVenta(idVenta);
          borrarFilas();
         CargaTablaxProd();
+        VerDetalle.setEnabled(false);
     }//GEN-LAST:event_bEliminarVentaActionPerformed
+
+    private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
+         int sel=tListaVentas.getSelectedRowCount();
+          if (sel==1) {
+            int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+        Venta v= vData.buscarVenta(idVenta);
+        
+        VerDetalle verDetalle = new VerDetalle(v);
+        
+         jDesktopPaneMenu.add(verDetalle);
+        verDetalle.setVisible(true); 
+        }else{
+              JOptionPane.showMessageDialog(rootPane,"Seleccione solo una fila para ver su detalle");
+              
+          }
+ 
+    }//GEN-LAST:event_VerDetalleActionPerformed
+
+    private void tListaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tListaVentasMouseClicked
+        VerDetalle.setEnabled(true);
+    }//GEN-LAST:event_tListaVentasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton VerDetalle;
     private javax.swing.JButton bEliminarVenta;
     private javax.swing.JButton bSalir;
-    private javax.swing.JButton bVerDetalle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;

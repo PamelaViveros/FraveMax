@@ -15,8 +15,10 @@ import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Usuario;
 import Entidades.Venta;
+import static Vista.JfrMenu1.jDesktopPaneMenu;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -56,6 +58,7 @@ public class PorUsuario extends javax.swing.JInternalFrame {
         tListaVentas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         EliminarVenta = new javax.swing.JButton();
+        VerDetalle = new javax.swing.JButton();
 
         setTitle("Ventas por usuario");
 
@@ -104,6 +107,13 @@ public class PorUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        VerDetalle.setText("Ver Detalle");
+        VerDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerDetalleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,7 +127,9 @@ public class PorUsuario extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(EliminarVenta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(VerDetalle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
             .addGroup(layout.createSequentialGroup()
@@ -132,12 +144,13 @@ public class PorUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jcbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(EliminarVenta))
+                    .addComponent(EliminarVenta)
+                    .addComponent(VerDetalle))
                 .addContainerGap())
         );
 
@@ -152,7 +165,7 @@ public class PorUsuario extends javax.swing.JInternalFrame {
       
       borrarFilas();
             cargaTablaxUsuario();
-         
+         VerDetalle.setEnabled(false);
     }//GEN-LAST:event_jcbUsuariosActionPerformed
 
     private void EliminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVentaActionPerformed
@@ -160,11 +173,30 @@ public class PorUsuario extends javax.swing.JInternalFrame {
         vData.eliminarVenta(idVenta);
         borrarFilas();
             cargaTablaxUsuario();
+            VerDetalle.setEnabled(false);
     }//GEN-LAST:event_EliminarVentaActionPerformed
+
+    private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
+        int sel=tListaVentas.getSelectedRowCount();
+        if (sel==1) {
+            int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+            Venta v= vData.buscarVenta(idVenta);
+
+            VerDetalle verDetalle = new VerDetalle(v);
+
+            jDesktopPaneMenu.add(verDetalle);
+            verDetalle.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(rootPane,"Seleccione solo una fila para ver su detalle");
+
+        }
+
+    }//GEN-LAST:event_VerDetalleActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton EliminarVenta;
+    private javax.swing.JButton VerDetalle;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

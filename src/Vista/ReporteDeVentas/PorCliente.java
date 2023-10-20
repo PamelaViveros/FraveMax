@@ -15,8 +15,13 @@ import Entidades.Cliente;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
+import static Vista.JfrMenu1.jDesktopPaneMenu;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,15 +36,19 @@ public class PorCliente extends javax.swing.JInternalFrame {
     ClienteData cData = new ClienteData();
     ProductoData pData = new ProductoData();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
    
     public boolean isCellEditable(int f, int c) {
         return false;
     }
     public PorCliente() {
+       
         initComponents();
         cabecera();
          cData.listaClientes(); 
          cargaCombo();
+          
+         
          
         
         
@@ -89,6 +98,11 @@ public class PorCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tVentasxCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tVentasxClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tVentasxCliente);
         if (tVentasxCliente.getColumnModel().getColumnCount() > 0) {
             tVentasxCliente.getColumnModel().getColumn(0).setResizable(false);
@@ -108,6 +122,11 @@ public class PorCliente extends javax.swing.JInternalFrame {
         });
 
         VerDetalle.setText("Ver detalle");
+        VerDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerDetalleActionPerformed(evt);
+            }
+        });
 
         EliminarV.setText("Eliminar");
         EliminarV.addActionListener(new java.awt.event.ActionListener() {
@@ -166,6 +185,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
        
             borrarFilas();
             VentasPorCliente();
+            VerDetalle.setEnabled(false);
         
     }//GEN-LAST:event_jcbClientesActionPerformed
 
@@ -179,6 +199,28 @@ public class PorCliente extends javax.swing.JInternalFrame {
         borrarFilas();
             VentasPorCliente();
     }//GEN-LAST:event_EliminarVActionPerformed
+
+    private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
+       
+        int sel=tVentasxCliente.getSelectedRowCount();
+          if (sel==1) {
+            int idVenta= Integer.parseInt(tVentasxCliente.getValueAt(tVentasxCliente.getSelectedRow(),0).toString());
+        Venta v= vData.buscarVenta(idVenta);
+        
+        VerDetalle verDetalle = new VerDetalle(v);
+        
+         jDesktopPaneMenu.add(verDetalle);
+        verDetalle.setVisible(true); 
+        }else{
+              JOptionPane.showMessageDialog(rootPane,"Seleccione solo una fila para ver su detalle");
+              
+          }
+ 
+    }//GEN-LAST:event_VerDetalleActionPerformed
+
+    private void tVentasxClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tVentasxClienteMouseClicked
+       VerDetalle.setEnabled(true);
+    }//GEN-LAST:event_tVentasxClienteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -241,5 +283,6 @@ public void borrarFilas(){
             modelo.removeRow(f);
         }
 }
+
 
 }
