@@ -45,12 +45,11 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     
     public JInternalNuevaVenta() {
         initComponents();
-        
+                      
         this.setSize(new Dimension(800, 600));
         this.setTitle("Facturacion - Nueva Venta");
-               
-        this.cargarCBCliente();
         
+        this.cargarCBCliente();                    
         this.cargarCBProductos();
         
         this.cargarTablaProducto();
@@ -285,7 +284,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         
         String Cliente_a_Buscar = jtxtCilente_busqueda.getText().trim();
         Connection con = Conexion.getConexion();
-        String sql = "SELECT Apellido, Nombre FROM Cliente WHERE Dni = '"+ Cliente_a_Buscar +"' ";
+        String sql = "SELECT Apellido, Nombre FROM `Cliente` WHERE Dni = '"+ Cliente_a_Buscar +"' ";
         Statement st;
         
         try {
@@ -294,16 +293,16 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
             
             if(rs.next()){
                 
-                jCB_Cliente.setSelectedItem(rs.getString("Apellido") + "" + rs.getString("Nombre"));
+                jCB_Cliente.setSelectedItem(rs.getString("Apellido") + " " + rs.getString("Nombre"));
                             
             } else{
                 jCB_Cliente.setSelectedItem("Seleccione Cliente:");
                 JOptionPane.showMessageDialog(null, "DNI no encontrado ó Cliente no Registrado");
             }
             
-            jtxtCilente_busqueda.setText("");
-            con.close();
-        } catch (Exception e) {
+            //jtxtCilente_busqueda.setText("");
+            //con.close();
+        } catch (SQLException e) {
             System.out.println("Error al buscar Cliente: " + e);
         }
         
@@ -409,7 +408,10 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     
-    //Cargar clientes en combobox
+    /*
+    *Cargar clientes en combobox
+    *
+    */
     
     private void cargarCBCliente(){
     
@@ -429,7 +431,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                 jCB_Cliente.addItem(rs.getString("Apellido") + " " + rs.getString("Nombre"));
             
             }
-            con.close();
+            //con.close();
             
         } catch (SQLException e) {
             System.out.println("Error al cargar Clientes " + e);
@@ -437,10 +439,14 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     
     }
     
+    /*
+    *Cargar productos al comboProductos
+    *
+    */
     private void cargarCBProductos(){
     
         Connection con = Conexion.getConexion();
-        String sql =  "SELECT * FROM producto";
+        String sql =  "SELECT * FROM Producto";
         Statement st;
         
         try {
@@ -455,7 +461,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                 jCB_Producto.addItem(rs.getString("NombreProducto") + " " + rs.getString("Descripcion"));
             
             }
-            con.close();
+            //con.close();
             
         } catch (SQLException e) {
             System.out.println("Error al cargar Producto " + e);
@@ -478,9 +484,10 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         
         try {
             
-            String sql = "SELECT * FROM Producto WHERE NombreProducto = '"+ this.jCB_Producto.getSelectedItem() +"'";
+            String sql = "SELECT * FROM producto WHERE NombreProducto = '"+ this.jCB_Producto.getSelectedItem() +"'";
             Connection con = Conexion.getConexion();
-            Statement st = con.createStatement();
+            Statement st;
+            st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             
             while (rs.next()){
@@ -491,8 +498,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                 precioUnitario = rs.getDouble("PrecioActual");
             
             }
-            
-            
+                   
         } catch (SQLException e) {
             System.out.println("Error al obtener datos del producto");
         }

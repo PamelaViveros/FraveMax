@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
 
     private static final String URL = "jdbc:mariadb://localhost:3306/";
-    private static final String DB = "FraveMax";
+    private static final String DB = "fraveMax";
     private static final String USUARIO = "root";
     private static final String PASSWORD = "";
 

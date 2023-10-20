@@ -48,7 +48,7 @@ public class ProductoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo crear el Producto");
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
@@ -73,7 +73,7 @@ public class ProductoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el Producto");
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
@@ -94,7 +94,7 @@ public class ProductoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el Producto");
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
@@ -122,7 +122,7 @@ public class ProductoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el Producto");
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
@@ -151,7 +151,7 @@ public class ProductoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el Producto");
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
@@ -178,7 +178,7 @@ public class ProductoData {
                 producto.setEstado(true);
                 productos.add(producto);
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
@@ -204,7 +204,7 @@ public class ProductoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el Producto");
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
@@ -223,7 +223,7 @@ public class ProductoData {
             } else{
                 JOptionPane.showMessageDialog(null, "Error al actualizar el Stock");
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
