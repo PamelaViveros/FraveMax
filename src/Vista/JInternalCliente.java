@@ -130,9 +130,7 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
         
         if ( !jtxt_apellido.getText().equals("") && !jtxt_nombre.getText().equals("") && 
                 !jtxt_dni.getText().equals("")) {
-                      
-            JOptionPane.showMessageDialog(null, "Cliente Cargado con éxito");
-            
+                                             
             if (!clienteData.averiguarCliente(Integer.parseInt(jtxt_dni.getText().trim()))) {
                 
                 try {
@@ -142,7 +140,7 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
                     cliente.setDni(Integer.parseInt(jtxt_dni.getText().trim()));
                     cliente.setDomicilio(jtxt_domicilio.getText().trim());
                     cliente.setTelefono(Integer.parseInt(jtxt_telefono.getText().trim()));
-                    cliente.setEstadoCliente(true);
+                    
                     
                     if (clienteData.guardarCliente(cliente)) {
                         
