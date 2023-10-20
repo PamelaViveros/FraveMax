@@ -128,7 +128,7 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
         Cliente cliente = new Cliente();
         ClienteData clienteData = new ClienteData();
         
-        if ( !jtxt_nombre.getText().equals("") && !jtxt_apellido.getText().equals("") && 
+        if ( !jtxt_apellido.getText().equals("") && !jtxt_nombre.getText().equals("") && 
                 !jtxt_dni.getText().equals("")) {
                       
             JOptionPane.showMessageDialog(null, "Cliente Cargado con éxito");
@@ -137,8 +137,8 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
                 
                 try {
                     
-                    cliente.setNombre(jtxt_nombre.getText().trim());
                     cliente.setApellido(jtxt_apellido.getText().trim());
+                    cliente.setNombre(jtxt_nombre.getText().trim());                   
                     cliente.setDni(Integer.parseInt(jtxt_dni.getText().trim()));
                     cliente.setDomicilio(jtxt_domicilio.getText().trim());
                     cliente.setTelefono(Integer.parseInt(jtxt_telefono.getText().trim()));
@@ -211,8 +211,8 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
 
     private void limpiar(){
         
-        jtxt_nombre.setText("");
         jtxt_apellido.setText("");
+        jtxt_nombre.setText("");       
         jtxt_dni.setText("");
         jtxt_domicilio.setText("");
         jtxt_telefono.setText("");

@@ -23,14 +23,15 @@ public class DetalleVentaData {
     
     public void guardarDetalleVenta(DetalleVenta dv){
     
-       String sql = "INSERT INTO detalleventa (Cantidad,idVenta,PrecioVenta,idProducto) VALUES (?,?,?,?)";
+       String sql = "INSERT INTO detalleventa( Cantidad, idVenta, PrecioVenta, idProducto)  VALUES (?,?,?,?)";
        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dv.getCantidad());
             ps.setInt(2, dv.getIdVenta());
-            ps.setDouble(3, dv.getPrecioVenta());
+            ps.setDouble(3, dv.getPrecioUnitario());
             ps.setInt(4, dv.getIdProducto());
+            
             
             ResultSet rs = ps.getGeneratedKeys();
             
@@ -66,7 +67,7 @@ public class DetalleVentaData {
                 dv.setIdDetalleVenta(id);
                 dv.setCantidad(rs.getInt("Cantidad"));
                 dv.setIdVenta(rs.getInt("idventa"));
-                dv.setPrecioVenta(rs.getDouble("PrecioVenta"));
+                dv.setPrecioUnitario(rs.getDouble("PrecioVenta"));
                 dv.setIdProducto(rs.getInt("idProducto"));
             
             } else {

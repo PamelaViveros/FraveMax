@@ -97,11 +97,9 @@ public class Cliente {
         this.estadoCliente = estadoCliente;
     }
 
-    
-
     @Override
-    public String toString() {//cualquier cosa lo editamos segun convenga
-        return idCliente + ", " + apellido + ", " + nombre + ", " + dni;
+    public String toString() {
+        return "Cliente{" + "idCliente=" + idCliente + ", apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni + ", domicilio=" + domicilio + ", telefono=" + telefono + ", estadoCliente=" + estadoCliente + '}';
     }
-
+      
 }

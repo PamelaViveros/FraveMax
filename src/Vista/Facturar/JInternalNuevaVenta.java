@@ -48,8 +48,9 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         
         this.setSize(new Dimension(800, 600));
         this.setTitle("Facturacion - Nueva Venta");
-        
+               
         this.cargarCBCliente();
+        
         this.cargarCBProductos();
         
         this.cargarTablaProducto();
@@ -66,10 +67,8 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         modeloTabla = new DefaultTableModel();
         
         modeloTabla.addColumn("N°");
-        modeloTabla.addColumn("Nombre");
-        modeloTabla.addColumn("Descripción");
+        modeloTabla.addColumn("Nombre");       
         modeloTabla.addColumn("Cantidad");      
-        modeloTabla.addColumn("Stock");
         modeloTabla.addColumn("P. Unitario");
         modeloTabla.addColumn("SubTotal");
         modeloTabla.addColumn("Descuento");
@@ -77,6 +76,22 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Eliminar");
         
         this.jTable_Productos.setModel(modeloTabla);
+    }
+    
+    private void listaTablaProducto(){
+        
+        this.modeloTabla.setRowCount(listaProductos.size());
+        for (int i = 0; i < listaProductos.size(); i++) {
+            this.modeloTabla.setValueAt(i + 1, i, 0);
+            this.modeloTabla.setValueAt(listaProductos.get(i).getNombre(), i, 1);
+            this.modeloTabla.setValueAt(listaProductos.get(i).getCantidad(), i, 2);
+            this.modeloTabla.setValueAt(listaProductos.get(i).getPrecioUnitario(), i, 3);
+            this.modeloTabla.setValueAt(listaProductos.get(i).getSubTotal(), i, 4);
+            this.modeloTabla.setValueAt(listaProductos.get(i).getDescuento(), i, 5);
+            this.modeloTabla.setValueAt(listaProductos.get(i).getTotalPagar(), i, 6);
+            this.modeloTabla.setValueAt("Eliminar", i, 7);//Boton de eliminar
+        }
+        jTable_Productos.setModel(modeloTabla);
     }
     
     @SuppressWarnings("unchecked")
@@ -88,7 +103,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jCB_Cliente = new javax.swing.JComboBox<>();
-        jCB_producto = new javax.swing.JComboBox<>();
+        jCB_Producto = new javax.swing.JComboBox<>();
         jtxtCilente_busqueda = new javax.swing.JTextField();
         jtxt_Cantidad = new javax.swing.JTextField();
         jBut_buscaCliente = new javax.swing.JButton();
@@ -142,9 +157,9 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jCB_Cliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione cliente:", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jCB_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 55, 200, -1));
 
-        jCB_producto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jCB_producto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione producto:", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jCB_producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 85, 200, -1));
+        jCB_Producto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jCB_Producto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Producto:", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jCB_Producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 85, 200, -1));
 
         jtxtCilente_busqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         getContentPane().add(jtxtCilente_busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 55, 150, -1));
@@ -296,7 +311,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     private void jBut_AgregProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBut_AgregProdActionPerformed
         
-        String combo = this.jCB_producto.getSelectedItem().toString();
+        String combo = this.jCB_Producto.getSelectedItem().toString();
         
         //validacion de seleccion
         if (combo.equalsIgnoreCase("Seleccione Producto!!")){
@@ -357,10 +372,9 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                 
             } else{
                 JOptionPane.showMessageDialog(null, "Ingrese la cantidad a cargar");
-            }
-            
-            
+            }                      
         }
+        this.listaTablaProducto();
     }//GEN-LAST:event_jBut_AgregProdActionPerformed
 
 
@@ -370,7 +384,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBut_Cobrar;
     private javax.swing.JButton jBut_buscaCliente;
     private javax.swing.JComboBox<String> jCB_Cliente;
-    private javax.swing.JComboBox<String> jCB_producto;
+    private javax.swing.JComboBox<String> jCB_Producto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -412,7 +426,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
             
             while (rs.next()){
                 
-                jCB_Cliente.addItem(rs.getString("Apellido") + "" + rs.getString("Nombre"));
+                jCB_Cliente.addItem(rs.getString("Apellido") + " " + rs.getString("Nombre"));
             
             }
             con.close();
@@ -426,19 +440,19 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private void cargarCBProductos(){
     
         Connection con = Conexion.getConexion();
-        String sql =  "SELECT * FROM Producto";
+        String sql =  "SELECT * FROM producto";
         Statement st;
         
         try {
             
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            jCB_producto.removeAllItems();
-            jCB_producto.addItem("Seleccione Producto:");
+            jCB_Producto.removeAllItems();
+            jCB_Producto.addItem("Seleccione Producto:");
             
             while (rs.next()){
                 
-                jCB_producto.addItem(rs.getString("NombreProducto"));
+                jCB_Producto.addItem(rs.getString("NombreProducto") + " " + rs.getString("Descripcion"));
             
             }
             con.close();
@@ -464,14 +478,14 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         
         try {
             
-            String sql = "SELECT * FROM Producto WHERE NombreProducto = '"+ this.jCB_producto.getSelectedItem() +"'";
+            String sql = "SELECT * FROM Producto WHERE NombreProducto = '"+ this.jCB_Producto.getSelectedItem() +"'";
             Connection con = Conexion.getConexion();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             
             while (rs.next()){
                 
-                idProducto = rs.getInt("idProducto");
+                id_Producto = rs.getInt("idProducto");
                 nombre = rs.getString("NombreProducto");
                 cantidadProducto_BD = rs.getInt("Stock");
                 precioUnitario = rs.getDouble("PrecioActual");

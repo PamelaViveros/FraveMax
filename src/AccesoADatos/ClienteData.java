@@ -36,18 +36,18 @@ public class ClienteData {
         
         boolean resp = false;
         String sql = "INSERT INTO Cliente(Apellido, Nombre, Dni, Domicilio, Telefono, Estado) "
-                + "VALUES ( ?, ?, ?, ?, ?, ? )";
+                + "VALUES ( ?, ?, ?, ?, ? )";
         
         try {
             
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, 0);// es el id y es autoincrement
             ps.setString(2, c.getApellido());
             ps.setString(3, c.getNombre());
             ps.setInt(4, c.getDni());
             ps.setString(5, c.getDomicilio());
             ps.setInt(6, c.getTelefono());
-            ps.setBoolean(7, c.isEstadoCliente());
+            ps.setBoolean(7, true);///////////////////////////
             
             if (ps.executeUpdate() > 0){
                 resp = true;
@@ -56,7 +56,7 @@ public class ClienteData {
             ResultSet rs = ps.getGeneratedKeys();
             
             JOptionPane.showMessageDialog(null, "Cliente cargado con éxito");          
-            ps.close();
+            //ps.close();
         
         } catch (SQLException ex) {
         
