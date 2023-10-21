@@ -185,10 +185,11 @@ public class PorProducto extends javax.swing.JInternalFrame {
     private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
          int sel=tListaVentas.getSelectedRowCount();
           if (sel==1) {
-            int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
-        Venta v= vData.buscarVenta(idVenta);
-        
-        VerDetalle verDetalle = new VerDetalle(v);
+           int id= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+            
+            
+            VerDetalle verDetalle = new VerDetalle(id);
+
         
          jDesktopPaneMenu.add(verDetalle);
         verDetalle.setVisible(true); 

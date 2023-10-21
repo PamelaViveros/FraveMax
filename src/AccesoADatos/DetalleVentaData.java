@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -50,9 +48,9 @@ public class DetalleVentaData {
     
     public DetalleVenta detallarVenta(int id){
     
-        DetalleVenta dv = null;
+        DetalleVenta dv =new DetalleVenta();
         
-        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad FROM detalleventa WHERE idDetalleVent = ?  and estado = 1";
+        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad FROM detalleventa WHERE idDetalleVent = ? ";
     
         PreparedStatement ps = null;
         
@@ -63,7 +61,7 @@ public class DetalleVentaData {
             
             if(rs.next()){
             
-                dv = new DetalleVenta();
+                
                 dv.setIdDetalleVenta(id);
                 dv.setCantidad(rs.getInt("Cantidad"));
                 dv.setIdVenta(rs.getInt("idventa"));

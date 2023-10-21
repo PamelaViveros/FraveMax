@@ -178,18 +178,19 @@ public class PorUsuario extends javax.swing.JInternalFrame {
 
     private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
         int sel=tListaVentas.getSelectedRowCount();
-        if (sel==1) {
-            int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
-            Venta v= vData.buscarVenta(idVenta);
+          if (sel==1) {
+           int id= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+            
+            
+            VerDetalle verDetalle = new VerDetalle(id);
 
-            VerDetalle verDetalle = new VerDetalle(v);
-
-            jDesktopPaneMenu.add(verDetalle);
-            verDetalle.setVisible(true);
+        
+         jDesktopPaneMenu.add(verDetalle);
+        verDetalle.setVisible(true); 
         }else{
-            JOptionPane.showMessageDialog(rootPane,"Seleccione solo una fila para ver su detalle");
-
-        }
+              JOptionPane.showMessageDialog(rootPane,"Seleccione solo una fila para ver su detalle");
+              
+          }
 
     }//GEN-LAST:event_VerDetalleActionPerformed
 

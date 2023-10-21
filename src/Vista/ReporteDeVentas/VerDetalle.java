@@ -12,6 +12,8 @@ import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -19,22 +21,19 @@ import Entidades.Venta;
  */
 public class VerDetalle extends javax.swing.JInternalFrame {
 
-    Venta  v = new Venta ();
-    DetalleVenta dv = new DetalleVenta();
+    int id;
+    
+     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     Producto prod = new Producto();
     VentaData vData = new VentaData();
     DetalleVentaData dvData = new DetalleVentaData();
     ProductoData pData = new ProductoData();
     UsuarioData uData = new UsuarioData();
     
-    public VerDetalle(Venta v) {
+    public VerDetalle(int id) {
+        this.id=id;
         initComponents();
-        
-        v=vData.buscarVenta(v.getIdVenta());
-        dv=dvData.detallarVenta(v.getIdVenta());
-        prod=pData.buscarPorId(dv.getIdProducto());
-        
-        
+        seteo();
         
         
     }
@@ -65,7 +64,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         tPUnit = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tPtotal = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        Titulo = new javax.swing.JLabel();
         Salir = new javax.swing.JButton();
 
         jLabel1.setText("id Producto");
@@ -76,12 +75,6 @@ public class VerDetalle extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Descripcion");
 
-        tIdProd.setEditable(false);
-
-        tCant.setEditable(false);
-
-        tNombreProd.setEnabled(false);
-
         jScrollPane1.setEnabled(false);
 
         tDescProd.setColumns(20);
@@ -90,22 +83,14 @@ public class VerDetalle extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Fecha de venta");
 
-        tFechaV.setEditable(false);
-
         jLabel6.setText("id/ Usuario");
-
-        tUser.setEditable(false);
 
         jLabel7.setText("Precio unitario");
 
-        tPUnit.setEditable(false);
-
         jLabel8.setText("Precio Total");
 
-        tPtotal.setEnabled(false);
-
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel9.setText("Detalle de Venta Nº ");
+        Titulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        Titulo.setText("Detalle de Venta Nº ");
 
         Salir.setText("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +152,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
                         .addGap(42, 42, 42))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(257, 257, 257)
-                .addComponent(jLabel9)
+                .addComponent(Titulo)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -177,7 +162,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9)
+                .addComponent(Titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -221,6 +206,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Salir;
+    private javax.swing.JLabel Titulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -229,7 +215,6 @@ public class VerDetalle extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField tCant;
     private javax.swing.JTextArea tDescProd;
@@ -241,6 +226,28 @@ public class VerDetalle extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tUser;
     // End of variables declaration//GEN-END:variables
 
+public void seteo(){
+    
+    Titulo.setText("Detalle de la venta Nº "+id);
+    Venta v = vData.buscarVenta(id);
+    System.out.println(v.toString());
+    DetalleVenta dv = dvData.detallarVenta(id);
+    System.out.println(dv.toString());
+    prod = pData.buscarPorId(dv.getIdProducto());
+    System.out.println(prod.toString());
+    LocalDate fecha=v.getFechaVenta();
+   String fechaOk = fecha.format(dateTimeFormatter); 
+   
+    tIdProd.setText(prod.getIdProducto() + "");  //id producto
+    tNombreProd.setText(prod.getNombreProducto() + "");  //Nombre prod
+    tPUnit.setText(prod.getPrecioActual() + "");    //  Precio unitario
+    tDescProd.setText(prod.getDescripcion() + "");  //Descripcion
+    tCant.setText(dv.getCantidad() + "");   //Cantidad
+    tFechaV.setText(fechaOk);    //Fecha de venta
+    tUser.setText("");  //Usuario-Vendedor
+    tPtotal.setText((prod.getPrecioActual()*dv.getCantidad()+""));     //Precio total
 
+    
+}
 
 }

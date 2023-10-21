@@ -19,9 +19,6 @@ import static Vista.JfrMenu1.jDesktopPaneMenu;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -67,7 +64,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jcbClientes = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tVentasxCliente = new javax.swing.JTable();
+        tListaVentas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         VerDetalle = new javax.swing.JButton();
         EliminarV = new javax.swing.JButton();
@@ -82,7 +79,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        tVentasxCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tListaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -98,20 +95,20 @@ public class PorCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tVentasxCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        tListaVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tVentasxClienteMouseClicked(evt);
+                tListaVentasMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tVentasxCliente);
-        if (tVentasxCliente.getColumnModel().getColumnCount() > 0) {
-            tVentasxCliente.getColumnModel().getColumn(0).setResizable(false);
-            tVentasxCliente.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tVentasxCliente.getColumnModel().getColumn(1).setResizable(false);
-            tVentasxCliente.getColumnModel().getColumn(1).setPreferredWidth(50);
-            tVentasxCliente.getColumnModel().getColumn(2).setPreferredWidth(330);
-            tVentasxCliente.getColumnModel().getColumn(3).setResizable(false);
-            tVentasxCliente.getColumnModel().getColumn(3).setPreferredWidth(79);
+        jScrollPane1.setViewportView(tListaVentas);
+        if (tListaVentas.getColumnModel().getColumnCount() > 0) {
+            tListaVentas.getColumnModel().getColumn(0).setResizable(false);
+            tListaVentas.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tListaVentas.getColumnModel().getColumn(1).setResizable(false);
+            tListaVentas.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tListaVentas.getColumnModel().getColumn(2).setPreferredWidth(330);
+            tListaVentas.getColumnModel().getColumn(3).setResizable(false);
+            tListaVentas.getColumnModel().getColumn(3).setPreferredWidth(79);
         }
 
         jButton1.setText("Salir");
@@ -194,7 +191,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void EliminarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVActionPerformed
-        int idVenta= Integer.parseInt(tVentasxCliente.getValueAt(tVentasxCliente.getSelectedRow(),0).toString());
+        int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
         vData.eliminarVenta(idVenta);
         borrarFilas();
             VentasPorCliente();
@@ -202,12 +199,13 @@ public class PorCliente extends javax.swing.JInternalFrame {
 
     private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
        
-        int sel=tVentasxCliente.getSelectedRowCount();
+        int sel=tListaVentas.getSelectedRowCount();
           if (sel==1) {
-            int idVenta= Integer.parseInt(tVentasxCliente.getValueAt(tVentasxCliente.getSelectedRow(),0).toString());
-        Venta v= vData.buscarVenta(idVenta);
-        
-        VerDetalle verDetalle = new VerDetalle(v);
+           int id= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+            
+            
+            VerDetalle verDetalle = new VerDetalle(id);
+
         
          jDesktopPaneMenu.add(verDetalle);
         verDetalle.setVisible(true); 
@@ -218,9 +216,9 @@ public class PorCliente extends javax.swing.JInternalFrame {
  
     }//GEN-LAST:event_VerDetalleActionPerformed
 
-    private void tVentasxClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tVentasxClienteMouseClicked
+    private void tListaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tListaVentasMouseClicked
        VerDetalle.setEnabled(true);
-    }//GEN-LAST:event_tVentasxClienteMouseClicked
+    }//GEN-LAST:event_tListaVentasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,7 +228,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<Cliente> jcbClientes;
-    private javax.swing.JTable tVentasxCliente;
+    private javax.swing.JTable tListaVentas;
     // End of variables declaration//GEN-END:variables
 
 private void cabecera() {
@@ -242,7 +240,7 @@ private void cabecera() {
         
         
 
-        tVentasxCliente.setModel(modelo);
+        tListaVentas.setModel(modelo);
     }
 
 public void cargaCombo(){
@@ -278,7 +276,7 @@ public void cargaCombo(){
 
     
 public void borrarFilas(){
-     int f = (tVentasxCliente.getRowCount() - 1);
+     int f = (tListaVentas.getRowCount() - 1);
         for (; f >= 0; f--) {
             modelo.removeRow(f);
         }
