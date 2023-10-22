@@ -2,18 +2,20 @@ package Vista.Producto;
 
 import AccesoADatos.ProductoData;
 import Entidades.Producto;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 
 public class NuevoProducto extends javax.swing.JInternalFrame {
 
-    private ProductoData data = new ProductoData();
+    private ProductoData data;
     private Producto producto = null;
 
     /**
      * Creates new form NuevoProducto
      */
-    public NuevoProducto() {
+    public NuevoProducto() throws SQLException {
+        this.data = new ProductoData();
         initComponents();
     }
 

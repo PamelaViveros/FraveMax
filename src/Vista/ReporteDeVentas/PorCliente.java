@@ -16,8 +16,11 @@ import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
 import static Vista.JfrMenu1.jDesktopPaneMenu;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,17 +31,21 @@ import javax.swing.table.DefaultTableModel;
 public class PorCliente extends javax.swing.JInternalFrame {
 
    DefaultTableModel modelo = new DefaultTableModel();
-    VentaData vData = new VentaData();
-    DetalleVentaData dvData = new DetalleVentaData();
-    ClienteData cData = new ClienteData();
-    ProductoData pData = new ProductoData();
+    VentaData vData;
+    DetalleVentaData dvData;
+    ClienteData cData;
+    ProductoData pData;
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
    
     public boolean isCellEditable(int f, int c) {
         return false;
     }
-    public PorCliente() {
+    public PorCliente() throws SQLException {
+        this.pData = new ProductoData();
+        this.cData = new ClienteData();
+        this.dvData = new DetalleVentaData();
+        this.vData = new VentaData();
        
         initComponents();
         cabecera();
@@ -204,7 +211,12 @@ public class PorCliente extends javax.swing.JInternalFrame {
            int id= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
             
             
-            VerDetalle verDetalle = new VerDetalle(id);
+            VerDetalle verDetalle = null;
+            try {
+                verDetalle = new VerDetalle(id);
+            } catch (SQLException ex) {
+                Logger.getLogger(PorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         
          jDesktopPaneMenu.add(verDetalle);

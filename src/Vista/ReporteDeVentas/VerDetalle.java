@@ -12,6 +12,7 @@ import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Venta;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -25,12 +26,16 @@ public class VerDetalle extends javax.swing.JInternalFrame {
     
      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     Producto prod = new Producto();
-    VentaData vData = new VentaData();
-    DetalleVentaData dvData = new DetalleVentaData();
-    ProductoData pData = new ProductoData();
-    UsuarioData uData = new UsuarioData();
+    VentaData vData;
+    DetalleVentaData dvData;
+    ProductoData pData;
+    UsuarioData uData;
     
-    public VerDetalle(int id) {
+    public VerDetalle(int id) throws SQLException {
+        this.uData = new UsuarioData();
+        this.pData = new ProductoData();
+        this.dvData = new DetalleVentaData();
+        this.vData = new VentaData();
         this.id=id;
         initComponents();
         seteo();

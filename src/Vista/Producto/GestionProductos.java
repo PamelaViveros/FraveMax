@@ -3,8 +3,11 @@ package Vista.Producto;
 import AccesoADatos.ProductoData;
 import Entidades.Producto;
 import static Vista.JfrMenu1.jDesktopPaneMenu;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -19,15 +22,17 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         }
     };
 
-    private ProductoData data = new ProductoData();
+    private ProductoData data;
     private List<Producto> productos;
-    private NuevoProducto editor = new NuevoProducto();
+    private NuevoProducto editor;
 
     
     /**
      * Creates new form GestionProductos
      */
-    public GestionProductos() {
+    public GestionProductos() throws SQLException {
+        this.editor = new NuevoProducto();
+        this.data = new ProductoData();
         initComponents();
         armarCabecera();
         cargarDatos();
@@ -159,7 +164,12 @@ public class GestionProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        NuevoProducto nuevoProducto = new NuevoProducto();
+        NuevoProducto nuevoProducto = null;
+        try {
+            nuevoProducto = new NuevoProducto();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionProductos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         jDesktopPaneMenu.removeAll();
         jDesktopPaneMenu.repaint();
@@ -180,7 +190,12 @@ public class GestionProductos extends javax.swing.JInternalFrame {
             return;
         }
 
-        NuevoProducto nuevoProducto = new NuevoProducto();
+        NuevoProducto nuevoProducto = null;
+        try {
+            nuevoProducto = new NuevoProducto();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionProductos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         nuevoProducto.editar(producto);
         
         jDesktopPaneMenu.removeAll();

@@ -9,6 +9,9 @@ import Vista.ReporteDeVentas.PorFecha;
 import Vista.ReporteDeVentas.PorProducto;
 import Vista.ReporteDeVentas.PorUsuario;
 import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 
 /**
@@ -281,7 +284,12 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenuItem9_gest_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9_gest_productoActionPerformed
         
-        GestionProductos ventanaGestionProductos = new GestionProductos();
+        GestionProductos ventanaGestionProductos = null;
+        try {
+            ventanaGestionProductos = new GestionProductos();
+        } catch (SQLException ex) {
+            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jDesktopPaneMenu.add(ventanaGestionProductos);
         ventanaGestionProductos.setVisible(true);
         
@@ -289,7 +297,12 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenuItem11_nueva_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11_nueva_ventaActionPerformed
         
-        JInternalNuevaVenta nuevaVenta = new JInternalNuevaVenta();
+        JInternalNuevaVenta nuevaVenta = null;
+        try {
+            nuevaVenta = new JInternalNuevaVenta();
+        } catch (SQLException ex) {
+            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jDesktopPaneMenu.add(nuevaVenta);
         nuevaVenta.setVisible(true);
         
@@ -297,7 +310,12 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenuItem3_buscar_por_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3_buscar_por_fechaActionPerformed
         
-        PorFecha porFecha = new PorFecha();
+        PorFecha porFecha = null;
+        try {
+            porFecha = new PorFecha();
+        } catch (SQLException ex) {
+            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jDesktopPaneMenu.add(porFecha);
         porFecha.setVisible(true);
         
@@ -305,7 +323,12 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenuItem1_buscar_por_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_buscar_por_clienteActionPerformed
         
-        PorCliente porCliente = new PorCliente();
+        PorCliente porCliente = null;
+        try {
+            porCliente = new PorCliente();
+        } catch (SQLException ex) {
+            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jDesktopPaneMenu.add(porCliente);
         porCliente.setVisible(true);
         
@@ -313,7 +336,12 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenuItem2_buscar_por_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_buscar_por_productoActionPerformed
         
-        PorProducto porProducto = new PorProducto();
+        PorProducto porProducto = null;
+        try {
+            porProducto = new PorProducto();
+        } catch (SQLException ex) {
+            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jDesktopPaneMenu.add(porProducto);
         porProducto.setVisible(true);
         
@@ -321,7 +349,12 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenuItem10_buscar_por_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10_buscar_por_usuarioActionPerformed
         
-        PorUsuario porUsuario = new PorUsuario();
+        PorUsuario porUsuario = null;
+        try {
+            porUsuario = new PorUsuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jDesktopPaneMenu.add(porUsuario);
         porUsuario.setVisible(true);
         
@@ -329,7 +362,12 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenuItem8_nuevo_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8_nuevo_productoActionPerformed
         
-        NuevoProducto nuevoProducto = new NuevoProducto();
+        NuevoProducto nuevoProducto = null;
+        try {
+            nuevoProducto = new NuevoProducto();
+        } catch (SQLException ex) {
+            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jDesktopPaneMenu.add(nuevoProducto);
         nuevoProducto.setVisible(true);
         

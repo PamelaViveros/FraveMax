@@ -27,7 +27,7 @@ public class ClienteData {
     
     public static List<Cliente> clientes = new ArrayList<>();
     
-    public ClienteData(){
+    public ClienteData() throws SQLException{
     
         con = Conexion.getConexion();
     }

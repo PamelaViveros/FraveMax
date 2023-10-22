@@ -20,7 +20,7 @@ public class FraveMax {
      */
     public static void main(String[] args) {
 
-        VentaData v = new VentaData();
+        //VentaData v = new VentaData();
 
 //        Guardar Venta
 //        Venta vende=new Venta(1,LocalDate.of(2023, 10, 04));

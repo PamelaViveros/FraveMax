@@ -16,6 +16,7 @@ import Entidades.Cliente;
 import Entidades.Producto;
 import Vista.JInternalCliente;
 import static Vista.JfrMenu1.jDesktopPaneMenu;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,13 +26,18 @@ import javax.swing.table.DefaultTableModel;
 public class NuevaVenta extends javax.swing.JInternalFrame {
     
     DefaultTableModel modelo = new DefaultTableModel();
-    UsuarioData uData = new UsuarioData();
-    VentaData vData = new VentaData();
-    DetalleVentaData dvData = new DetalleVentaData();
-    ProductoData pData = new ProductoData();
-    ClienteData cData = new ClienteData();
+    UsuarioData uData;
+    VentaData vData;
+    DetalleVentaData dvData;
+    ProductoData pData;
+    ClienteData cData;
     
-    public NuevaVenta() {
+    public NuevaVenta() throws SQLException {
+        this.cData = new ClienteData();
+        this.pData = new ProductoData();
+        this.dvData = new DetalleVentaData();
+        this.vData = new VentaData();
+        this.uData = new UsuarioData();
         initComponents();
         cargaCombo();
         cabecera();

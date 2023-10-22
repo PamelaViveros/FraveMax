@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -50,7 +52,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     private int idArrayList = 0;
 
-    public JInternalNuevaVenta() {
+    public JInternalNuevaVenta() throws SQLException {
         initComponents();
 
         this.setSize(new Dimension(800, 600));
@@ -307,7 +309,12 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private void jBut_buscaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBut_buscaClienteActionPerformed
 
         String Cliente_a_Buscar = jtxtCilente_busqueda.getText().trim();
-        Connection con = Conexion.getConexion();
+        Connection con = null;
+        try {
+            con = Conexion.getConexion();
+        } catch (SQLException ex) {
+            Logger.getLogger(JInternalNuevaVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String sql = "SELECT Apellido, Nombre FROM `Cliente` WHERE Dni = '" + Cliente_a_Buscar + "' ";
         Statement st;
 
@@ -351,9 +358,12 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                     try {
 
                         cantidad = Integer.parseInt(jtxt_Cantidad.getText());
+                        
+                        this.ObtenerDdatosDeProducto();    
+                                                
                         if (cantidad > 0) {
 
-                            this.ObtenerDdatosDeProducto();
+                            
 
                             System.out.println("cantidad: " + cantidad);
                             System.out.println(id_Producto + " " + nombre);
@@ -401,6 +411,8 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida");
 
+                    } catch (SQLException ex) {
+                        System.out.println("Error " + ex );
                     }
 
                 } else {
@@ -503,7 +515,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     *Cargar clientes en combobox
     *
      */
-    private void cargarCBCliente() {
+    private void cargarCBCliente() throws SQLException {
 
         Connection con = Conexion.getConexion();
         String sql = "SELECT * FROM `Cliente`";
@@ -533,7 +545,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     *Cargar productos al comboProductos
     *
      */
-    private void cargarCBProductos() {
+    private void cargarCBProductos() throws SQLException {
 
         Connection con = Conexion.getConexion();
         String sql = "SELECT * FROM Producto";
@@ -549,12 +561,17 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
             while (rs.next()) {
 
                 jCB_Producto.addItem(rs.getString("NombreProducto") + " " + rs.getString("Descripcion"));
-
+                //id_Producto = rs.getInt("idProducto");
+                //nombre = rs.getString("NombreProducto");
+                //cantidadProducto_BD = rs.getInt("Stock");
+                //precioUnitario = rs.getDouble("PrecioActual");
             }
             //con.close();
 
         } catch (SQLException e) {
             System.out.println("Error al cargar Producto " + e);
+        } finally{
+            Conexion.cerrarConexion(con);
         }
 
     }
@@ -573,32 +590,26 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     /*
     *Para mostrar los datos del Producto
      */
-    private void ObtenerDdatosDeProducto() {
-
+    private void ObtenerDdatosDeProducto() throws SQLException {
+             
         try {
-            // Utilizo PreparedStatement para evitar problemas de SQL injection
+            String sql = "SELECT * FROM Producto Where NombreProducto = '" + this.jCB_Producto.getSelectedItem() + "';";
             Connection con = Conexion.getConexion();
-            String sql = "SELECT * FROM Producto WHERE `NombreProducto` = ?";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);           
 
-            try (PreparedStatement st = con.prepareStatement(sql)) {
-                // Para evitar la concatenación de cadenas al construir la consulta
-                st.setString(1, (String) this.jCB_Producto.getSelectedItem());
-
-                try (ResultSet rs = st.executeQuery()) {
-                    while (rs.next()) {
-                        id_Producto = rs.getInt("idProducto");
-                        nombre = rs.getString("NombreProducto");
-                        cantidadProducto_BD = rs.getInt("Stock");
-                        precioUnitario = rs.getDouble("PrecioActual");
-                    }
-                }
+            while (rs.next()) {             
+                id_Producto = rs.getInt("idProducto");
+                nombre = rs.getString("NombreProducto");
+                cantidadProducto_BD = rs.getInt("Stock");
+                precioUnitario = rs.getDouble("PrecioActual");
             }
+            //con.close();
 
         } catch (SQLException e) {
-
-            e.printStackTrace();
-            System.out.println("Error al obtener los datos del producto");
-        }
+            System.out.println("Error al cargar Producto " + e);
+        } 
 
     }
 

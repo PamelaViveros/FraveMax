@@ -26,7 +26,7 @@ public class UsuarioData {
     private Connection con = null;
     public static List<Usuario> usuarios = new ArrayList<>();
     
-    public UsuarioData(){
+    public UsuarioData() throws SQLException{
         con= Conexion.getConexion();
     }
     
@@ -126,7 +126,7 @@ public class UsuarioData {
     }
     
     
-    public boolean loginUsuario (Usuario obj){
+    public boolean loginUsuario (Usuario obj) throws SQLException{
     
         boolean resp = false;
         

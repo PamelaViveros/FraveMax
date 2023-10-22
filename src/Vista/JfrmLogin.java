@@ -6,6 +6,9 @@ import Entidades.Usuario;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -185,7 +188,11 @@ public class JfrmLogin extends javax.swing.JFrame {
 
     private void jbIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIniciarSesionActionPerformed
         
-        this.Login();
+        try {
+            this.Login();
+        } catch (SQLException ex) {
+            System.out.println("Error " + ex);
+        }
         
     }//GEN-LAST:event_jbIniciarSesionActionPerformed
 
@@ -199,7 +206,11 @@ public class JfrmLogin extends javax.swing.JFrame {
     private void jpPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpPasswordKeyPressed
         
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            this.Login();
+            try {
+                this.Login();
+            } catch (SQLException ex) {
+                System.out.println("Error " + ex);
+            }
         }
     }//GEN-LAST:event_jpPasswordKeyPressed
 
@@ -252,7 +263,7 @@ public class JfrmLogin extends javax.swing.JFrame {
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    private void Login(){
+    private void Login() throws SQLException{
         
         if (!jtUsuario.getText().isEmpty() && !jpPassword.getText().isEmpty() ) {
             

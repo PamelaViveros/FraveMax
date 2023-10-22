@@ -13,7 +13,7 @@ public class DetalleVentaData {
     
     private Connection con = null;
     
-    public DetalleVentaData(){
+    public DetalleVentaData() throws SQLException{
 
         con = Conexion.getConexion();
 

@@ -27,7 +27,7 @@ public class VentaData {
     private Connection con = null;
     public static List<Venta> ventas =new ArrayList<>();
         
-    public VentaData(){
+    public VentaData() throws SQLException{
     
         con = Conexion.getConexion();
     }

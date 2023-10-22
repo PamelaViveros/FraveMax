@@ -25,7 +25,7 @@ public class ProductoData {
  public static List<Producto> productos = new ArrayList<>();
 
 
-    public ProductoData() {
+    public ProductoData() throws SQLException {
         con = Conexion.getConexion();
     }
 

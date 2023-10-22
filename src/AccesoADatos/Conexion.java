@@ -26,9 +26,9 @@ public class Conexion {
     private Conexion() {
     }
 
-    public static Connection getConexion() {
+    public static Connection getConexion() throws SQLException{
 
-        if (connection == null) {
+        if (connection == null || connection.isClosed()) {
 
             try {
               
@@ -43,6 +43,18 @@ public class Conexion {
 
         }
         return connection;
+    }
+    
+    public static void cerrarConexion(Connection conexion){
+        
+        try {
+            if (conexion != null && !conexion.isClosed()){
+                conexion.close();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    
     }
 
 }

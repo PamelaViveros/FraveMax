@@ -10,6 +10,9 @@ import Entidades.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -126,7 +129,12 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
     private void jbutton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbutton_guardarActionPerformed
         
         Cliente cliente = new Cliente();
-        ClienteData clienteData = new ClienteData();
+        ClienteData clienteData = null;
+        try {
+            clienteData = new ClienteData();
+        } catch (SQLException ex) {
+            Logger.getLogger(JInternalCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if ( !jtxt_apellido.getText().equals("") && !jtxt_nombre.getText().equals("") && 
                 !jtxt_dni.getText().equals("")) {
