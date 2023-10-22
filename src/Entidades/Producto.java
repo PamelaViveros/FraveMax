@@ -35,6 +35,12 @@ public class Producto {
         this.estado = estado;
     }
 
+    public Producto(String nombreProducto, String descripcion) {
+        this.nombreProducto = nombreProducto;
+        this.descripcion = descripcion;
+    }
+    
+    
     public Producto() {//tres constructores este vacio
     }
 
@@ -88,7 +94,7 @@ public class Producto {
 
     @Override
     public String toString() {//igual que el cliente puede estar sujeto a ediciones
-       return  idProducto + ", " + nombreProducto + ", " + descripcion ;
+       return nombreProducto + " " + descripcion ;
     } 
     
     

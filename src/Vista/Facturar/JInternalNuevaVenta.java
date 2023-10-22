@@ -358,12 +358,10 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                     try {
 
                         cantidad = Integer.parseInt(jtxt_Cantidad.getText());
-                        
-                        this.ObtenerDdatosDeProducto();    
-                                                
+                                                                                                  
                         if (cantidad > 0) {
 
-                            
+                            this.ObtenerDdatosDeProducto();
 
                             System.out.println("cantidad: " + cantidad);
                             System.out.println(id_Producto + " " + nombre);
@@ -559,14 +557,14 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
             jCB_Producto.addItem("Seleccione Producto:");
 
             while (rs.next()) {
-
-                jCB_Producto.addItem(rs.getString("NombreProducto") + " " + rs.getString("Descripcion"));
+                
+                jCB_Producto.addItem(rs.getString("NombreProducto"));
                 //id_Producto = rs.getInt("idProducto");
                 //nombre = rs.getString("NombreProducto");
                 //cantidadProducto_BD = rs.getInt("Stock");
                 //precioUnitario = rs.getDouble("PrecioActual");
             }
-            //con.close();
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Error al cargar Producto " + e);
@@ -591,26 +589,28 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     *Para mostrar los datos del Producto
      */
     private void ObtenerDdatosDeProducto() throws SQLException {
-             
+        
         try {
-            String sql = "SELECT * FROM Producto Where NombreProducto = '" + this.jCB_Producto.getSelectedItem() + "';";
             Connection con = Conexion.getConexion();
-            Statement st;
-            st = con.createStatement();
+            
+            String sql = "SELECT * FROM Producto WHERE NombreProducto = '" + this.jCB_Producto.getSelectedItem() + "'";
+            
+            Statement st = con.createStatement();            
             ResultSet rs = st.executeQuery(sql);           
-
+            
             while (rs.next()) {             
                 id_Producto = rs.getInt("idProducto");
                 nombre = rs.getString("NombreProducto");
                 cantidadProducto_BD = rs.getInt("Stock");
                 precioUnitario = rs.getDouble("PrecioActual");
+                System.out.println("paso 4");
             }
             //con.close();
 
         } catch (SQLException e) {
             System.out.println("Error al cargar Producto " + e);
         } 
-
+        
     }
 
     private void calculoTotalPagar() {
