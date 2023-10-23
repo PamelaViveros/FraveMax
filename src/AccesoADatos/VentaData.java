@@ -104,7 +104,7 @@ public class VentaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas " + ex.getMessage());
         }
         return venta;
     }
@@ -114,7 +114,7 @@ public class VentaData {
         
         String sql="SELECT * FROM Ventas WHERE idCliente= ? AND Estado=1";
         PreparedStatement ps=null;
-        ventas= new ArrayList();
+     
 
         try {
             ps = con.prepareStatement(sql);
@@ -131,14 +131,14 @@ public class VentaData {
             }                      
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas " + ex.getMessage());
         }
         return ventas;
     }
 
        
     public List <Venta> buscarVentasxFecha(LocalDate fecha){
-         ventas = new ArrayList();
+
        
         String sql="SELECT * FROM Ventas WHERE FechaVent= ? AND Estado=1";
         PreparedStatement ps=null;
@@ -161,7 +161,7 @@ public class VentaData {
 
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas " + ex.getMessage());
         }
 
         return ventas;
@@ -173,7 +173,7 @@ public class VentaData {
         
         String sql="SELECT * FROM Ventas WHERE idUsuario=? AND Estado=1";
         PreparedStatement ps=null;
-        ventas = new ArrayList();
+      
 
         try {
             ps = con.prepareStatement(sql);
@@ -194,7 +194,7 @@ public class VentaData {
             
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas " + ex.getMessage());
         }
 
         return ventas;
@@ -222,7 +222,7 @@ public class VentaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas " + ex.getMessage());
         }
 
         return ventas;

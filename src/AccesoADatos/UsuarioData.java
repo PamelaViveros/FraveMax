@@ -60,7 +60,7 @@ public class UsuarioData {
         
          Usuario usuario = new Usuario();
         
-        String sql="SELECT  * FROM Usuario WHERE idUsuario= ? AND Estado=1";
+        String sql="SELECT Apellido , Nombre FROM Usuario WHERE idUsuario= ? AND Estado=1";
         PreparedStatement ps=null;
         try {
             ps = con.prepareStatement(sql);
@@ -73,12 +73,12 @@ public class UsuarioData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+            JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Usuarios " +ex.getMessage());
         }
         return usuario;
         
         
-    }
+    } 
         
     
     public void eliminarUsuario(int idUsuario){
