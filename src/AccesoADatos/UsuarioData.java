@@ -60,7 +60,7 @@ public class UsuarioData {
         
          Usuario usuario = new Usuario();
         
-        String sql="SELECT  * FROM Ventas WHERE idVenta= ? AND Estado=1";
+        String sql="SELECT  * FROM Usuario WHERE idUsuario= ? AND Estado=1";
         PreparedStatement ps=null;
         try {
             ps = con.prepareStatement(sql);
