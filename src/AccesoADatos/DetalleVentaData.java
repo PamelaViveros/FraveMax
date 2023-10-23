@@ -21,7 +21,7 @@ public class DetalleVentaData {
     
     public void guardarDetalleVenta(DetalleVenta dv){
     
-       String sql = "INSERT INTO DetalleVenta( Cantidad, idVenta, PrecioVenta, idProducto)  VALUES (?,?,?,?)";
+       String sql = "INSERT INTO DetalleVenta( Cantidad, idVenta, PrecioVenta, idProducto, SubTotal, Descuento, TotalPagar)  VALUES (?, ?, ?, ?, ?, ?, ?)";
        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -29,8 +29,10 @@ public class DetalleVentaData {
             ps.setInt(2, dv.getIdVenta());
             ps.setDouble(3, dv.getPrecioUnitario());
             ps.setInt(4, dv.getIdProducto());
-            
-            
+            ps.setDouble(5, dv.getSubTotal());
+            ps.setDouble(6, dv.getDescuento());
+            ps.setDouble(7, dv.getTotalPagar());
+                                 
             ResultSet rs = ps.getGeneratedKeys();
             
             if(rs.next()){
