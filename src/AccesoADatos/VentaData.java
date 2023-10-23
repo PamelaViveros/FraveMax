@@ -200,10 +200,7 @@ public class VentaData {
         return ventas;
 
     }
-
-
-    
-    
+      
     public List<Venta> porProducto(int idProd){
         
          String sql="SELECT Ventas.idVenta, Ventas.idCliente, Ventas.FechaVent, Ventas.idUsuario FROM Ventas  JOIN DetalleVenta ON "
