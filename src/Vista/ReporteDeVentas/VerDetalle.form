@@ -161,10 +161,19 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tIdProd">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tCant">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tNombreProd">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <Properties>
@@ -178,6 +187,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="tDescProd">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
@@ -190,6 +200,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tFechaV">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -197,6 +210,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tUser">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -204,6 +220,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tPUnit">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -211,6 +230,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tPtotal">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="Titulo">
       <Properties>

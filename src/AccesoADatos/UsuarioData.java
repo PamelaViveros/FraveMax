@@ -53,6 +53,32 @@ public class UsuarioData {
             JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Usuario" +ex.getMessage());
         }
     }
+    
+    
+    
+    public Usuario buscarUsuario(int idUsuario){
+        
+         Usuario usuario = new Usuario();
+        
+        String sql="SELECT  * FROM Ventas WHERE idVenta= ? AND Estado=1";
+        PreparedStatement ps=null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                usuario.setApellido(rs.getNString("Apellido"));
+                usuario.setNombre(rs.getNString("Nombre"));
+                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+        }
+        return usuario;
+        
+        
+    }
         
     
     public void eliminarUsuario(int idUsuario){
