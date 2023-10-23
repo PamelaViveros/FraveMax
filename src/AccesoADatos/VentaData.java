@@ -23,202 +23,194 @@ import javax.swing.JOptionPane;
  * @author Gaming
  */
 public class VentaData {
-    
+
     private Connection con = null;
-    public static List<Venta> ventas =new ArrayList<>();
-        
-    public VentaData() throws SQLException{
-    
+    public static List<Venta> ventas = new ArrayList<>();
+
+    public VentaData() throws SQLException {
+
         con = Conexion.getConexion();
     }
-    
+
     public void guardarVenta(Venta v) {
-        
-        String sql="INSERT INTO Ventas (IdCliente, FechaVent, Estado) VALUES (?,?,?)";
-        PreparedStatement ps=null;
-        try{
-             ps=con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-             ps.setInt(1, v.getIdCliente());
+
+        String sql = "INSERT INTO Ventas (IdCliente, FechaVent, idUsuario, Estado) VALUES (?,?,?, ?)";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, v.getIdCliente());
             ps.setDate(2, Date.valueOf(v.getFechaVenta())); //Parseo LocalDate a Date
-            ps.setBoolean(3, true);
-            int res=ps.executeUpdate();
-            if (res==1) {
+            ps.setInt(3, v.getIdUsuario());
+            ps.setBoolean(4, true);
+            int res = ps.executeUpdate();
+            if (res == 1) {
                 JOptionPane.showMessageDialog(null, "Venta guardada con éxito");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar la venta");
             }
-            
-            
+
             ps.close();
-            
+
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
-        } 
-        
-        
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
+        }
+
     }
-    
-    public List<Venta> listarVentas(){
-         String sql="SELECT * FROM ventas WHERE Estado=1";
-        PreparedStatement ps=null;
-        
+
+    public List<Venta> listarVentas() {
+        String sql = "SELECT * FROM ventas WHERE Estado=1";
+        PreparedStatement ps = null;
+
         try {
             ps = con.prepareStatement(sql);
-            
+
             ResultSet rs = ps.executeQuery();
-            
-               while (rs.next()) {
-                 Venta venta=new Venta();
-                 venta.setIdVenta(rs.getInt("idVenta"));
-                 venta.setIdCliente(rs.getInt("idCliente"));
-                  venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
-                   venta.setIdUsuario(rs.getInt("idUsuario"));
-                 ventas.add(venta);
-             }
+
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setIdCliente(rs.getInt("idCliente"));
+                venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                ventas.add(venta);
+            }
             ps.close();
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
         }
         return ventas;
     }
-    
-    
-    public Venta buscarVenta(int idVenta){
-         Venta venta=new Venta();
-        
-        String sql="SELECT  * FROM ventas WHERE idVenta= ? AND Estado=1";
-        PreparedStatement ps=null;
-          try {
+
+    public Venta buscarVenta(int idVenta) {
+        Venta venta = new Venta();
+
+        String sql = "SELECT  * FROM ventas WHERE idVenta= ? AND Estado=1";
+        PreparedStatement ps = null;
+        try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, idVenta);
             ResultSet rs = ps.executeQuery();
-              if (rs.next()) {
-                 venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate()); 
-                   venta.setIdCliente(rs.getInt("idCliente"));
-                  venta.setIdUsuario(rs.getInt("idUsuario"));
-                  
-                 }
-              ps.close();
-          } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+            if (rs.next()) {
+                venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
+                venta.setIdCliente(rs.getInt("idCliente"));
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
         }
-          return venta;
+        return venta;
     }
-    
-    
-    public List<Venta> buscarVentasxCliente(int idCliente){
-       
-        
-        String sql="SELECT * FROM ventas WHERE idCliente= ? AND Estado=1";
-        PreparedStatement ps=null;
-        
+
+    public List<Venta> buscarVentasxCliente(int idCliente) {
+
+        String sql = "SELECT * FROM ventas WHERE idCliente= ? AND Estado=1";
+        PreparedStatement ps = null;
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, idCliente);
             ResultSet rs = ps.executeQuery();
-            
-             while (rs.next()) {
-                 Venta venta=new Venta();
-                 venta.setIdVenta(rs.getInt("idVenta"));
-                  venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
-                   venta.setIdUsuario(rs.getInt("idUsuario"));
-                 ventas.add(venta);
-             }
+
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                ventas.add(venta);
+            }
             ps.close();
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
         }
         return ventas;
     }
-    
-    public List <Venta> buscarVentasxFecha(LocalDate fecha){
-         
-       
-        String sql="SELECT * FROM ventas WHERE FechaVent= ? AND Estado=1";
-        PreparedStatement ps=null;
-        
+
+    public List<Venta> buscarVentasxFecha(LocalDate fecha) {
+
+        String sql = "SELECT * FROM ventas WHERE FechaVent= ? AND Estado=1";
+        PreparedStatement ps = null;
+
         try {
             ps = con.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(fecha));
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
-                Venta venta=new Venta();
-                 venta.setIdVenta(rs.getInt("idVenta"));
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
                 venta.setIdCliente(rs.getInt("idCliente"));
-                  venta.setFechaVenta(fecha);
-                   venta.setIdUsuario(rs.getInt("idUsuario"));
-                 ventas.add(venta);
-             }
+                venta.setFechaVenta(fecha);
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                ventas.add(venta);
+            }
             ps.close();
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
         }
-        
+
         return ventas;
-        
-        
+
     }
-    
-    
-    public List<Venta> ventasPorUsuario(int idUsuario){
-        
-        String sql="SELECT * FROM ventas WHERE idUsuario=? AND Estado=1";
-        PreparedStatement ps=null;
-        
+
+    public List<Venta> ventasPorUsuario(int idUsuario) {
+
+        String sql = "SELECT * FROM ventas WHERE idUsuario=? AND Estado=1";
+        PreparedStatement ps = null;
+
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idUsuario );
+            ps.setInt(1, idUsuario);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
-                Venta venta=new Venta();
-                 venta.setIdVenta(rs.getInt("idVenta"));
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
                 venta.setIdCliente(rs.getInt("idCliente"));
-                  venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
-                   venta.setIdUsuario(rs.getInt("idUsuario"));
-                 ventas.add(venta);
-             }
+                venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                ventas.add(venta);
+            }
             ps.close();
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
         }
-        
+
         return ventas;
-        
+
     }
-    
-    public List<Venta> porProducto(int idProd){
-        
-         String sql="SELECT ventas.idVenta, ventas.idCliente, ventas.FechaVent, ventas.idUsuario FROM ventas  JOIN detalleVenta ON "
-                 + "(ventas.idVenta=detalleventa.idVenta) WHERE IdProducto=? And ventas.Estado=1";
-        PreparedStatement ps=null;
-        
+
+    public List<Venta> porProducto(int idProd) {
+
+        String sql = "SELECT ventas.idVenta, ventas.idCliente, ventas.FechaVent, ventas.idUsuario FROM ventas  JOIN detalleVenta ON "
+                + "(ventas.idVenta=detalleventa.idVenta) WHERE IdProducto=? And ventas.Estado=1";
+        PreparedStatement ps = null;
+
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, idProd );
+            ps.setInt(1, idProd);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
-                Venta venta=new Venta();
-                 venta.setIdVenta(rs.getInt("idVenta"));
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
                 venta.setIdCliente(rs.getInt("idCliente"));
-                  venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
-                   venta.setIdUsuario(rs.getInt("idUsuario"));
-                 ventas.add(venta);
-             }
+                venta.setFechaVenta(rs.getDate("FechaVent").toLocalDate());
+                venta.setIdUsuario(rs.getInt("idUsuario"));
+                ventas.add(venta);
+            }
             ps.close();
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"No se pudo acceder a la tabla Ventas" +ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
         }
-        
+
         return ventas;
-        
-        
+
     }
-    
-    public void eliminarVenta(int idVenta){
-        
+
+    public void eliminarVenta(int idVenta) {
+
         String sql = "UPDATE Ventas SET Estado=0 WHERE idVenta=?";
 
         PreparedStatement ps;
@@ -237,7 +229,7 @@ public class VentaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ventas " + ex.getMessage());
         }
-        
+
     }
-    
+
 }

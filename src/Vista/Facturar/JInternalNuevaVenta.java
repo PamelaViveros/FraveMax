@@ -6,7 +6,9 @@
 package Vista.Facturar;
 
 import AccesoADatos.Conexion;
+import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
+import Entidades.Venta;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -300,6 +302,11 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jBut_Cobrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBut_Cobrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBut_Cobrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBut_Cobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBut_CobrarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jBut_Cobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 135, 130));
         getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 570));
 
@@ -478,6 +485,20 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jTable_ProductosMouseClicked
 
+    private void jBut_CobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBut_CobrarActionPerformed
+        DetalleVenta detalleVenta = new DetalleVenta();
+        Venta venta = new Venta();
+        try {
+            VentaData vData = new VentaData();
+        } catch (SQLException ex) {
+            Logger.getLogger(JInternalNuevaVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+                
+          
+    }//GEN-LAST:event_jBut_CobrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBut_AgregProd;
@@ -558,7 +579,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
             while (rs.next()) {
                 
-                jCB_Producto.addItem(rs.getString("NombreProducto"));
+                jCB_Producto.addItem(rs.getString("NombreProducto") + " " + rs.getString("Descripcion"));
                 //id_Producto = rs.getInt("idProducto");
                 //nombre = rs.getString("NombreProducto");
                 //cantidadProducto_BD = rs.getInt("Stock");
@@ -593,7 +614,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         try {
             Connection con = Conexion.getConexion();
             
-            String sql = "SELECT * FROM Producto WHERE NombreProducto = '" + this.jCB_Producto.getSelectedItem() + "'";
+            String sql = "SELECT * FROM Producto WHERE concat (NombreProducto,' ',Descripcion) = '" + this.jCB_Producto.getSelectedItem() + "'";
             
             Statement st = con.createStatement();            
             ResultSet rs = st.executeQuery(sql);           

@@ -103,6 +103,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jmItem4_nuevo_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/nuevo.png"))); // NOI18N
         jmItem4_nuevo_usuario.setText("Nuevo Usuario");
         jmItem4_nuevo_usuario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
+        jmItem4_nuevo_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmItem4_nuevo_usuarioActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmItem4_nuevo_usuario);
 
         jmItem5_gestinar_usuarios.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -372,6 +377,10 @@ public class JfrMenu1 extends javax.swing.JFrame {
         nuevoProducto.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem8_nuevo_productoActionPerformed
+
+    private void jmItem4_nuevo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItem4_nuevo_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmItem4_nuevo_usuarioActionPerformed
 
     /**
      * @param args the command line arguments
