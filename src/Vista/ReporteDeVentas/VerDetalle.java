@@ -266,7 +266,7 @@ public void seteo(){
     tDescProd.setText(prod.getDescripcion() + "");  //Descripcion
     tCant.setText(dv.getCantidad() + "");   //Cantidad
     tFechaV.setText(fechaOk);    //Fecha de venta
-    tUser.setText(v.getIdUsuario()+" - "+u.getApellido()+", "+u.getNombre());  //Usuario-Vendedor
+    tUser.setText(u.getIdUsuario()+" - "+u.getApellido()+", "+u.getNombre());  //Usuario-Vendedor
     tPtotal.setText((prod.getPrecioActual()*dv.getCantidad()+""));     //Precio total
 
     
