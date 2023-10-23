@@ -43,9 +43,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
    
-    public boolean isCellEditable(int f, int c) {
-        return false;
-    }
+   
     public PorCliente() throws SQLException {
         this.pData = new ProductoData();
         this.cData = new ClienteData();

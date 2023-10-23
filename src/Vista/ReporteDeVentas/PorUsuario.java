@@ -93,6 +93,11 @@ public class PorUsuario extends javax.swing.JInternalFrame {
                 "ID", "Cliente", "Nombre producto", "Fecha venta"
             }
         ));
+        tListaVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tListaVentasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tListaVentas);
         if (tListaVentas.getColumnModel().getColumnCount() > 0) {
             tListaVentas.getColumnModel().getColumn(0).setResizable(false);
@@ -210,6 +215,10 @@ public class PorUsuario extends javax.swing.JInternalFrame {
           }
 
     }//GEN-LAST:event_VerDetalleActionPerformed
+
+    private void tListaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tListaVentasMouseClicked
+         VerDetalle.setEnabled(true);
+    }//GEN-LAST:event_tListaVentasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
