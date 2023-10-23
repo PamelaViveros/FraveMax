@@ -29,7 +29,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PorFecha extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int f, int c) {
+        return false;
+    }
+    };
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     UsuarioData uData;
     VentaData vData;

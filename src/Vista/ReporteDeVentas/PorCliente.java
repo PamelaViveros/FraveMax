@@ -30,7 +30,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PorCliente extends javax.swing.JInternalFrame {
 
-   DefaultTableModel modelo = new DefaultTableModel();
+   DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int f, int c) {
+        return false;
+    }
+    };
     VentaData vData;
     DetalleVentaData dvData;
     ClienteData cData;
