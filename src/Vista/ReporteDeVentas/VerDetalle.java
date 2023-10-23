@@ -11,6 +11,7 @@ import AccesoADatos.UsuarioData;
 import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
+import Entidades.Usuario;
 import Entidades.Venta;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -80,19 +81,34 @@ public class VerDetalle extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Descripcion");
 
+        tIdProd.setEditable(false);
+
+        tCant.setEditable(false);
+
+        tNombreProd.setEditable(false);
+
         jScrollPane1.setEnabled(false);
 
+        tDescProd.setEditable(false);
         tDescProd.setColumns(20);
         tDescProd.setRows(5);
         jScrollPane1.setViewportView(tDescProd);
 
         jLabel5.setText("Fecha de venta");
 
+        tFechaV.setEditable(false);
+
         jLabel6.setText("id/ Usuario");
+
+        tUser.setEditable(false);
 
         jLabel7.setText("Precio unitario");
 
+        tPUnit.setEditable(false);
+
         jLabel8.setText("Precio Total");
+
+        tPtotal.setEditable(false);
 
         Titulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Titulo.setText("Detalle de Venta Nº ");
@@ -235,6 +251,7 @@ public void seteo(){
     
     Titulo.setText("Detalle de la venta Nº "+id);
     Venta v = vData.buscarVenta(id);
+    Usuario u = uData.buscarUsuario(v.getIdUsuario());
     System.out.println(v.toString());
     DetalleVenta dv = dvData.detallarVenta(id);
     System.out.println(dv.toString());
@@ -249,7 +266,7 @@ public void seteo(){
     tDescProd.setText(prod.getDescripcion() + "");  //Descripcion
     tCant.setText(dv.getCantidad() + "");   //Cantidad
     tFechaV.setText(fechaOk);    //Fecha de venta
-    tUser.setText("");  //Usuario-Vendedor
+    tUser.setText(v.getIdUsuario()+" - "+u.getApellido()+", "+u.getNombre());  //Usuario-Vendedor
     tPtotal.setText((prod.getPrecioActual()*dv.getCantidad()+""));     //Precio total
 
     
