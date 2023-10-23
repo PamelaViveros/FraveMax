@@ -17,6 +17,7 @@ public class Venta {
     private int idCliente;
     private LocalDate fechaVenta;
     public int idUsuario;
+    public boolean estado;
 
     public Venta() {
     }
@@ -27,11 +28,12 @@ public class Venta {
         this.idUsuario = idUsuario;
     }
 
-    public Venta(int idVenta, int idCliente, LocalDate fechaVenta, int idUsuario) {
+    public Venta(int idVenta, int idCliente, LocalDate fechaVenta, int idUsuario, boolean estado) {
         this.idVenta = idVenta;
         this.idCliente = idCliente;
         this.fechaVenta = fechaVenta;
         this.idUsuario = idUsuario;
+        this.estado = estado;
     }
 
     public int getIdVenta() {
@@ -66,6 +68,13 @@ public class Venta {
         this.idUsuario = idUsuario;
     }
     
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
     
     @Override
     public String toString() {

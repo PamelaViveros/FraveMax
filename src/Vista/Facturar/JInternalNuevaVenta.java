@@ -6,16 +6,22 @@
 package Vista.Facturar;
 
 import AccesoADatos.Conexion;
+import AccesoADatos.DetalleVentaData;
 import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
 import Entidades.Venta;
+import Vista.JfrmLogin;
+import com.sun.jndi.cosnaming.CNCtx;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -35,6 +41,10 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     ArrayList<DetalleVenta> listaProductos = new ArrayList<>();
     private DetalleVenta producto;
 
+    private int idCliente = 0; // Cliente Seleccionado
+    private int idUsuario = 0; // Usuario logeado
+    private String nom_vendedor = "";
+    
     private int id_Producto = 0;
     private String nombre = "";
     private int cantidadProducto_BD = 0;
@@ -141,6 +151,8 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jtxt_cambio = new javax.swing.JTextField();
         jBut_CalcularCambio = new javax.swing.JButton();
         jBut_Cobrar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jtxt_vendedor = new javax.swing.JTextField();
         jLabel_wallpaper = new javax.swing.JLabel();
 
         setClosable(true);
@@ -308,6 +320,16 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jBut_Cobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 135, 130));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel10.setText("Vendedor:");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
+
+        jtxt_vendedor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jtxt_vendedor.setForeground(new java.awt.Color(102, 255, 204));
+        getContentPane().add(jtxt_vendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 110, -1));
         getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 570));
 
         pack();
@@ -458,7 +480,6 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBut_CalcularCambioActionPerformed
 
-
     private void jTable_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ProductosMouseClicked
 
         int filaP = jTable_Productos.rowAtPoint(evt.getPoint());
@@ -487,9 +508,48 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     private void jBut_CobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBut_CobrarActionPerformed
         DetalleVenta detalleVenta = new DetalleVenta();
-        Venta venta = new Venta();
+        Venta venta = new Venta();      
+        
         try {
             VentaData vData = new VentaData();
+            DetalleVentaData dDetalleVentaData = new DetalleVentaData();
+            
+            String fecha_actual = "";
+            Date date = new Date();
+            fecha_actual = new SimpleDateFormat("yyyy/MM/dd").format(date);
+
+            if(!jCB_Cliente.getSelectedItem().equals("Seleccione cliente:")){
+                if (listaProductos.size() > 0) {
+                    
+                    this.obtenerIdClienteSeleccionado();
+                    
+                    venta.setIdVenta(0);
+                    venta.setIdCliente(idCliente);
+                    venta.setFechaVenta(LocalDate.parse(fecha_actual));
+                    //venta.setIdUsuario();
+                    venta.setEstado(true);
+                    
+                    if (dDetalleVentaData.guardarDetalle(detalleVenta)) {
+                        
+                        JOptionPane.showMessageDialog(null, "¡Detalle Cargado exitosamente!");
+                        for (DetalleVenta elem : listaProductos) {
+                            detalleVenta.setIdDetalleVenta(0);
+                            detalleVenta.setIdProducto(elem.getIdProducto());
+                            detalleVenta.setCantidad(elem.getCantidad());
+                            detalleVenta.setPrecioUnitario(elem.getPrecioUnitario());
+                            detalleVenta.setSubTotal(elem.getSubTotal());
+                            detalleVenta.setTotalPagar(elem.getTotalPagar());
+                            detalleVenta.setEstado(1);
+                        }
+                    }else{
+                       JOptionPane.showMessageDialog(null, "Error al guardar detalleVenta"); 
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "¡Antes debe seleccionar almenos un Producto!");
+                }
+            } else{
+                JOptionPane.showMessageDialog(null, "¡Antes debe seleccionar un Cliente!");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(JInternalNuevaVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -508,6 +568,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jCB_Cliente;
     private javax.swing.JComboBox<String> jCB_Producto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -528,6 +589,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtxt_efectivo;
     private javax.swing.JTextField jtxt_subTotal;
     private javax.swing.JTextField jtxt_total_A_Pagar;
+    private javax.swing.JTextField jtxt_vendedor;
     // End of variables declaration//GEN-END:variables
 
     /*
@@ -580,10 +642,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
             while (rs.next()) {
                 
                 jCB_Producto.addItem(rs.getString("NombreProducto") + " " + rs.getString("Descripcion"));
-                //id_Producto = rs.getInt("idProducto");
-                //nombre = rs.getString("NombreProducto");
-                //cantidadProducto_BD = rs.getInt("Stock");
-                //precioUnitario = rs.getDouble("PrecioActual");
+                
             }
             con.close();
 
@@ -653,7 +712,16 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jtxt_descuento.setText(String.valueOf(descuentoFinal));
         jtxt_total_A_Pagar.setText(String.valueOf(totalPagarFinal));
     }
-
+    
+    private void nombreVendedor(){
+        
+        idUsuario = 0;
+        nom_vendedor = "";
+        
+        
+        
+    }
+    
     private boolean validarDouble(String valor) {
 
         try {
@@ -664,4 +732,24 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    private void obtenerIdClienteSeleccionado(){
+        
+        try {
+            String sql = "SELECT * FROM cliente WHERE concat (Apellido,' ',Nombre) = '" + this.jCB_Cliente.getSelectedItem() + "'";
+            Connection con = Conexion.getConexion();
+            Statement st = con.createStatement();
+            
+            ResultSet rs = st.executeQuery(sql);
+            
+            while(rs.next()){
+                idCliente = rs.getInt("idCliente");
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error al Obtener id del cliente, " + e.getMessage());
+        }
+    }
+    
+    
 }

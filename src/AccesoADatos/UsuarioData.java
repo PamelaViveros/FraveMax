@@ -153,7 +153,8 @@ public class UsuarioData {
     
     
     public boolean loginUsuario (Usuario obj) throws SQLException{
-    
+        
+        Usuario vendedor = null;
         boolean resp = false;
         
         Connection con = Conexion.getConexion();
@@ -166,7 +167,11 @@ public class UsuarioData {
             
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
+            if (rs.next()) {
+                vendedor = new Usuario();
+                vendedor.setIdUsuario(rs.getInt("idUsuario"));
+                vendedor.setNombre(rs.getString("Apellido"));
+            }
             while (rs.next()) {                
                 resp = true;
             }
@@ -177,5 +182,37 @@ public class UsuarioData {
         }
         
         return resp;
+    }
+    
+    public Usuario ObtenerDatosUsuario (Usuario obj) throws SQLException{
+        
+        Usuario vendedor = null;
+        boolean resp = false;
+        
+        Connection con = Conexion.getConexion();
+        String sql = "SELECT `Apellido`, `Password` FROM `Usuario` WHERE"
+                + " `Apellido` = '"+ obj.getApellido() +"' AND `Password` = '"+ obj.getPassword() +"'";
+        
+        Statement st;
+        
+        try {
+            
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                vendedor = new Usuario();
+                vendedor.setIdUsuario(rs.getInt("idUsuario"));
+                vendedor.setNombre(rs.getString("Apellido"));
+            }
+            while (rs.next()) {                
+                resp = true;
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error al Iniciar Sesión");
+            JOptionPane.showMessageDialog(null, "Error al Iniciar Sesión" + e.getMessage());
+        }
+        
+        return vendedor;
     }
 }

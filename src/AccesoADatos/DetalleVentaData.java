@@ -43,9 +43,43 @@ public class DetalleVentaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al entrar a la tabla detalleventa.");
+            JOptionPane.showMessageDialog(null, "Error al guardar Detalle de venta.");
         }
     
+    }
+    public static int idDetalleRegistro;
+    java.math.BigDecimal iDColVar;
+    
+    public boolean guardarDetalle(DetalleVenta dv){
+        
+        boolean resp = false;
+        String sql = "INSERT INTO DetalleVenta( Cantidad, idVenta, PrecioVenta, idProducto, SubTotal, Descuento, TotalPagar)  VALUES (?, ?, ?, ?, ?, ?, ?)";
+       
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, dv.getCantidad());
+            ps.setInt(2, dv.getIdVenta());
+            ps.setDouble(3, dv.getPrecioUnitario());
+            ps.setInt(4, dv.getIdProducto());
+            ps.setDouble(5, dv.getSubTotal());
+            ps.setDouble(6, dv.getDescuento());
+            ps.setDouble(7, dv.getTotalPagar());
+                                 
+            ResultSet rs = ps.getGeneratedKeys();
+            
+            if (ps.executeUpdate() > 0) {
+                resp = true;
+            }
+            
+            while(rs.next()){
+                iDColVar = rs.getBigDecimal(1);
+                idDetalleRegistro = iDColVar.intValue();
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar Detalle de venta.");
+        }
+        return resp;
     }
     
     public DetalleVenta detallarVenta(int id){

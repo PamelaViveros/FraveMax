@@ -263,7 +263,7 @@ public class JfrmLogin extends javax.swing.JFrame {
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    private void Login() throws SQLException{
+    public void Login() throws SQLException{
         
         if (!jtUsuario.getText().isEmpty() && !jpPassword.getText().isEmpty() ) {
             
