@@ -32,7 +32,7 @@ public class UsuarioData {
     
     public void guardarUsuario(Usuario u){
         
-        String sql="INSERT INTO usuario (Apellido, Nombre, Password, Estado) VALUES (?, ?, ?, ?)";
+        String sql="INSERT INTO Usuario (Apellido, Nombre, Password, Estado) VALUES (?, ?, ?, ?)";
         PreparedStatement ps=null;
         try{
             
@@ -43,7 +43,7 @@ public class UsuarioData {
             ps.setBoolean(4, true);
             int res=ps.executeUpdate();
             if (res==1) {
-                JOptionPane.showMessageDialog(null, "Usuario guardad con éxito");
+                JOptionPane.showMessageDialog(null, "Usuario guardado con éxito");
             }else{
                 JOptionPane.showMessageDialog(null, "Error al guardar el usuario");
             }
@@ -57,7 +57,7 @@ public class UsuarioData {
     
     public void eliminarUsuario(int idUsuario){
         
-        String sql = "UPDATE Producto SET Estado=0 WHERE idUsuario=?";
+        String sql = "UPDATE Usuario SET Estado=0 WHERE idUsuario=?";
          PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -72,12 +72,12 @@ public class UsuarioData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Usario " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Usuario " + ex.getMessage());
         }
     }
     
     public void modificarUsuario(Usuario u){
-        String sql = "UPDATE usuario SET Apellido=?, Nombre=?, Password=? , Estado=? WHERE idUsuario=?";
+        String sql = "UPDATE Usuario SET Apellido=?, Nombre=?, Password=? , Estado=? WHERE idUsuario=?";
         
          try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -131,7 +131,7 @@ public class UsuarioData {
         boolean resp = false;
         
         Connection con = Conexion.getConexion();
-        String sql = "SELECT `Apellido`, `Password` FROM `usuario` WHERE"
+        String sql = "SELECT `Apellido`, `Password` FROM `Usuario` WHERE"
                 + " `Apellido` = '"+ obj.getApellido() +"' AND `Password` = '"+ obj.getPassword() +"'";
         
         Statement st;

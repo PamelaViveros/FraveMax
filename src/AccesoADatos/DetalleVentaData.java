@@ -21,7 +21,7 @@ public class DetalleVentaData {
     
     public void guardarDetalleVenta(DetalleVenta dv){
     
-       String sql = "INSERT INTO detalleventa( Cantidad, idVenta, PrecioVenta, idProducto)  VALUES (?,?,?,?)";
+       String sql = "INSERT INTO DetalleVenta( Cantidad, idVenta, PrecioVenta, idProducto)  VALUES (?,?,?,?)";
        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -50,7 +50,7 @@ public class DetalleVentaData {
     
         DetalleVenta dv =new DetalleVenta();
         
-        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad FROM detalleventa WHERE idDetalleVent = ? ";
+        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad FROM DetalleVenta WHERE idDetalleVent = ? ";
     
         PreparedStatement ps = null;
         
@@ -83,7 +83,7 @@ public class DetalleVentaData {
     
     public void eliminarDetalleVenta(int id){
         
-        String sql = "UPDATE detalleventa SET estado = 0 WHERE idDetalleVenta = ? ";
+        String sql = "UPDATE DetalleVenta SET Estado = 0 WHERE idDetalleVenta = ? ";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);

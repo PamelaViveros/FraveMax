@@ -35,8 +35,8 @@ public class ClienteData {
     public boolean guardarCliente( Cliente c){
         
         boolean resp = false;
-        String sql = "INSERT INTO Cliente( Apellido, Nombre, Dni, Domicilio, Telefono) "
-                + "VALUES ( ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Cliente( Apellido, Nombre, Dni, Domicilio, Telefono, Estado) "
+                + "VALUES ( ?, ?, ?, ?, ?,?)";
         
         try {
             
@@ -47,6 +47,8 @@ public class ClienteData {
             ps.setInt(3, c.getDni());
             ps.setString(4, c.getDomicilio());
             ps.setInt(5, c.getTelefono());
+            ps.setInt(6, 1);
+            
             
             
             if (ps.executeUpdate() > 0){

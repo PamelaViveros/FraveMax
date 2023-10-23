@@ -169,7 +169,7 @@ public class JInternalCliente extends javax.swing.JInternalFrame {
                     }
                 } catch (HeadlessException | NumberFormatException e) {
                     
-                    System.out.println("Erroe en: " + e);
+                    System.out.println("Error en: " + e);
                     
                 }
                 
