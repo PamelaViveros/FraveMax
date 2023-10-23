@@ -52,7 +52,8 @@ public class DetalleVentaData {
     
         DetalleVenta dv =new DetalleVenta();
         
-        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad FROM DetalleVenta WHERE idDetalleVent = ? ";
+        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad, SubTotal, Descuento, TotalPagar"
+                + " FROM DetalleVenta WHERE idDetalleVent = ? ";
     
         PreparedStatement ps = null;
         
@@ -69,6 +70,9 @@ public class DetalleVentaData {
                 dv.setIdVenta(rs.getInt("idventa"));
                 dv.setPrecioUnitario(rs.getDouble("PrecioVenta"));
                 dv.setIdProducto(rs.getInt("idProducto"));
+                dv.setSubTotal(rs.getDouble("SubTotal"));
+                dv.setDescuento(rs.getDouble("Descuento"));
+                dv.setTotalPagar(rs.getDouble("TotalPagar"));
             
             } else {
             
