@@ -188,7 +188,7 @@ public class ProductoData {
     }
 
     public void actualizarStock(int idProducto, int cantVendida) {
-        String sql = "SELECT Stock FROM Producto WHERE idProducto = ?";
+        String sql = "SELECT Stock FROM Producto WHERE idProducto = '" + idProducto + "'";
         int stock = 0;
 
         try {

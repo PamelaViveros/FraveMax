@@ -7,6 +7,7 @@ package Vista.Facturar;
 
 import AccesoADatos.Conexion;
 import AccesoADatos.DetalleVentaData;
+import AccesoADatos.ProductoData;
 import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
 import Entidades.Venta;
@@ -37,7 +38,8 @@ import javax.swing.table.DefaultTableModel;
 public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla;
-
+    ProductoData Pdata = new ProductoData();
+    
     //Lista para detalle de venta productos
     ArrayList<DetalleVenta> listaProductos = new ArrayList<>();
     private DetalleVenta producto;
@@ -534,7 +536,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                     
                     if (dDetalleVentaData.guardarDetalle(detalleVenta)) {
                         
-                        JOptionPane.showMessageDialog(null, "¡Detalle Cargado exitosamente!");
+                        JOptionPane.showMessageDialog(null, "¡Venta Cargada exitosamente!");
                         for (DetalleVenta elem : listaProductos) {
                             detalleVenta.setIdDetalleVenta(0);
                             detalleVenta.setIdProducto(elem.getIdProducto());
@@ -543,7 +545,25 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                             detalleVenta.setSubTotal(elem.getSubTotal());
                             detalleVenta.setTotalPagar(elem.getTotalPagar());
                             detalleVenta.setEstado(1);
+                            
+                            if (dDetalleVentaData.guardarDetalle(detalleVenta)){
+                                System.out.println("Detalle Venta Guardado0");
+                                
+                                jtxt_subTotal.setText("0.0");
+                                jtxt_descuento.setText("0.0");
+                                jtxt_total_A_Pagar.setText("0.0");
+                                jtxt_cambio.setText("0.0");
+                                auxIdDetalleVent = 1;
+                                
+                                this.cargarCBCliente();
+                                Pdata.actualizarStock(elem.getIdProducto(),elem.getCantidad());
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Error al guardar el Detalle de Venta");
+                            }
                         }
+                        //Vaciar lista y Tabla.
+                        listaProductos.clear();
+                        listaTablaProducto();
                     }else{
                        JOptionPane.showMessageDialog(null, "Error al guardar detalleVenta"); 
                     }
@@ -557,7 +577,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
             Logger.getLogger(JInternalNuevaVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+       
                 
           
     }//GEN-LAST:event_jBut_CobrarActionPerformed

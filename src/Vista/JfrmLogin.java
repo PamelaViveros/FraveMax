@@ -31,7 +31,7 @@ public class JfrmLogin extends javax.swing.JFrame {
         this.setTitle("Login -MENU DE VENTAS");
         this.setSize(new Dimension (700, 500));
         
-        this.ObtenerDdatosDeUsuarioReg();
+        //this.ObtenerDdatosDeUsuarioReg();
     }
     @Override
     public Image getIconImage(){
@@ -312,7 +312,7 @@ public class JfrmLogin extends javax.swing.JFrame {
         try {
             Connection con = Conexion.getConexion();
             
-            String sql = "SELECT * FROM usuario WHERE concat (Password) = '" + this.jpPassword.getText() + "'";
+            String sql = "SELECT * FROM usuario WHERE Password = '" + this.jpPassword.getText() + "'";
             
             Statement st = con.createStatement();            
             ResultSet rs = st.executeQuery(sql);           
