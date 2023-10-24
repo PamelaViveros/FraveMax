@@ -21,7 +21,7 @@ import javax.swing.JDesktopPane;
 public class JfrMenu1 extends javax.swing.JFrame {
 
     public static JDesktopPane jDesktopPaneMenu;
-    
+    JfrmLogin metodo;
     public JfrMenu1() {
         initComponents();
         this.setSize(new Dimension(1050,600));
@@ -301,11 +301,15 @@ public class JfrMenu1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9_gest_productoActionPerformed
 
     private void jMenuItem11_nueva_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11_nueva_ventaActionPerformed
-        ObtenerDdatosDeUsuarioReg();
+        try {
+            metodo.ObtenerDdatosDeUsuarioReg();
+        } catch (SQLException ex) {
+            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         JInternalNuevaVenta nuevaVenta = null;
         try {
             nuevaVenta = new JInternalNuevaVenta();
-            nuevaVenta.setIdUsuario(idUsuarioReg,ApellUsuario);
+            nuevaVenta.setIdUsuarioApellido(metodo.idUsuarioReg,metodo.ApellUsuario);
         } catch (SQLException ex) {
             Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
         }

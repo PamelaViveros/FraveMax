@@ -331,7 +331,8 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
         jtxt_vendedor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jtxt_vendedor.setForeground(new java.awt.Color(102, 255, 204));
-        getContentPane().add(jtxt_vendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 110, -1));
+        jtxt_vendedor.setEnabled(false);
+        getContentPane().add(jtxt_vendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 150, -1));
         getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 570));
 
         pack();
@@ -528,7 +529,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                     venta.setIdVenta(0);
                     venta.setIdCliente(idCliente);
                     venta.setFechaVenta(LocalDate.parse(fecha_actual));
-                    //venta.setIdUsuario();
+                    venta.setIdUsuario(idUsuario);
                     venta.setEstado(true);
                     
                     if (dDetalleVentaData.guardarDetalle(detalleVenta)) {
@@ -715,7 +716,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jtxt_total_A_Pagar.setText(String.valueOf(totalPagarFinal));
     }
     
-    private void setIdUsuario(int idUsuario, String apellido){
+    public void setIdUsuarioApellido(int idUsuario, String apellido){
         
         jtxt_vendedor.setText(idUsuario+" "+apellido);
                      
