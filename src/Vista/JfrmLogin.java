@@ -21,8 +21,10 @@ import javax.swing.JOptionPane;
  */
 public class JfrmLogin extends javax.swing.JFrame {
 
-    String ApellUsuario = "";
-    int idUsuarioReg = 0;
+    
+    static Usuario usuario = new Usuario();
+    String ApellUsuario;
+    int idUsuarioReg ;
     
     public JfrmLogin() throws SQLException {
         initComponents();
@@ -281,8 +283,7 @@ public class JfrmLogin extends javax.swing.JFrame {
             
             UsuarioData usuario_data = new UsuarioData();           
             
-            Usuario usuario = new Usuario();
-            
+                     
             usuario.setApellido(jtUsuario.getText().trim());
             usuario.setPassword(jpPassword.getText().trim());
             //loginUsuario metodo en UsuarioData
@@ -308,20 +309,23 @@ public class JfrmLogin extends javax.swing.JFrame {
     }
     
     public void ObtenerDdatosDeUsuarioReg() throws SQLException {
-        
+        idUsuarioReg = 0;
+        ApellUsuario = "";
         try {
             Connection con = Conexion.getConexion();
             
-            String sql = "SELECT * FROM usuario WHERE Password = '" + this.jpPassword.getText() + "'";
+            String sql = "SELECT * FROM usuario WHERE Password = '" + usuario.getPassword() + "'";
             
             Statement st = con.createStatement();            
             ResultSet rs = st.executeQuery(sql);           
-            
+            System.out.println(sql);//////////////////
             while (rs.next()) {             
                 
                 idUsuarioReg = rs.getInt("idUsuario");
                 ApellUsuario = rs.getString("Apellido");
-                              
+                System.out.println(ApellUsuario + "216586");    //////////////////////////   
+                usuario.setIdUsuario(idUsuarioReg);
+                usuario.setApellido(ApellUsuario);                                 
             }
             //con.close();
 

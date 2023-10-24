@@ -69,6 +69,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     public JInternalNuevaVenta() throws SQLException {
         initComponents();
+        setIdUsuarioApellido(idUsuario, nom_vendedor);
 
         this.setSize(new Dimension(800, 600));
         this.setTitle("Facturacion - Nueva Venta");

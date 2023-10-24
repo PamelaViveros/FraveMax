@@ -23,8 +23,13 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     public static JDesktopPane jDesktopPaneMenu;
     JfrmLogin metodo;
-    public JfrMenu1() {
+    
+    public JfrMenu1() throws SQLException {
+        
         initComponents();
+        this.metodo = new JfrmLogin();
+        metodo.ObtenerDdatosDeUsuarioReg();
+        
         this.setSize(new Dimension(1050,600));
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
@@ -69,9 +74,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jMenuItem2_buscar_por_producto = new javax.swing.JMenuItem();
         jMenuItem3_buscar_por_fecha = new javax.swing.JMenuItem();
         jMenuItem10_buscar_por_usuario = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem6_nuevo_cliente = new javax.swing.JMenuItem();
-        jMenuItem7_gest_clientes = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11_nueva_venta = new javax.swing.JMenuItem();
         jMenuItem12_gest_venta = new javax.swing.JMenuItem();
@@ -218,24 +220,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
         jMenu3.add(jMenu8_buscar_ventas);
 
-        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/cliente.png"))); // NOI18N
-        jMenu2.setText("Cliente");
-        jMenu2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jMenu2.setPreferredSize(new java.awt.Dimension(150, 50));
-
-        jMenuItem6_nuevo_cliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jMenuItem6_nuevo_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/nuevo-cliente.png"))); // NOI18N
-        jMenuItem6_nuevo_cliente.setText("Nuevo Cliente");
-        jMenu2.add(jMenuItem6_nuevo_cliente);
-
-        jMenuItem7_gest_clientes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jMenuItem7_gest_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/configuraciones.png"))); // NOI18N
-        jMenuItem7_gest_clientes.setText("Gestionar Clientes");
-        jMenu2.add(jMenuItem7_gest_clientes);
-
-        jMenu3.add(jMenu2);
-
         jMenuBar1.add(jMenu3);
 
         jMenu5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -311,12 +295,13 @@ public class JfrMenu1 extends javax.swing.JFrame {
         try {
             nuevaVenta = new JInternalNuevaVenta();
             if ( nuevaVenta != null ){
-            nuevaVenta.setIdUsuarioApellido(metodo.idUsuarioReg,metodo.ApellUsuario);
+                
+            nuevaVenta.setIdUsuarioApellido( metodo.idUsuarioReg, JfrmLogin.usuario.getNombre() );
+            
             jDesktopPaneMenu.add(nuevaVenta);
             nuevaVenta.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Error al acceder al panel de ventas");
-                
+                JOptionPane.showMessageDialog(null, "Error al acceder al panel de ventas");               
             }
         } catch (SQLException ex) {
             System.out.println("Error al acceder al panel de ventas " + ex.getMessage());
@@ -424,7 +409,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JfrMenu1().setVisible(true);
+                try {
+                    new JfrMenu1().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -432,7 +421,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -454,8 +442,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2_buscar_por_producto;
     private javax.swing.JMenuItem jMenuItem2_gestCliente;
     private javax.swing.JMenuItem jMenuItem3_buscar_por_fecha;
-    private javax.swing.JMenuItem jMenuItem6_nuevo_cliente;
-    private javax.swing.JMenuItem jMenuItem7_gest_clientes;
     private javax.swing.JMenuItem jMenuItem8_nuevo_producto;
     private javax.swing.JMenuItem jMenuItem9_gest_producto;
     private javax.swing.JMenuItem jmItem4_nuevo_usuario;
