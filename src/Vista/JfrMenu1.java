@@ -301,10 +301,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9_gest_productoActionPerformed
 
     private void jMenuItem11_nueva_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11_nueva_ventaActionPerformed
-        
+        ObtenerDdatosDeUsuarioReg();
         JInternalNuevaVenta nuevaVenta = null;
         try {
             nuevaVenta = new JInternalNuevaVenta();
+            nuevaVenta.setIdUsuario(idUsuarioReg,ApellUsuario);
         } catch (SQLException ex) {
             Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
         }

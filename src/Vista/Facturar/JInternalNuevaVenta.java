@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -77,11 +78,12 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
         jtxt_efectivo.setEnabled(false);
         jBut_CalcularCambio.setEnabled(false);
-
+        
+        jtxt_vendedor = new JTextField();
         jtxt_subTotal.setText("00000.0");
         jtxt_descuento.setText("00000.0");
         jtxt_total_A_Pagar.setText("00000.0");
-
+        
         ImageIcon wallpaper = new ImageIcon("src/Imag/fondo3.jpg");
         Icon icono = new ImageIcon(wallpaper.getImage().getScaledInstance(800, 600, WIDTH));
         jLabel_wallpaper.setIcon(icono);
@@ -713,13 +715,10 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jtxt_total_A_Pagar.setText(String.valueOf(totalPagarFinal));
     }
     
-    private void nombreVendedor(){
+    private void setIdUsuario(int idUsuario, String apellido){
         
-        idUsuario = 0;
-        nom_vendedor = "";
-        
-        
-        
+        jtxt_vendedor.setText(idUsuario+" "+apellido);
+                     
     }
     
     private boolean validarDouble(String valor) {

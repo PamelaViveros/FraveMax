@@ -1,12 +1,16 @@
 
 package Vista;
 
+import AccesoADatos.Conexion;
 import AccesoADatos.UsuarioData;
 import Entidades.Usuario;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -17,13 +21,17 @@ import javax.swing.JOptionPane;
  */
 public class JfrmLogin extends javax.swing.JFrame {
 
+    String ApellUsuario = "";
+    int idUsuarioReg = 0;
     
-    public JfrmLogin() {
+    public JfrmLogin() throws SQLException {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Login -MENU DE VENTAS");
         this.setSize(new Dimension (700, 500));
+        
+        this.ObtenerDdatosDeUsuarioReg();
     }
     @Override
     public Image getIconImage(){
@@ -244,7 +252,11 @@ public class JfrmLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JfrmLogin().setVisible(true);
+                try {
+                    new JfrmLogin().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JfrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -293,6 +305,30 @@ public class JfrmLogin extends javax.swing.JFrame {
             
         }
     
+    }
+    
+    public void ObtenerDdatosDeUsuarioReg() throws SQLException {
+        
+        try {
+            Connection con = Conexion.getConexion();
+            
+            String sql = "SELECT * FROM usuario WHERE concat (Password) = '" + this.jpPassword.getText() + "'";
+            
+            Statement st = con.createStatement();            
+            ResultSet rs = st.executeQuery(sql);           
+            
+            while (rs.next()) {             
+                
+                idUsuarioReg = rs.getInt("idUsuario");
+                ApellUsuario = rs.getString("Apellido");
+                              
+            }
+            //con.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener datos de Usuario " + e);
+        } 
+        
     }
 
 }
