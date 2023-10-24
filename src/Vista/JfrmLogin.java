@@ -323,7 +323,9 @@ public class JfrmLogin extends javax.swing.JFrame {
                 
                 idUsuarioReg = rs.getInt("idUsuario");
                 ApellUsuario = rs.getString("Apellido");
+                
                 System.out.println(ApellUsuario + "216586");    //////////////////////////   
+                
                 usuario.setIdUsuario(idUsuarioReg);
                 usuario.setApellido(ApellUsuario);                                 
             }
