@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -304,18 +305,23 @@ public class JfrMenu1 extends javax.swing.JFrame {
         try {
             metodo.ObtenerDdatosDeUsuarioReg();
         } catch (SQLException ex) {
-            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         JInternalNuevaVenta nuevaVenta = null;
         try {
             nuevaVenta = new JInternalNuevaVenta();
+            if ( nuevaVenta != null ){
             nuevaVenta.setIdUsuarioApellido(metodo.idUsuarioReg,metodo.ApellUsuario);
+            jDesktopPaneMenu.add(nuevaVenta);
+            nuevaVenta.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al acceder al panel de ventas");
+                
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al acceder al panel de ventas " + ex.getMessage());
         }
-        jDesktopPaneMenu.add(nuevaVenta);
-        nuevaVenta.setVisible(true);
-        
+              
     }//GEN-LAST:event_jMenuItem11_nueva_ventaActionPerformed
 
     private void jMenuItem3_buscar_por_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3_buscar_por_fechaActionPerformed
