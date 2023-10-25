@@ -34,6 +34,16 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
         jButton_actualizar = new javax.swing.JButton();
         jButton_Eliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jtxt_telefono = new javax.swing.JTextField();
+        jtxt_direccion = new javax.swing.JTextField();
+        jtxt_dni = new javax.swing.JTextField();
+        jtxt_apellido = new javax.swing.JTextField();
+        jtxt_nombre = new javax.swing.JTextField();
         jLabel1_Wallpaper = new javax.swing.JLabel();
 
         setClosable(true);
@@ -63,9 +73,9 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable_cliente);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 220));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 240));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 55, 360, 250));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 55, 360, 265));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -86,7 +96,38 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(385, 160, 190, 130));
+
+        jLabel2.setFont(new java.awt.Font("Lucida Calligraphy", 1, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Nombre:");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 7, 85, -1));
+
+        jLabel3.setFont(new java.awt.Font("Lucida Calligraphy", 1, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Apellido:");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 40, 85, -1));
+
+        jLabel4.setFont(new java.awt.Font("Lucida Calligraphy", 1, 12)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Dni:");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 70, 85, -1));
+
+        jLabel5.setFont(new java.awt.Font("Lucida Calligraphy", 1, 12)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Direccion:");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 100, 85, -1));
+
+        jLabel6.setFont(new java.awt.Font("Lucida Calligraphy", 1, 12)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Telefono:");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 130, 85, -1));
+        jPanel3.add(jtxt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 125, 105, -1));
+        jPanel3.add(jtxt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 95, 105, -1));
+        jPanel3.add(jtxt_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 65, 105, -1));
+        jPanel3.add(jtxt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 33, 105, 30));
+        jPanel3.add(jtxt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 3, 105, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 200, 160));
 
         jLabel1_Wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/Fondo black.jpeg"))); // NOI18N
         getContentPane().add(jLabel1_Wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 370));
@@ -100,10 +141,20 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton_actualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel1_Wallpaper;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_cliente;
+    private javax.swing.JTextField jtxt_apellido;
+    private javax.swing.JTextField jtxt_direccion;
+    private javax.swing.JTextField jtxt_dni;
+    private javax.swing.JTextField jtxt_nombre;
+    private javax.swing.JTextField jtxt_telefono;
     // End of variables declaration//GEN-END:variables
 }
