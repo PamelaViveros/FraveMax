@@ -292,6 +292,8 @@ public class JfrmLogin extends javax.swing.JFrame {
                 //JOptionPane.showMessageDialog(null, "Login Correcto...");
                 JfrMenu1 menu = new JfrMenu1();
                 menu.setVisible(true);
+                menu.repaint();
+                
                 this.dispose();
                 
             } else {

@@ -301,7 +301,7 @@ public class JfrMenu1 extends javax.swing.JFrame {
             nuevaVenta = new JInternalNuevaVenta();
             if ( nuevaVenta != null ){
                 
-            nuevaVenta.setIdUsuarioApellido( metodo.idUsuarioReg, JfrmLogin.usuario.getNombre() );
+            nuevaVenta.setIdUsuarioApellido();
             
             jDesktopPaneMenu.add(nuevaVenta);
             nuevaVenta.setVisible(true);

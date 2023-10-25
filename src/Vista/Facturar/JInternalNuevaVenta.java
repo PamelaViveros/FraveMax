@@ -9,6 +9,7 @@ import AccesoADatos.Conexion;
 import AccesoADatos.DetalleVentaData;
 import AccesoADatos.PDFventa;
 import AccesoADatos.ProductoData;
+import static AccesoADatos.UsuarioData.uActivo;
 import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
 import Entidades.Venta;
@@ -70,7 +71,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     public JInternalNuevaVenta() throws SQLException {
         initComponents();
-        setIdUsuarioApellido(idUsuario, nom_vendedor);
+        setIdUsuarioApellido();
 
         this.setSize(new Dimension(800, 600));
         this.setTitle("Facturacion - Nueva Venta");
@@ -521,9 +522,9 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
             VentaData vData = new VentaData();
             DetalleVentaData dDetalleVentaData = new DetalleVentaData();
             
-            String fecha_actual = "";
-            Date date = new Date();
-            fecha_actual = new SimpleDateFormat("yyyy/MM/dd").format(date);
+//            String fecha_actual = "";
+            LocalDate fechaHoy =  LocalDate.now();
+//            fecha_actual = new SimpleDateFormat("yyyy/MM/dd").format(date);
 
             if(!jCB_Cliente.getSelectedItem().equals("Seleccione cliente:")){
                 if (listaProductos.size() > 0) {
@@ -532,7 +533,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                     
                     venta.setIdVenta(0);
                     venta.setIdCliente(idCliente);
-                    venta.setFechaVenta(LocalDate.parse(fecha_actual));
+                    venta.setFechaVenta(fechaHoy);
                     venta.setIdUsuario(idUsuario);
                     venta.setEstado(true);
                     
@@ -742,9 +743,9 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
         jtxt_total_A_Pagar.setText(String.valueOf(totalPagarFinal));
     }
     
-    public void setIdUsuarioApellido(int idUsuario, String apellido){
+    public void setIdUsuarioApellido(){
         
-        jtxt_vendedor.setText(idUsuario+" "+apellido);
+        jtxt_vendedor.setText(uActivo.getIdUsuario()+" "+uActivo.getApellido());
                       
     }
     
