@@ -7,6 +7,7 @@ package Vista.Facturar;
 
 import AccesoADatos.Conexion;
 import AccesoADatos.DetalleVentaData;
+import AccesoADatos.PDFventa;
 import AccesoADatos.ProductoData;
 import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
@@ -538,6 +539,10 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                     if (dDetalleVentaData.guardarDetalle(detalleVenta)) {
                         
                         JOptionPane.showMessageDialog(null, "¡Venta Cargada exitosamente!");
+                        PDFventa pdf = new PDFventa();
+                        pdf.carga_datos_cliente(idCliente);
+                        pdf.FacturaPDF();
+                        
                         for (DetalleVenta elem : listaProductos) {
                             detalleVenta.setIdDetalleVenta(0);
                             detalleVenta.setIdProducto(elem.getIdProducto());
@@ -604,7 +609,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_wallpaper;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTable_Productos;
     private javax.swing.JTextField jtxtCilente_busqueda;
     private javax.swing.JTextField jtxt_Cantidad;
@@ -612,7 +617,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtxt_descuento;
     private javax.swing.JTextField jtxt_efectivo;
     private javax.swing.JTextField jtxt_subTotal;
-    private javax.swing.JTextField jtxt_total_A_Pagar;
+    public static javax.swing.JTextField jtxt_total_A_Pagar;
     private javax.swing.JTextField jtxt_vendedor;
     // End of variables declaration//GEN-END:variables
 
@@ -740,7 +745,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     public void setIdUsuarioApellido(int idUsuario, String apellido){
         
         jtxt_vendedor.setText(idUsuario+" "+apellido);
-                     
+                      
     }
     
     private boolean validarDouble(String valor) {
