@@ -105,14 +105,14 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         getContentPane().add(jfPrecioActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 130, 152, -1));
 
         jLabel_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/fondo2.jpg"))); // NOI18N
-        getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 290));
+        getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jbCancelarActionPerformed
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        borrarDatos();
+    }//GEN-LAST:event_jbBorrarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         String nombre = jfNombre.getText();
@@ -171,9 +171,10 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbEditarActionPerformed
 
-    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
-        borrarDatos();
-    }                         jLabel1//GEN-LAST:event_jbBorrarActionPerformed
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel_wallpaper;
     private javax.swing.JButton jbBorrar;
@@ -211,9 +212,5 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         jfStock.setText("");
     }
 
-    private static class jLabel1 {
-
-        public jLabel1() {
-        }
-    }
+   
 }
