@@ -40,12 +40,17 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         jlNombre = new javax.swing.JLabel();
         jlPrecioActual = new javax.swing.JLabel();
         jfPrecioActual = new javax.swing.JTextField();
+        jLabel1_wallpaper = new javax.swing.JLabel();
 
-        jlTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jlTitle.setForeground(new java.awt.Color(204, 204, 204));
         jlTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlTitle.setText("Nuevo Producto");
         jlTitle.setToolTipText("");
         jlTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jlTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 6, -1, -1));
 
         jbCancelar.setText("Cancelar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -53,6 +58,7 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
                 jbCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 233, -1, -1));
 
         jbEditar.setText("Nuevo");
         jbEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +66,7 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
                 jbEditarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 233, -1, -1));
 
         jbBorrar.setText("Borrar");
         jbBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -67,74 +74,38 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
                 jbBorrarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 233, -1, -1));
+        getContentPane().add(jfStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 176, 152, -1));
+        getContentPane().add(jfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 44, 152, -1));
 
-        jlDescripcion.setText("Descripción");
+        jlDescripcion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        jlDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlDescripcion.setText("Descripción:");
+        getContentPane().add(jlDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 90, 90, -1));
 
-        jlStock.setText("Stock");
+        jlStock.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlStock.setForeground(new java.awt.Color(255, 255, 255));
+        jlStock.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlStock.setText("Stock:");
+        getContentPane().add(jlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 182, 90, -1));
+        getContentPane().add(jfDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 84, 152, -1));
 
-        jlNombre.setText("Nombre");
+        jlNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlNombre.setForeground(new java.awt.Color(255, 255, 255));
+        jlNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlNombre.setText("Nombre:");
+        getContentPane().add(jlNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 50, 90, -1));
 
-        jlPrecioActual.setText("Precio actual");
+        jlPrecioActual.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlPrecioActual.setForeground(new java.awt.Color(255, 255, 255));
+        jlPrecioActual.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlPrecioActual.setText("Precio actual:");
+        getContentPane().add(jlPrecioActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 136, 90, -1));
+        getContentPane().add(jfPrecioActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 130, 152, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(jlTitle))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlPrecioActual, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlStock, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jfPrecioActual, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jfStock, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jbEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbBorrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbCancelar)))
-                .addContainerGap(49, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlNombre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlDescripcion))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jfPrecioActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlPrecioActual))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jfStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlStock))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbEditar)
-                    .addComponent(jbBorrar)
-                    .addComponent(jbCancelar))
-                .addGap(21, 21, 21))
-        );
+        jLabel1_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/fondo2.jpg"))); // NOI18N
+        getContentPane().add(jLabel1_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -202,10 +173,9 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         borrarDatos();
-    }//GEN-LAST:event_jbBorrarActionPerformed
-
-
+    }                         jLabel1//GEN-LAST:event_jbBorrarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1_wallpaper;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbEditar;
