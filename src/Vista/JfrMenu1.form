@@ -357,6 +357,9 @@
               <Dimension value="[160, 30]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu7_cerrar_sesionActionPerformed"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>

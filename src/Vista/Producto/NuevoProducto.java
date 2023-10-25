@@ -40,7 +40,7 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         jlNombre = new javax.swing.JLabel();
         jlPrecioActual = new javax.swing.JLabel();
         jfPrecioActual = new javax.swing.JTextField();
-        jLabel1_wallpaper = new javax.swing.JLabel();
+        jLabel_wallpaper = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -104,8 +104,8 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         getContentPane().add(jlPrecioActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 136, 90, -1));
         getContentPane().add(jfPrecioActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 130, 152, -1));
 
-        jLabel1_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/fondo2.jpg"))); // NOI18N
-        getContentPane().add(jLabel1_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 290));
+        jLabel_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/fondo2.jpg"))); // NOI18N
+        getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -175,7 +175,7 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         borrarDatos();
     }                         jLabel1//GEN-LAST:event_jbBorrarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1_wallpaper;
+    private javax.swing.JLabel jLabel_wallpaper;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbEditar;
@@ -209,5 +209,11 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         jfDescripcion.setText("");
         jfPrecioActual.setText("");
         jfStock.setText("");
+    }
+
+    private static class jLabel1 {
+
+        public jLabel1() {
+        }
     }
 }
