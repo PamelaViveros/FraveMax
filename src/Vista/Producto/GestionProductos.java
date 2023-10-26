@@ -57,6 +57,9 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         jlFiltro = new javax.swing.JLabel();
         jfFiltro = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+
         jtProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

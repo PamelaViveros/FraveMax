@@ -30,7 +30,7 @@ public class JfrMenu1 extends javax.swing.JFrame {
         this.metodo = new JfrmLogin();
         metodo.ObtenerDdatosDeUsuarioReg();
         
-        this.setSize(new Dimension(1050,600));
+        this.setSize(new Dimension(900,600));
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         this.setTitle("SISTEMA DE VENTAS");
@@ -76,8 +76,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jMenuItem10_buscar_por_usuario = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11_nueva_venta = new javax.swing.JMenuItem();
-        jMenuItem12_gest_venta = new javax.swing.JMenuItem();
-        jMenu6_historial = new javax.swing.JMenu();
         jMenu7_cerrar_sesion = new javax.swing.JMenu();
 
         jMenu6.setText("File");
@@ -181,7 +179,7 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/reportes.png"))); // NOI18N
         jMenu3.setText("Reporte de Ventas");
         jMenu3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jMenu3.setPreferredSize(new java.awt.Dimension(175, 50));
+        jMenu3.setPreferredSize(new java.awt.Dimension(190, 50));
 
         jMenu8_buscar_ventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/reporte1.png"))); // NOI18N
         jMenu8_buscar_ventas.setText("Buscar Ventas");
@@ -243,25 +241,13 @@ public class JfrMenu1 extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem11_nueva_venta);
 
-        jMenuItem12_gest_venta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jMenuItem12_gest_venta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/configuraciones.png"))); // NOI18N
-        jMenuItem12_gest_venta.setText("Gestionar Ventas");
-        jMenu5.add(jMenuItem12_gest_venta);
-
         jMenuBar1.add(jMenu5);
-
-        jMenu6_historial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu6_historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/historial1.png"))); // NOI18N
-        jMenu6_historial.setText("Historial");
-        jMenu6_historial.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jMenu6_historial.setPreferredSize(new java.awt.Dimension(150, 50));
-        jMenuBar1.add(jMenu6_historial);
 
         jMenu7_cerrar_sesion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu7_cerrar_sesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/cerrar-sesion.png"))); // NOI18N
         jMenu7_cerrar_sesion.setText("Cerrar Sesión");
         jMenu7_cerrar_sesion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jMenu7_cerrar_sesion.setPreferredSize(new java.awt.Dimension(160, 30));
+        jMenu7_cerrar_sesion.setPreferredSize(new java.awt.Dimension(165, 50));
         jMenu7_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu7_cerrar_sesionActionPerformed(evt);
@@ -452,7 +438,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu6_historial;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu7_cerrar_sesion;
     private javax.swing.JMenu jMenu8;
@@ -463,7 +448,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem10_buscar_por_usuario;
     private javax.swing.JMenuItem jMenuItem11_nueva_venta;
-    private javax.swing.JMenuItem jMenuItem12_gest_venta;
     private javax.swing.JMenuItem jMenuItem1_buscar_por_cliente;
     private javax.swing.JMenuItem jMenuItem1_nuevoCliente;
     private javax.swing.JMenuItem jMenuItem2_buscar_por_producto;

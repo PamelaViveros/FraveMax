@@ -42,6 +42,8 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         jfPrecioActual = new javax.swing.JTextField();
         jLabel_wallpaper = new javax.swing.JLabel();
 
+        setClosable(true);
+        setIconifiable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -52,31 +54,42 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         jlTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jlTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 6, -1, -1));
 
+        jbCancelar.setBackground(new java.awt.Color(51, 51, 255));
+        jbCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jbCancelar.setForeground(new java.awt.Color(255, 255, 255));
         jbCancelar.setText("Cancelar");
+        jbCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 233, -1, -1));
+        getContentPane().add(jbCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 233, 80, 30));
 
+        jbEditar.setBackground(new java.awt.Color(51, 204, 0));
+        jbEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jbEditar.setText("Nuevo");
+        jbEditar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 233, -1, -1));
+        getContentPane().add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 233, 80, 30));
 
+        jbBorrar.setBackground(new java.awt.Color(255, 51, 51));
+        jbBorrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jbBorrar.setForeground(new java.awt.Color(255, 255, 255));
         jbBorrar.setText("Borrar");
+        jbBorrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 233, -1, -1));
-        getContentPane().add(jfStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 176, 152, -1));
-        getContentPane().add(jfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 44, 152, -1));
+        getContentPane().add(jbBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 233, 80, 30));
+        getContentPane().add(jfStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 176, 180, -1));
+        getContentPane().add(jfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 44, 180, -1));
 
         jlDescripcion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlDescripcion.setForeground(new java.awt.Color(255, 255, 255));
@@ -89,7 +102,7 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         jlStock.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlStock.setText("Stock:");
         getContentPane().add(jlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 182, 90, -1));
-        getContentPane().add(jfDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 84, 152, -1));
+        getContentPane().add(jfDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 84, 180, -1));
 
         jlNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlNombre.setForeground(new java.awt.Color(255, 255, 255));
@@ -102,7 +115,7 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         jlPrecioActual.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlPrecioActual.setText("Precio actual:");
         getContentPane().add(jlPrecioActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 136, 90, -1));
-        getContentPane().add(jfPrecioActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 130, 152, -1));
+        getContentPane().add(jfPrecioActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 180, -1));
 
         jLabel_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/fondo2.jpg"))); // NOI18N
         getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 280));
