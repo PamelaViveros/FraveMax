@@ -77,37 +77,51 @@ public class GestionProductos extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 78, 477, 263));
 
+        jbNuevo.setBackground(new java.awt.Color(51, 204, 0));
+        jbNuevo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jbNuevo.setText("Nuevo");
+        jbNuevo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(jbNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 359, -1, -1));
+        getContentPane().add(jbNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 80, 30));
 
+        jbEditar.setBackground(new java.awt.Color(0, 51, 255));
+        jbEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jbEditar.setForeground(new java.awt.Color(204, 204, 204));
         jbEditar.setText("Editar");
+        jbEditar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 359, -1, -1));
+        getContentPane().add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 360, 70, 30));
 
+        jbEliminar.setBackground(new java.awt.Color(153, 0, 0));
+        jbEliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jbEliminar.setForeground(new java.awt.Color(255, 255, 255));
         jbEliminar.setText("Eliminar");
+        jbEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 359, -1, -1));
+        getContentPane().add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 80, 30));
 
+        jbCancelar.setBackground(new java.awt.Color(153, 255, 255));
+        jbCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jbCancelar.setText("Cancelar");
+        jbCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 359, -1, -1));
+        getContentPane().add(jbCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 90, 30));
 
         jlTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jlTitle.setForeground(new java.awt.Color(204, 204, 204));
