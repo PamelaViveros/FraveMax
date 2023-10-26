@@ -7,6 +7,7 @@ package Vista;
 
 import AccesoADatos.UsuarioData;
 import Entidades.Usuario;
+import java.awt.Color;
 import static java.awt.Event.ENTER;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -17,7 +18,9 @@ import javax.swing.JOptionPane;
  */
 public class NuevoUsuario extends javax.swing.JInternalFrame {
 
+    Usuario user = new Usuario();
     UsuarioData uData;
+
     /**
      * Creates new form NuevoUsuario
      */
@@ -194,8 +197,9 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bNuevoActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        
         guardar();
-      
+
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
@@ -203,26 +207,26 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void tApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tApellidoKeyPressed
-        if (evt.getKeyCode()==evt.VK_ENTER) {
+        if (evt.getKeyCode() == evt.VK_ENTER) {
             tNombre.requestFocus();
         }
     }//GEN-LAST:event_tApellidoKeyPressed
 
     private void tNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tNombreKeyPressed
-        if (evt.getKeyCode()==evt.VK_ENTER) {
+        if (evt.getKeyCode() == evt.VK_ENTER) {
             tPass.requestFocus();
         }
     }//GEN-LAST:event_tNombreKeyPressed
 
     private void tPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tPassKeyPressed
-         if (evt.getKeyCode()==evt.VK_ENTER) {
+        if (evt.getKeyCode() == evt.VK_ENTER) {
             tCpass.requestFocus();
         }
     }//GEN-LAST:event_tPassKeyPressed
 
     private void tCpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tCpassKeyPressed
-         if (evt.getKeyCode()==evt.VK_ENTER) {
-           guardar();
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            guardar();
         }
     }//GEN-LAST:event_tCpassKeyPressed
 
@@ -243,34 +247,67 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField tPass;
     // End of variables declaration//GEN-END:variables
 
-public void limpiar(){
-    
-    tApellido.setText("");
-    tNombre.setText("");
-    tPass.setText("");
-    tCpass.setText("");
-    
-    
-}
+    public void limpiar() {
 
-public void guardar(){
-    
-     String apellido=tApellido.getText().trim();
-       String nombre=tNombre.getText().trim();
-       String pass=tPass.getText().trim();
-       String cPass=tCpass.getText().trim();
-        
-        if (apellido.equals("") || nombre.equals("") || pass.equals("")) {
+        tApellido.setText("");
+        tNombre.setText("");
+        tPass.setText("");
+        tCpass.setText("");
+
+    }
+
+    public boolean guardar() {
+        boolean resp = false;
+        String apellido = tApellido.getText().trim();
+        String nombre = tNombre.getText().trim();
+        String pass = tPass.getText().trim();
+        String cPass = tCpass.getText().trim();
+
+        if (apellido.isEmpty() || nombre.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Por favor, complete todos los campos");
         } else {
-            if (cPass.equals(pass)) {
-                Usuario user=new Usuario(apellido,nombre,pass,true);
-                uData.guardarUsuario(user);
-            }else{
+            if (!cPass.equals(pass)) {
                 JOptionPane.showMessageDialog(rootPane, "Las contraseñas no coinciden");
-            }
-            
-        }
-}
+                tPass.setBackground(Color.red);
+                        tCpass.setBackground(Color.red);
+            } else {
+                if (verificarUsuario()) {
+                    if (uData.guardarUsuario(user)) {
+                        tApellido.setBackground(Color.green);
+                        tNombre.setBackground(Color.green);
+                        tPass.setBackground(Color.green);
+                        tCpass.setBackground(Color.green);
+                    }
 
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "El usuario ya se encuentra registrado");
+                }
+            }
+
+        }
+        return resp;
+    }
+
+    public boolean verificarUsuario() {
+        boolean existe = false;
+        Usuario uReg = uData.buscarUsuario(user.getApellido(), user.getNombre(), user.getPassword());
+
+        if (uReg.getApellido().equals(user.getApellido()) && uReg.getNombre().equals(user.getNombre())
+                && uReg.getPassword().equals(user.getPassword())) {
+            existe = true;
+        }
+        return existe;
+    }
+
+    public void fondos(){
+        
+//        if (tApellido.gotFocus(evt, this) ||  tNombre.gotFocus(evt, this) || tPass.gotFocus(evt, this) || tCpass.gotFocus(evt, this) ) {
+//            
+//            
+//        }
+        
+    }
+    
+    
+    
 }

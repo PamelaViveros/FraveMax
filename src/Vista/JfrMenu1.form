@@ -332,10 +332,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu7_cerrar_sesionMouseClicked"/>
-<<<<<<< Updated upstream
-=======
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu7_cerrar_sesionActionPerformed"/>
->>>>>>> Stashed changes
           </Events>
         </Menu>
       </SubComponents>

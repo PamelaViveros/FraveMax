@@ -26,13 +26,13 @@ public class UsuarioData {
     private Connection con = null;
     public static List<Usuario> usuarios = new ArrayList<>();
     public static Usuario uActivo = new Usuario();
-
+Usuario usuario = new Usuario();
     public UsuarioData() throws SQLException {
         con = Conexion.getConexion();
     }
 
-    public void guardarUsuario(Usuario u) {
-
+    public boolean guardarUsuario(Usuario u) {
+boolean resp =false;
         String sql = "INSERT INTO Usuario (Apellido, Nombre, Password, Estado) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = null;
         try {
@@ -45,6 +45,7 @@ public class UsuarioData {
             int res = ps.executeUpdate();
             if (res == 1) {
                 JOptionPane.showMessageDialog(null, "Usuario guardado con éxito");
+                resp=true;
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar el usuario");
             }
@@ -53,11 +54,12 @@ public class UsuarioData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Usuario" + ex.getMessage());
         }
+        return resp;
     }
 
     public Usuario buscarUsuario(int idUsuario) {
 
-        Usuario usuario = new Usuario();
+        
 
         String sql = "SELECT Apellido , Nombre FROM Usuario WHERE idUsuario= ? AND Estado=1";
         PreparedStatement ps = null;
@@ -210,4 +212,27 @@ public class UsuarioData {
         return vendedor;
     }
      */
+
+    public Usuario buscarUsuario(String apellido, String nombre, String password) {
+        
+         String sql = "SELECT * FROM Usuario WHERE Apellido ='"+apellido+"' AND Nombre='"+nombre+"' AND Password= '"+password+"'AND Estado=1;";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+           
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setApellido(rs.getNString("Apellido"));
+                usuario.setNombre(rs.getNString("Nombre"));
+                usuario.setPassword(rs.getString("Password"));
+
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Usuarios " + ex.getMessage());
+        }
+        
+        return usuario;
+    }
 }

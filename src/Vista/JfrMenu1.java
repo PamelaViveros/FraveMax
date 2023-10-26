@@ -251,14 +251,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jMenu7_cerrar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu7_cerrar_sesionMouseClicked(evt);
-<<<<<<< Updated upstream
-=======
-            }
-        });
-        jMenu7_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu7_cerrar_sesionActionPerformed(evt);
->>>>>>> Stashed changes
             }
         });
         jMenuBar1.add(jMenu7_cerrar_sesion);
@@ -379,14 +371,14 @@ public class JfrMenu1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8_nuevo_productoActionPerformed
 
     private void jmItem4_nuevo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItem4_nuevo_usuarioActionPerformed
-       NuevoUsuario NuevoUsuario=null;
+       NuevoUsuario nuevoUsuario = null;
         try {
-            NuevoUsuario = new NuevoUsuario();
+            nuevoUsuario =new NuevoUsuario();
+            
         } catch (SQLException ex) {
-            Logger.getLogger(JfrMenu1.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jDesktopPaneMenu.add(NuevoUsuario);
-        NuevoUsuario.setVisible(true);
+        jDesktopPaneMenu.add(nuevoUsuario);
+        nuevoUsuario.setVisible(true);
     }//GEN-LAST:event_jmItem4_nuevo_usuarioActionPerformed
 
     private void jMenuItem2_gestClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_gestClienteActionPerformed
@@ -404,7 +396,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenu7_cerrar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7_cerrar_sesionMouseClicked
         this.dispose();
-<<<<<<< Updated upstream
         JfrmLogin login = null;
         
         try {
@@ -413,8 +404,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Error " + e);
         }
-=======
->>>>>>> Stashed changes
     }//GEN-LAST:event_jMenu7_cerrar_sesionMouseClicked
 
     /**
