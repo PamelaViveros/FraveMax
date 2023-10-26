@@ -376,6 +376,15 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     private void jMenu7_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu7_cerrar_sesionActionPerformed
         System.exit(0);
+        JfrmLogin login = null;
+        
+        try {
+            login = new JfrmLogin();
+        } catch (Exception e) {
+            System.out.println("Error " + e);
+        }
+        login.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenu7_cerrar_sesionActionPerformed
 
     private void jMenuItem2_gestClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_gestClienteActionPerformed

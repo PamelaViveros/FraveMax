@@ -56,9 +56,11 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         jlTitle = new javax.swing.JLabel();
         jlFiltro = new javax.swing.JLabel();
         jfFiltro = new javax.swing.JTextField();
+        jLabel_wallpaper = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -73,12 +75,15 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtProductos);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 78, 477, 263));
+
         jbNuevo.setText("Nuevo");
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNuevoActionPerformed(evt);
             }
         });
+        getContentPane().add(jbNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 359, -1, -1));
 
         jbEditar.setText("Editar");
         jbEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +91,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
                 jbEditarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 359, -1, -1));
 
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +99,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
                 jbEliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 359, -1, -1));
 
         jbCancelar.setText("Cancelar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,68 +107,29 @@ public class GestionProductos extends javax.swing.JInternalFrame {
                 jbCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 359, -1, -1));
 
-        jlTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jlTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jlTitle.setForeground(new java.awt.Color(204, 204, 204));
         jlTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlTitle.setText("Gestión de Productos");
         jlTitle.setToolTipText("");
         jlTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jlTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 477, -1));
 
         jlFiltro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlFiltro.setText("Escriba un texto para filtar");
+        getContentPane().add(jlFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 50, 169, -1));
 
         jfFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jfFiltroKeyReleased(evt);
             }
         });
+        getContentPane().add(jfFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 44, 189, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jbNuevo)
-                .addGap(18, 18, 18)
-                .addComponent(jbEditar)
-                .addGap(18, 18, 18)
-                .addComponent(jbEliminar)
-                .addGap(18, 18, 18)
-                .addComponent(jbCancelar)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jlFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlFiltro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbEditar)
-                    .addComponent(jbEliminar)
-                    .addComponent(jbCancelar)
-                    .addComponent(jbNuevo))
-                .addGap(14, 14, 14))
-        );
+        jLabel_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/Fondo black.jpeg"))); // NOI18N
+        getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -252,6 +220,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel_wallpaper;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbEditar;
