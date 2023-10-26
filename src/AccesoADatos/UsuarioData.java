@@ -101,19 +101,21 @@ boolean resp =false;
         }
     }
 
-    public void modificarUsuario(Usuario u) {
-        String sql = "UPDATE Usuario SET Apellido=?, Nombre=?, Password=? , Estado=? WHERE idUsuario=?";
+    public boolean modificarUsuario(Usuario u) {
+        boolean resp=false;
+        String sql = "UPDATE Usuario SET Apellido=?, Nombre=?, Password=?  WHERE idUsuario=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, u.getApellido());
             ps.setString(2, u.getNombre());
             ps.setString(3, u.getPassword());
-            ps.setBoolean(4, u.isEstado());
+            ps.setInt(4, u.getIdUsuario());
 
             int res = ps.executeUpdate();
             if (res == 1) {
                 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito");
+                resp=true;
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontro el usuario");
             }
@@ -122,6 +124,7 @@ boolean resp =false;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla usuario " + ex.getMessage());
         }
+        return resp;
     }
 
     public List<Usuario> listarUsuarios() {
@@ -213,8 +216,8 @@ boolean resp =false;
     }
      */
 
-    public Usuario buscarUsuario(String apellido, String nombre, String password) {
-        
+    public boolean  buscarUsuario(String apellido, String nombre, String password) {
+        boolean res=true;
          String sql = "SELECT * FROM Usuario WHERE Apellido ='"+apellido+"' AND Nombre='"+nombre+"' AND Password= '"+password+"'AND Estado=1;";
         PreparedStatement ps = null;
         try {
@@ -226,13 +229,13 @@ boolean resp =false;
                 usuario.setApellido(rs.getNString("Apellido"));
                 usuario.setNombre(rs.getNString("Nombre"));
                 usuario.setPassword(rs.getString("Password"));
-
+                res=false;
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Usuarios " + ex.getMessage());
         }
         
-        return usuario;
+        return res;
     }
 }
