@@ -140,6 +140,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jMenuItem2_gestCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jMenuItem2_gestCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/configuraciones.png"))); // NOI18N
         jMenuItem2_gestCliente.setText("Gestion Clientes");
+        jMenuItem2_gestCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2_gestClienteActionPerformed(evt);
+            }
+        });
         jMenu10.add(jMenuItem2_gestCliente);
 
         jMenuBar1.add(jMenu10);
@@ -386,6 +391,19 @@ public class JfrMenu1 extends javax.swing.JFrame {
     private void jMenu7_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu7_cerrar_sesionActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenu7_cerrar_sesionActionPerformed
+
+    private void jMenuItem2_gestClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_gestClienteActionPerformed
+        
+        JInternalGestioCliente g_cliente = null;
+        try {
+            g_cliente = new JInternalGestioCliente();
+        } catch (SQLException ex) {
+            System.out.println("Error al intentar abrir Gestion Cliete" + ex);
+        }
+        jDesktopPaneMenu.add(g_cliente);
+        g_cliente.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem2_gestClienteActionPerformed
 
     /**
      * @param args the command line arguments

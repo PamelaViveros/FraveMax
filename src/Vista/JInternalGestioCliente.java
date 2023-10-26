@@ -1,7 +1,24 @@
-
 package Vista;
 
+import AccesoADatos.ClienteData;
+import static AccesoADatos.ClienteData.clientes;
+import AccesoADatos.Conexion;
+import Entidades.Cliente;
+import com.itextpdf.text.pdf.security.SecurityConstants;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -9,12 +26,21 @@ import java.awt.Dimension;
  */
 public class JInternalGestioCliente extends javax.swing.JInternalFrame {
 
+    DefaultTableModel modelo = new DefaultTableModel();
+   ClienteData cData;
     
-    public JInternalGestioCliente() {
-        initComponents();
-        this.setSize(new Dimension(600,400));
-        this.setTitle("Gestion Cliente");
+    private int idCliente = 0;
+
+    public JInternalGestioCliente() throws SQLException {
+        this.cData = new ClienteData();
         
+        initComponents();
+
+        this.setSize(new Dimension(900, 400));
+        this.setTitle("Gestion Cliente");
+
+        this.encabezadoTabla();
+        this.llenarTablaCliente();
     }
 
     /**
@@ -51,14 +77,16 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
         setResizable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Stencil", 1, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gestion Clientes");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 15, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 15, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setBackground(new java.awt.Color(153, 153, 153));
 
         jTable_cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -73,27 +101,39 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable_cliente);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 240));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 3, 656, 260));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 55, 360, 265));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 55, 660, 265));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton_actualizar.setBackground(new java.awt.Color(51, 204, 0));
         jButton_actualizar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_actualizar.setText("Actualizar");
-        jPanel1.add(jButton_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        jButton_actualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_actualizarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, 30));
 
         jButton_Eliminar.setBackground(new java.awt.Color(255, 51, 51));
         jButton_Eliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_Eliminar.setText("Eliminar");
-        jPanel1.add(jButton_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 90, -1));
+        jButton_Eliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_EliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 110, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 55, 145, 90));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 55, 145, 90));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -121,19 +161,70 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Telefono:");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 130, 85, -1));
-        jPanel3.add(jtxt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 125, 105, -1));
-        jPanel3.add(jtxt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 95, 105, -1));
-        jPanel3.add(jtxt_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 65, 105, -1));
+        jPanel3.add(jtxt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 125, 105, 30));
+        jPanel3.add(jtxt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 95, 105, 30));
+        jPanel3.add(jtxt_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 65, 105, 30));
         jPanel3.add(jtxt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 33, 105, 30));
-        jPanel3.add(jtxt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 3, 105, -1));
+        jPanel3.add(jtxt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 3, 105, 30));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 200, 160));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 200, 160));
 
         jLabel1_Wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/Fondo black.jpeg"))); // NOI18N
-        getContentPane().add(jLabel1_Wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 370));
+        getContentPane().add(jLabel1_Wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_actualizarActionPerformed
+
+        if (jtxt_apellido.getText().isEmpty() && jtxt_nombre.getText().isEmpty() && jtxt_dni.getText().isEmpty()
+                && jtxt_direccion.getText().isEmpty() && jtxt_telefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "¡Complete los campos!");
+        } else {
+            Cliente c = new Cliente();
+            ClienteData cData;
+            try {
+                cData = new ClienteData();
+
+                c.setApellido(jtxt_apellido.getText().trim());
+                c.setNombre(jtxt_nombre.getText().trim());
+                c.setDni(Integer.parseInt(jtxt_dni.getText().trim()));
+                c.setDomicilio(jtxt_direccion.getText().trim());
+                c.setTelefono(Integer.parseInt(jtxt_telefono.getText().trim()));
+
+                if (cData.actualizarDatoCliente(c, idCliente)) {
+                    JOptionPane.showMessageDialog(null, "Datos Actualizados");
+                    this.llenarTablaCliente();
+                    this.limpiarTxt();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Actualizar");
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error" + ex);
+            }
+
+        }
+
+    }//GEN-LAST:event_jButton_actualizarActionPerformed
+
+    private void jButton_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EliminarActionPerformed
+        try {
+            if (idCliente == 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
+            } else {
+                if (!cData.eliminar(idCliente)) {
+                    JOptionPane.showMessageDialog(null, "Cliente Eliminado del Sistema");
+                    this.llenarTablaCliente();
+                    this.limpiarTxt();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar Cliente");
+                    this.limpiarTxt();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error " + e);
+        }
+    }//GEN-LAST:event_jButton_EliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -157,4 +248,87 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtxt_nombre;
     private javax.swing.JTextField jtxt_telefono;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarTxt() {
+        jtxt_apellido.setText("");
+        jtxt_nombre.setText("");
+        jtxt_dni.setText("");
+        jtxt_direccion.setText("");
+        jtxt_telefono.setText("");
+    }
+
+    private void encabezadoTabla() {
+        ArrayList<Object> encabezado = new ArrayList<>();
+        encabezado.add("ID");
+        encabezado.add("Apellido");
+        encabezado.add("Nombre");
+        encabezado.add("Dni");
+        encabezado.add("Domicílio");
+        encabezado.add("Telefono");
+        encabezado.add("Estado");
+
+        for (Object col : encabezado) {
+            modelo.addColumn(col);
+        }
+        this.jTable_cliente.setModel(modelo);
+    }
+
+    private void llenarTablaCliente() throws SQLException {
+
+        Connection con = Conexion.getConexion();
+        String sql = "SELECT * FROM cliente";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Object f[] = new Object[7];
+                
+                for (int i = 0; i < 7; i++) {
+                    f[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(f);
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error al llenar Tabla Cliente" + e);
+        }
+
+        jTable_cliente.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila_p = jTable_cliente.rowAtPoint(e.getPoint());
+                int columna_p = 0;
+
+                if (fila_p > -1) {
+                    idCliente = (int) modelo.getValueAt(fila_p, columna_p);
+                    datosSeleccionados(idCliente);
+                }
+            }
+        });
+    }
+
+    private void datosSeleccionados(int idCliente) {
+
+        try {
+            Connection con = Conexion.getConexion();
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT * FROM cliente WHERE idCliente = '" + idCliente + "'");
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                jtxt_apellido.setText(rs.getString("Apellido"));
+                jtxt_nombre.setText(rs.getString("Nombre"));                
+                jtxt_dni.setText(rs.getString("Dni"));
+                jtxt_direccion.setText(rs.getString("Domicilio"));
+                jtxt_telefono.setText(rs.getString("Telefono"));
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error al seleccionar Cliente " + e);
+        }
+
+    }
 }

@@ -180,15 +180,15 @@ public class JfrmLogin extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(58, 58, 58)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(51, 51, 51)
                 .addComponent(jbIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 350, 500));
@@ -320,13 +320,13 @@ public class JfrmLogin extends javax.swing.JFrame {
             
             Statement st = con.createStatement();            
             ResultSet rs = st.executeQuery(sql);           
-            System.out.println(sql);//////////////////
+            
             while (rs.next()) {             
                 
                 idUsuarioReg = rs.getInt("idUsuario");
                 ApellUsuario = rs.getString("Apellido");
                 
-                System.out.println(ApellUsuario + "----");    //////////////////////////   
+                    //////////////////////////   
                 
                 usuario.setIdUsuario(idUsuarioReg);
                 usuario.setApellido(ApellUsuario);                                 

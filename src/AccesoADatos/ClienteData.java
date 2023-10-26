@@ -275,9 +275,35 @@ public class ClienteData {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al actualizar Cliente" + ex);
         }
           
+    }
+    
+    public boolean actualizarDatoCliente(Cliente c, int idCliente){  //// Para GestionCliente
+        boolean resp = false;
+        String sql = "UPDATE `Cliente` SET Apellido=?, Nombre=?, Dni=?, Domicilio = ?, "
+                + "Telefono = ?, Estado = ? WHERE idCliente = '" + idCliente + "'";
+        
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setString(1, c.getApellido());
+            ps.setString(2, c.getNombre());
+            ps.setString(3, c.getDomicilio());
+            ps.setInt(4, c.getDni());
+            ps.setInt(5, c.getTelefono());
+            ps.setBoolean(6, c.isEstadoCliente());
+            
+            if (ps.executeUpdate() > 0){
+                resp = true;
+            }
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar Cliente" + ex);
+        }
+        return resp;
     }
     
     public void bajaDeCliente(int dni){
@@ -298,5 +324,20 @@ public class ClienteData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Clientes" + ex.getMessage());
         }
+    }
+    
+    public boolean eliminar(int idCliente){ /////Para GestionCliente
+        boolean resp = false;
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM cliente WHERE idCliente = '" + idCliente + "'");
+            ps.executeUpdate();
+            
+            if (ps.executeUpdate() > 0){
+                resp = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar Cliente" + e);
+        }
+        return resp;
     }
 }
