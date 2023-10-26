@@ -248,9 +248,9 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jMenu7_cerrar_sesion.setText("Cerrar Sesión");
         jMenu7_cerrar_sesion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jMenu7_cerrar_sesion.setPreferredSize(new java.awt.Dimension(165, 50));
-        jMenu7_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu7_cerrar_sesionActionPerformed(evt);
+        jMenu7_cerrar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu7_cerrar_sesionMouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu7_cerrar_sesion);
@@ -374,20 +374,6 @@ public class JfrMenu1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmItem4_nuevo_usuarioActionPerformed
 
-    private void jMenu7_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu7_cerrar_sesionActionPerformed
-        this.dispose();
-        JfrmLogin login = null;
-        
-        try {
-            login = new JfrmLogin();
-            login.setVisible(true);
-        } catch (Exception e) {
-            System.out.println("Error " + e);
-        }
-        
-        
-    }//GEN-LAST:event_jMenu7_cerrar_sesionActionPerformed
-
     private void jMenuItem2_gestClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_gestClienteActionPerformed
         
         JInternalGestioCliente g_cliente = null;
@@ -400,6 +386,18 @@ public class JfrMenu1 extends javax.swing.JFrame {
         g_cliente.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem2_gestClienteActionPerformed
+
+    private void jMenu7_cerrar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7_cerrar_sesionMouseClicked
+        this.dispose();
+        JfrmLogin login = null;
+        
+        try {
+            login = new JfrmLogin();
+            login.setVisible(true);
+        } catch (Exception e) {
+            System.out.println("Error " + e);
+        }
+    }//GEN-LAST:event_jMenu7_cerrar_sesionMouseClicked
 
     /**
      * @param args the command line arguments
