@@ -40,9 +40,7 @@ public class PDFventa {
     private String nomArchivoPDF = "";
 
     public void carga_datos_cliente(int idCliente) throws SQLException {
-
         Connection con = Conexion.getConexion();
-
         String sql = "SELECT * FROM Cliente WHERE idCliente = '" + idCliente + "'";
 
         try {
@@ -53,13 +51,11 @@ public class PDFventa {
                 dni_cliente = String.valueOf(rs.getInt("Dni"));
                 telefono = String.valueOf(rs.getInt("Telefono"));
                 direccion_cliente = rs.getString("Direccion");
-
             }
             con.close();
         } catch (SQLException e) {
             System.out.println("Error al recibir datos del Cliente" + e);
         }
-
     }
 
     public void FacturaPDF() {
@@ -71,7 +67,7 @@ public class PDFventa {
 
             String fecha = "";
             for (int i = 0; i < fechaActual.length(); i++) {
-                if (fecha.charAt(i) == '/') {
+                if (fechaActual.charAt(i) == '/') {
                     fecha = fechaActual.replace("/", "_");
                 }
             }
