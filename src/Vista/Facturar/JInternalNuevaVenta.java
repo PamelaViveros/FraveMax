@@ -558,6 +558,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                                 jtxt_subTotal.setText("0.0");
                                 jtxt_descuento.setText("0.0");
                                 jtxt_total_A_Pagar.setText("0.0");
+                                jtxt_efectivo.setText("0.0");
                                 jtxt_cambio.setText("0.0");
                                 auxIdDetalleVent = 1;
                                 
