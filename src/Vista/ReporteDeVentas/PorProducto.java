@@ -81,29 +81,40 @@ public class PorProducto extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(26, 43, 61));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        bEliminarVenta.setBackground(new java.awt.Color(153, 0, 0));
+        bEliminarVenta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bEliminarVenta.setForeground(new java.awt.Color(255, 255, 255));
         bEliminarVenta.setText("Eliminar");
+        bEliminarVenta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bEliminarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bEliminarVentaActionPerformed(evt);
             }
         });
-        jPanel1.add(bEliminarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 229, -1, -1));
+        jPanel1.add(bEliminarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 230, 80, 25));
 
+        VerDetalle.setBackground(new java.awt.Color(204, 255, 255));
+        VerDetalle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         VerDetalle.setText("Ver Detalle");
+        VerDetalle.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         VerDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerDetalleActionPerformed(evt);
             }
         });
-        jPanel1.add(VerDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 229, -1, -1));
+        jPanel1.add(VerDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 230, 90, 25));
 
+        bSalir.setBackground(new java.awt.Color(153, 0, 0));
+        bSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bSalir.setForeground(new java.awt.Color(255, 255, 255));
         bSalir.setText("Salir");
+        bSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(bSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 229, -1, -1));
+        jPanel1.add(bSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 230, 80, 25));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
