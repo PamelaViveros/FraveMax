@@ -188,8 +188,8 @@ public class PDFventa {
             }
             
             doc.add(tableProducto);
-            
-            ///Precio Final
+            ///////////////////
+            ///Precio Final///
             Paragraph p_final = new Paragraph();
             p_final.add(Chunk.NEWLINE);
             p_final.add("Total a Pagar: " + JInternalNuevaVenta.jtxt_total_A_Pagar.getText());

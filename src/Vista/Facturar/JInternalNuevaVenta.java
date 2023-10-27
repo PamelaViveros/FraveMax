@@ -411,8 +411,8 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                                 subtotal = (double) Math.round(subtotal * 100) / 100;
                                 descuento = (double) Math.round(descuento * 100) / 100;
                                 totalPagar = (double) Math.round(totalPagar * 100) / 100;
-
-                                //nuevo producto
+                                ////////////////////////
+                                /////nuevo producto/////
                                 producto = new DetalleVenta(auxIdDetalleVent,
                                         1,
                                         id_Producto,
@@ -516,11 +516,12 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
 
     private void jBut_CobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBut_CobrarActionPerformed
         DetalleVenta detalleVenta = new DetalleVenta();
+        
         Venta venta = new Venta();      
         
         try {
             VentaData vData = new VentaData();
-            DetalleVentaData dDetalleVentaData = new DetalleVentaData();
+            DetalleVentaData DVentaData = new DetalleVentaData();
             
 //            String fecha_actual = "";
             LocalDate fechaHoy =  LocalDate.now();
@@ -530,14 +531,15 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                 if (listaProductos.size() > 0) {
                     
                     this.obtenerIdClienteSeleccionado();
+                    this.setIdUsuarioApellido();
                     
                     venta.setIdVenta(0);
                     venta.setIdCliente(idCliente);
                     venta.setFechaVenta(fechaHoy);
                     venta.setIdUsuario(idUsuario);
                     venta.setEstado(true);
-                    
-                    if (dDetalleVentaData.guardarDetalle(detalleVenta)) {
+                    System.out.println("USUARIO ID: " + idUsuario);
+                    if (vData.cargarVenta(venta)) {
                         
                         JOptionPane.showMessageDialog(null, "¡Venta Cargada exitosamente!");
                         PDFventa pdf = new PDFventa();
@@ -545,16 +547,18 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                         pdf.FacturaPDF();
                         
                         for (DetalleVenta elem : listaProductos) {
-                            detalleVenta.setIdDetalleVenta(0);
-                            detalleVenta.setIdProducto(elem.getIdProducto());
+                            //detalleVenta.setIdDetalleVenta(0);
                             detalleVenta.setCantidad(elem.getCantidad());
+                            detalleVenta.setIdVenta(elem.getIdVenta());
                             detalleVenta.setPrecioUnitario(elem.getPrecioUnitario());
+                            detalleVenta.setIdProducto(elem.getIdProducto());                                                      
                             detalleVenta.setSubTotal(elem.getSubTotal());
+                            detalleVenta.setDescuento(elem.getDescuento());
                             detalleVenta.setTotalPagar(elem.getTotalPagar());
                             detalleVenta.setEstado(1);
                             
-                            if (dDetalleVentaData.guardarDetalle(detalleVenta)){
-                                System.out.println("Detalle Venta Guardado0");
+                            if (DVentaData.guardarDetalle(detalleVenta)){
+                                System.out.println("Detalle Venta Guardado");
                                 
                                 jtxt_subTotal.setText("0.0");
                                 jtxt_descuento.setText("0.0");
@@ -572,7 +576,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                         listaProductos.clear();
                         listaTablaProducto();
                     }else{
-                       JOptionPane.showMessageDialog(null, "Error al guardar detalleVenta"); 
+                       JOptionPane.showMessageDialog(null, "Error al guardar Venta"); 
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "¡Antes debe seleccionar almenos un Producto!");
@@ -713,7 +717,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                 nombre = rs.getString("NombreProducto");
                 cantidadProducto_BD = rs.getInt("Stock");
                 precioUnitario = rs.getDouble("PrecioActual");
-                System.out.println("paso 4");
+               
             }
             //con.close();
 
@@ -746,7 +750,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     public void setIdUsuarioApellido(){
         
         jtxt_vendedor.setText(uActivo.getIdUsuario()+" "+uActivo.getApellido());
-                      
+        idUsuario = uActivo.getIdUsuario();
     }
     
     private boolean validarDouble(String valor) {
