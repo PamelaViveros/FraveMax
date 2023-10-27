@@ -1,4 +1,3 @@
-
 package Vista;
 
 import Vista.Facturar.JInternalNuevaVenta;
@@ -9,6 +8,8 @@ import Vista.ReporteDeVentas.PorFecha;
 import Vista.ReporteDeVentas.PorProducto;
 import Vista.ReporteDeVentas.PorUsuario;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,24 +24,32 @@ public class JfrMenu1 extends javax.swing.JFrame {
 
     public static JDesktopPane jDesktopPaneMenu;
     JfrmLogin metodo;
-    
+
     public JfrMenu1() throws SQLException {
-        
+
         initComponents();
         this.metodo = new JfrmLogin();
         metodo.ObtenerDdatosDeUsuarioReg();
-        
-        this.setSize(new Dimension(900,600));
+
+        this.setSize(new Dimension(900, 600));
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         this.setTitle("SISTEMA DE VENTAS");
-        
+
         this.setLayout(null);
         jDesktopPaneMenu = new JDesktopPane();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alt = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         this.jDesktopPaneMenu.setBounds(0, 0, ancho, (alt - 110));
         this.add(jDesktopPaneMenu);
+    }
+
+    @Override
+    public Image getIconImage() {
+
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imag/ventas.png"));
+        return retValue;
+
     }
 
     /**
@@ -91,6 +100,7 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jMenuBar3.add(jMenu9);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -266,15 +276,15 @@ public class JfrMenu1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1_nuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_nuevoClienteActionPerformed
-        
+
         JInternalCliente ventanaNuevoCliente = new JInternalCliente();
         jDesktopPaneMenu.add(ventanaNuevoCliente);
         ventanaNuevoCliente.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem1_nuevoClienteActionPerformed
 
     private void jMenuItem9_gest_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9_gest_productoActionPerformed
-        
+
         GestionProductos ventanaGestionProductos = null;
         try {
             ventanaGestionProductos = new GestionProductos();
@@ -283,35 +293,35 @@ public class JfrMenu1 extends javax.swing.JFrame {
         }
         jDesktopPaneMenu.add(ventanaGestionProductos);
         ventanaGestionProductos.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem9_gest_productoActionPerformed
 
     private void jMenuItem11_nueva_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11_nueva_ventaActionPerformed
         try {
             metodo.ObtenerDdatosDeUsuarioReg();
         } catch (SQLException ex) {
-            
+
         }
         JInternalNuevaVenta nuevaVenta = null;
         try {
             nuevaVenta = new JInternalNuevaVenta();
-            if ( nuevaVenta != null ){
-                
-            nuevaVenta.setIdUsuarioApellido();
-            
-            jDesktopPaneMenu.add(nuevaVenta);
-            nuevaVenta.setVisible(true);
+            if (nuevaVenta != null) {
+
+                nuevaVenta.setIdUsuarioApellido();
+
+                jDesktopPaneMenu.add(nuevaVenta);
+                nuevaVenta.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Error al acceder al panel de ventas");               
+                JOptionPane.showMessageDialog(null, "Error al acceder al panel de ventas");
             }
         } catch (SQLException ex) {
             System.out.println("Error al acceder al panel de ventas " + ex.getMessage());
         }
-              
+
     }//GEN-LAST:event_jMenuItem11_nueva_ventaActionPerformed
 
     private void jMenuItem3_buscar_por_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3_buscar_por_fechaActionPerformed
-        
+
         PorFecha porFecha = null;
         try {
             porFecha = new PorFecha();
@@ -320,11 +330,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
         }
         jDesktopPaneMenu.add(porFecha);
         porFecha.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem3_buscar_por_fechaActionPerformed
 
     private void jMenuItem1_buscar_por_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_buscar_por_clienteActionPerformed
-        
+
         PorCliente porCliente = null;
         try {
             porCliente = new PorCliente();
@@ -333,11 +343,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
         }
         jDesktopPaneMenu.add(porCliente);
         porCliente.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem1_buscar_por_clienteActionPerformed
 
     private void jMenuItem2_buscar_por_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_buscar_por_productoActionPerformed
-        
+
         PorProducto porProducto = null;
         try {
             porProducto = new PorProducto();
@@ -346,11 +356,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
         }
         jDesktopPaneMenu.add(porProducto);
         porProducto.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem2_buscar_por_productoActionPerformed
 
     private void jMenuItem10_buscar_por_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10_buscar_por_usuarioActionPerformed
-        
+
         PorUsuario porUsuario = null;
         try {
             porUsuario = new PorUsuario();
@@ -359,11 +369,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
         }
         jDesktopPaneMenu.add(porUsuario);
         porUsuario.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem10_buscar_por_usuarioActionPerformed
 
     private void jMenuItem8_nuevo_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8_nuevo_productoActionPerformed
-        
+
         NuevoProducto nuevoProducto = null;
         try {
             nuevoProducto = new NuevoProducto();
@@ -372,14 +382,14 @@ public class JfrMenu1 extends javax.swing.JFrame {
         }
         jDesktopPaneMenu.add(nuevoProducto);
         nuevoProducto.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem8_nuevo_productoActionPerformed
 
     private void jmItem4_nuevo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItem4_nuevo_usuarioActionPerformed
-       NuevoUsuario nuevoUsuario = null;
+        NuevoUsuario nuevoUsuario = null;
         try {
-            nuevoUsuario =new NuevoUsuario();
-            
+            nuevoUsuario = new NuevoUsuario();
+
         } catch (SQLException ex) {
         }
         jDesktopPaneMenu.add(nuevoUsuario);
@@ -387,7 +397,7 @@ public class JfrMenu1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jmItem4_nuevo_usuarioActionPerformed
 
     private void jMenuItem2_gestClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_gestClienteActionPerformed
-        
+
         JInternalGestioCliente g_cliente = null;
         try {
             g_cliente = new JInternalGestioCliente();
@@ -396,13 +406,13 @@ public class JfrMenu1 extends javax.swing.JFrame {
         }
         jDesktopPaneMenu.add(g_cliente);
         g_cliente.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem2_gestClienteActionPerformed
 
     private void jMenu7_cerrar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7_cerrar_sesionMouseClicked
         this.dispose();
         JfrmLogin login = null;
-        
+
         try {
             login = new JfrmLogin();
             login.setVisible(true);
@@ -412,10 +422,10 @@ public class JfrMenu1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu7_cerrar_sesionMouseClicked
 
     private void jmItem5_gestinar_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItem5_gestinar_usuariosActionPerformed
-        GestionUsuario gUsuario=null;
+        GestionUsuario gUsuario = null;
         try {
-          gUsuario=  new GestionUsuario();
-         
+            gUsuario = new GestionUsuario();
+
         } catch (Exception e) {
         }
 

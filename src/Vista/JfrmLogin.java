@@ -33,7 +33,9 @@ public class JfrmLogin extends javax.swing.JFrame {
         this.setTitle("Login -MENU DE VENTAS");
         this.setSize(new Dimension (700, 500));
         
-        //this.ObtenerDdatosDeUsuarioReg();
+        jpPassword.setVisible(true);
+        jTextField_PassVisible.setVisible(false);
+               
     }
     @Override
     public Image getIconImage(){
@@ -62,6 +64,9 @@ public class JfrmLogin extends javax.swing.JFrame {
         jtUsuario = new javax.swing.JTextField();
         jpPassword = new javax.swing.JPasswordField();
         jbIniciarSesion = new javax.swing.JButton();
+        jCheckBox_Mostrar_cont = new javax.swing.JCheckBox();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField_PassVisible = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -131,6 +136,23 @@ public class JfrmLogin extends javax.swing.JFrame {
         });
         jPanel2.add(jbIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 375, 176, 37));
 
+        jCheckBox_Mostrar_cont.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCheckBox_Mostrar_contMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jCheckBox_Mostrar_contMouseReleased(evt);
+            }
+        });
+        jPanel2.add(jCheckBox_Mostrar_cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 300, 20, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Mostrar");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 320, -1, -1));
+
+        jTextField_PassVisible.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel2.add(jTextField_PassVisible, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 289, 176, 35));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 350, 500));
 
         pack();
@@ -163,6 +185,33 @@ public class JfrmLogin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jpPasswordKeyPressed
+
+    private void jCheckBox_Mostrar_contMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox_Mostrar_contMouseClicked
+        
+        if (jCheckBox_Mostrar_cont.isSelected() == true){
+        
+            String psw = "";
+            char[] pswIngresado = jpPassword.getPassword();
+            
+            for (int i = 0; i < pswIngresado.length; i++){
+                psw += pswIngresado[i];
+            }
+            jTextField_PassVisible.setText(psw);
+            jpPassword.setVisible(false);
+            jTextField_PassVisible.setVisible(true);
+        } else {
+            String pswIng = jTextField_PassVisible.getText().trim();
+            jpPassword.setText(pswIng);
+            jpPassword.setVisible(true);
+            jTextField_PassVisible.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_jCheckBox_Mostrar_contMouseClicked
+
+    private void jCheckBox_Mostrar_contMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox_Mostrar_contMouseReleased
+        
+        
+    }//GEN-LAST:event_jCheckBox_Mostrar_contMouseReleased
 
     /**
      * @param args the command line arguments
@@ -204,14 +253,17 @@ public class JfrmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBox_Mostrar_cont;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextField_PassVisible;
     private javax.swing.JButton jbIniciarSesion;
     private javax.swing.JPasswordField jpPassword;
     private javax.swing.JTextField jtUsuario;
