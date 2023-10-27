@@ -6,6 +6,7 @@
 package Vista.ReporteDeVentas;
 
 import AccesoADatos.DetalleVentaData;
+import static AccesoADatos.DetalleVentaData.detalles;
 import AccesoADatos.ProductoData;
 import AccesoADatos.UsuarioData;
 import static AccesoADatos.UsuarioData.usuarios;
@@ -234,6 +235,7 @@ public void cabecera(){
     
     modelo.addColumn("id Venta");
         modelo.addColumn("idCliente");
+        modelo.addColumn("idDetalleVent");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Nombre producto");
         modelo.addColumn("Fecha de venta");
@@ -247,20 +249,25 @@ public void cargaTablaxUsuario(){
     vData.ventasPorUsuario(user.getIdUsuario());
 
         for (Venta venta : ventas) {
-          DetalleVenta dv=dvData.detallarVenta(venta.getIdVenta());
-          Producto prod= pData.buscarPorId(dv.getIdProducto());
-           LocalDate fecha=venta.getFechaVenta();
+           dvData.detalles(venta.getIdVenta());
+             LocalDate fecha=venta.getFechaVenta();
             String fechaOk=fecha.format(dateTimeFormatter);
-                modelo.addRow(new Object[]{
-                    venta.getIdVenta(),
-                    venta.getIdCliente(),
-                    dv.getCantidad(),
-                    prod.getNombreProducto(),
-                    fechaOk
-                });
             
+            for (DetalleVenta detalle : detalles) {
+            Producto prod=pData.buscarPorId(detalle.getIdProducto());
+                modelo.addRow(new Object[]{
+                venta.getIdVenta(),
+                venta.getIdCliente(),
+                detalle.getIdDetalleVenta(),    
+                detalle.getCantidad(),
+               prod.getNombreProducto(),
+                fechaOk,
+                
+                });
+            }
+           
+            detalles.clear();
         }
-
         ventas.clear();
     
     

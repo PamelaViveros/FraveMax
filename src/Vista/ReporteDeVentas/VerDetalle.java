@@ -227,12 +227,14 @@ public class VerDetalle extends javax.swing.JInternalFrame {
 public void seteo(){
     
     Titulo.setText("Detalle de la venta Nº "+id);
-    Venta v = vData.buscarVenta(id);
-    int idUser=v.getIdUsuario();
-    Usuario u = uData.buscarUsuario(idUser);
-    System.out.println(v.toString());
+   
+    
     DetalleVenta dv = dvData.detallarVenta(id);
     System.out.println(dv.toString());
+     Venta v = vData.buscarVenta(dv.getIdVenta());
+     int idUser=v.getIdUsuario();
+    Usuario u = uData.buscarUsuario(idUser);
+    System.out.println(v.toString());
     prod = pData.buscarPorId(dv.getIdProducto());
     System.out.println(prod.toString());
     LocalDate fecha=v.getFechaVenta();

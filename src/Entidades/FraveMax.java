@@ -5,6 +5,8 @@
  */
 package Entidades;
 
+import AccesoADatos.DetalleVentaData;
+import static AccesoADatos.DetalleVentaData.detalles;
 import Vista.JfrmLogin;
 import java.sql.SQLException;
 
@@ -19,11 +21,14 @@ public class FraveMax {
      */
     public static void main(String[] args) throws SQLException {
 
-        JfrmLogin Login = new JfrmLogin();
-        
-       Login.setVisible(true);
-       Login.setLocationRelativeTo(null);
+        DetalleVentaData detalleVentaData = new DetalleVentaData();
          
+        detalleVentaData.detalles(6);
+         for (DetalleVenta detalle : detalles) {
+             System.out.println(detalle.toString());
+             
+             
+        }
     
     }
 

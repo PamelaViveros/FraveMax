@@ -6,13 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
 public class DetalleVentaData {
     
     private Connection con = null;
-    
+    public static List<DetalleVenta> detalles=new ArrayList<>();
+   
     public DetalleVentaData() throws SQLException{
 
         con = Conexion.getConexion();
@@ -137,5 +140,42 @@ public class DetalleVentaData {
             JOptionPane.showMessageDialog(null, "Error al entrar a la tabla detalleventa.");
         } 
     }
+    
+    public List detalles( int idVenta){
+        
+        String sql="SELECT * FROM DetalleVenta WHERE idVenta=?";
+        PreparedStatement ps=null;
+        
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idVenta);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                DetalleVenta detalle= new DetalleVenta();
+                detalle.setIdDetalleVenta(rs.getInt("idDetalleVent"));
+                detalle.setCantidad(rs.getInt("Cantidad"));
+                detalle.setIdVenta(rs.getInt("idVenta"));
+                detalle.setPrecioUnitario(rs.getDouble("PrecioVenta"));
+                detalle.setIdProducto(rs.getInt("idProducto"));
+                detalle.setSubTotal(rs.getDouble("Subtotal"));
+                detalle.setDescuento(rs.getDouble("descuento"));
+                detalle.setTotalPagar(rs.getDouble("TotalPagar"));
+                detalle.setEstado(rs.getDouble("Estado"));
+                detalles.add(detalle);
+                
+            }           
+               
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Detalle de Venta" + ex.getMessage());
+        }
+        return detalles;
+        
+    }
+    
+    
 }
 
