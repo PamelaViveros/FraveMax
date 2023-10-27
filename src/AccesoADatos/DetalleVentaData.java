@@ -47,37 +47,33 @@ public class DetalleVentaData {
         }
     
     }
-    public static int idDetalleRegistro;
-    java.math.BigDecimal iDColVar;
+
     
-    public boolean guardarDetalle(DetalleVenta dv){
+    public boolean guardarDetalle(DetalleVenta dv) throws SQLException{
         
         boolean resp = false;
-        String sql = "INSERT INTO DetalleVenta( Cantidad, idVenta, PrecioVenta, idProducto, SubTotal, Descuento, TotalPagar)  VALUES (?, ?, ?, ?, ?, ?, ?)";
-       
+        Connection con = Conexion.getConexion();
+        String sql = "INSERT INTO `detalleventa`(`Cantidad`, `idVenta`, `PrecioVenta`, `idProducto`, `SubTotal`, `Descuento`, `TotalPagar`, `Estado`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+       System.out.println(sql);
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, dv.getCantidad());
-            ps.setInt(2, dv.getIdVenta());
-            ps.setDouble(3, dv.getPrecioUnitario());
-            ps.setInt(4, dv.getIdProducto());
-            ps.setDouble(5, dv.getSubTotal());
-            ps.setDouble(6, dv.getDescuento());
-            ps.setDouble(7, dv.getTotalPagar());
-                                 
-            ResultSet rs = ps.getGeneratedKeys();
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);System.out.println("000");
+            ps.setInt(1, dv.getCantidad());System.out.println("1");
+            ps.setInt(2, dv.getIdVenta());System.out.println("2");
+            ps.setDouble(3, dv.getPrecioUnitario());System.out.println("3");
+            ps.setInt(4, dv.getIdProducto());System.out.println("4");
+            ps.setDouble(5, dv.getSubTotal());System.out.println("5");
+            ps.setDouble(6, dv.getDescuento());System.out.println("6");
+            ps.setDouble(7, dv.getTotalPagar());System.out.println("7");
+            //ps.setDouble(7, dv.getEstado());System.out.println("8");
+                     
             
             if (ps.executeUpdate() > 0) {
                 resp = true;
             }
             
-            while(rs.next()){
-                iDColVar = rs.getBigDecimal(1);
-                idDetalleRegistro = iDColVar.intValue();
-            }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar Detalle de venta.");
+            JOptionPane.showMessageDialog(null, "Error en Guardar Detalle en la BD: " + ex.getMessage());
         }
         return resp;
     }

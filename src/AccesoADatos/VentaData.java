@@ -251,5 +251,38 @@ public class VentaData {
         }
 
     }
+    
+    public static int idDetalleRegistro;
+    java.math.BigDecimal iDColVar;
+    
+    public boolean cargarVenta(Venta v) {
+        boolean resp = false;
+        
+        String sql = "INSERT INTO ventas  VALUES (?,?,?,?,?)";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, 0);
+            ps.setInt(2, v.getIdCliente());
+            ps.setDate(3, Date.valueOf(v.getFechaVenta())); //Parseo LocalDate a Date           
+            ps.setBoolean(4, true);
+            ps.setInt(5, v.getIdUsuario());
+            int res = ps.executeUpdate();
+                       
+            ResultSet rs = ps.getGeneratedKeys();
+            if (ps.executeUpdate() > 0){
+                resp = true;
+            }
+            while(rs.next()){
+                iDColVar = rs.getBigDecimal(1);
+                idDetalleRegistro = iDColVar.intValue();
+            }
+            //ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());
+        }
+        return resp;
+    }
 
 }
