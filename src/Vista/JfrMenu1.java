@@ -115,6 +115,11 @@ public class JfrMenu1 extends javax.swing.JFrame {
         jmItem5_gestinar_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/configuraciones.png"))); // NOI18N
         jmItem5_gestinar_usuarios.setText("Gestionar Usuarios");
         jmItem5_gestinar_usuarios.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
+        jmItem5_gestinar_usuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmItem5_gestinar_usuariosActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmItem5_gestinar_usuarios);
 
         jMenuBar1.add(jMenu1);
@@ -371,7 +376,14 @@ public class JfrMenu1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8_nuevo_productoActionPerformed
 
     private void jmItem4_nuevo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItem4_nuevo_usuarioActionPerformed
-        // TODO add your handling code here:
+       NuevoUsuario nuevoUsuario = null;
+        try {
+            nuevoUsuario =new NuevoUsuario();
+            
+        } catch (SQLException ex) {
+        }
+        jDesktopPaneMenu.add(nuevoUsuario);
+        nuevoUsuario.setVisible(true);
     }//GEN-LAST:event_jmItem4_nuevo_usuarioActionPerformed
 
     private void jMenuItem2_gestClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_gestClienteActionPerformed
@@ -398,6 +410,18 @@ public class JfrMenu1 extends javax.swing.JFrame {
             System.out.println("Error " + e);
         }
     }//GEN-LAST:event_jMenu7_cerrar_sesionMouseClicked
+
+    private void jmItem5_gestinar_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItem5_gestinar_usuariosActionPerformed
+        GestionUsuario gUsuario=null;
+        try {
+          gUsuario=  new GestionUsuario();
+         
+        } catch (Exception e) {
+        }
+
+        jDesktopPaneMenu.add(gUsuario);
+        gUsuario.setVisible(true);
+    }//GEN-LAST:event_jmItem5_gestinar_usuariosActionPerformed
 
     /**
      * @param args the command line arguments

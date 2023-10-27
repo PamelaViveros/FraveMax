@@ -7,8 +7,8 @@ package Vista;
 
 import AccesoADatos.UsuarioData;
 import Entidades.Usuario;
+import static Vista.JfrMenu1.jDesktopPaneMenu;
 import java.awt.Color;
-import static java.awt.Event.ENTER;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -16,17 +16,24 @@ import javax.swing.JOptionPane;
  *
  * @author Gaming
  */
-public class NuevoUsuario extends javax.swing.JInternalFrame {
+public class ModificarUsuario extends javax.swing.JInternalFrame {
 
-    Usuario user = new Usuario();
+    Usuario u;
     UsuarioData uData;
 
     /**
-     * Creates new form NuevoUsuario
+     * Creates new form ModificarUsuario
      */
-    public NuevoUsuario() throws SQLException {
+    public ModificarUsuario(Usuario u) throws SQLException {
         this.uData = new UsuarioData();
+        this.u = u;
         initComponents();
+        tApellido.setText(u.getApellido());
+        tNombre.setText(u.getNombre());
+        
+        tPass.setText("");
+        tCpass.setText("");
+
     }
 
     /**
@@ -48,17 +55,14 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         tNombre = new javax.swing.JTextField();
         bSalir = new javax.swing.JButton();
         bGuardar = new javax.swing.JButton();
-        bNuevo = new javax.swing.JButton();
         tPass = new javax.swing.JPasswordField();
         tCpass = new javax.swing.JPasswordField();
-
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(26, 56, 48));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setText("Nuevo Usuario");
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Modificando usuario");
 
         jLabel2.setText("Apellido");
 
@@ -94,13 +98,6 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        bNuevo.setText("Nuevo");
-        bNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bNuevoActionPerformed(evt);
-            }
-        });
-
         tPass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tPassKeyPressed(evt);
@@ -121,8 +118,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(bNuevo)
-                        .addGap(18, 18, 18)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(bGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(bSalir)
@@ -133,23 +129,20 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(tNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tCpass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tNombre)
+                            .addComponent(tApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addComponent(tPass)
+                            .addComponent(tCpass))
                         .addGap(42, 42, 42))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(102, 102, 102)
                 .addComponent(jLabel1)
-                .addGap(125, 125, 125))
+                .addGap(0, 102, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tApellido, tCpass, tNombre, tPass});
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bGuardar, bNuevo, bSalir});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bGuardar, bSalir});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,29 +168,26 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bSalir)
-                    .addComponent(bGuardar)
-                    .addComponent(bNuevo))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(bGuardar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoActionPerformed
-        limpiar();
-    }//GEN-LAST:event_bNuevoActionPerformed
-
-    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-
-        guardar();
-
-    }//GEN-LAST:event_bGuardarActionPerformed
-
-    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_bSalirActionPerformed
 
     private void tApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tApellidoKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
@@ -211,6 +201,23 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tNombreKeyPressed
 
+    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
+        ModificarUsuario mUsuario = null;
+        try {
+            new ModificarUsuario(u);
+            this.dispose();
+        } catch (Exception e) {
+        }
+
+        jDesktopPaneMenu.add(mUsuario);
+        mUsuario.setVisible(true);
+    }//GEN-LAST:event_bSalirActionPerformed
+
+    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+
+        guardarModificacion();
+    }//GEN-LAST:event_bGuardarActionPerformed
+
     private void tPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tPassKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
             tCpass.requestFocus();
@@ -220,14 +227,13 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
 
     private void tCpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tCpassKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            guardar();
+            guardarModificacion();
         }
     }//GEN-LAST:event_tCpassKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bGuardar;
-    private javax.swing.JButton bNuevo;
     private javax.swing.JButton bSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -241,30 +247,19 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField tPass;
     // End of variables declaration//GEN-END:variables
 
-    public void limpiar() {
-
-        tApellido.setText("");
-        tNombre.setText("");
-        tPass.setText("");
-        tCpass.setText("");
-        tApellido.setBackground(Color.white);
-        tNombre.setBackground(Color.white);
-        tPass.setBackground(Color.white);
-        tCpass.setBackground(Color.white);
-
-    }
-
-    public boolean guardar() {
+    public boolean guardarModificacion() {
         boolean resp = false;
         String apellido = tApellido.getText().trim();
         String nombre = tNombre.getText().trim();
+        
         String pass = tPass.getText().trim();
         String cPass = tCpass.getText().trim();
 
         if (apellido.isEmpty() || nombre.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Por favor, complete todos los campos");
         } else {
-            if (!cPass.equals(pass)) {
+           
+            if (!cPass.equals(pass) ) {
                 tPass.setBackground(Color.red);
                 tCpass.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "Las contraseñas no coinciden");
@@ -274,14 +269,14 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
                 tCpass.setBackground(Color.white);
 
             } else {
-                user.setApellido(apellido);
-                user.setNombre(nombre);
-                user.setPassword(pass);
-                if (uData.buscarUsuario(user.getApellido(), user.getNombre(), user.getPassword()) == false) {
-                    JOptionPane.showMessageDialog(rootPane, "El usuario ya se encuentra registrado");
+                u.setApellido(apellido);
+                u.setNombre(nombre);
+                u.setPassword(pass);
+                if (uData.buscarUsuario(u.getApellido(), u.getNombre(), u.getPassword()) == false) {
+                    JOptionPane.showMessageDialog(rootPane, "El nombre de usuario no esta disponible");
 
                 } else {
-                    if (uData.guardarUsuario(user)) {
+                    if (uData.modificarUsuario(u)) {
                         tApellido.setBackground(Color.green);
                         tNombre.setBackground(Color.green);
                         tPass.setBackground(Color.green);
@@ -292,4 +287,5 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         }
         return resp;
     }
+
 }
