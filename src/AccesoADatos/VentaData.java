@@ -34,7 +34,7 @@ public class VentaData {
 
     public void guardarVenta(Venta v) {
 
-        String sql = "INSERT INTO Ventas (IdCliente, FechaVent, idUsuario, Estado) VALUES (?,?,?, ?)";
+        String sql = "INSERT INTO Ventas (idCliente, FechaVent, idUsuario, Estado) VALUES (?,?,?, ?)";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -42,8 +42,11 @@ public class VentaData {
             ps.setDate(2, Date.valueOf(v.getFechaVenta())); //Parseo LocalDate a Date
             ps.setInt(3, v.getIdUsuario());
             ps.setBoolean(4, true);
-            int res = ps.executeUpdate();
-            if (res == 1) {
+            ps.executeUpdate();
+            
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                v.setIdVenta(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Venta guardada con éxito");
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar la venta");
@@ -258,26 +261,24 @@ public class VentaData {
     public boolean cargarVenta(Venta v) {
         boolean resp = false;
         
-        String sql = "INSERT INTO ventas  VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO Ventas (idCliente, FechaVent, idUsuario, Estado) VALUES (?,?,?,?)";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, 0);
-            ps.setInt(2, v.getIdCliente());
-            ps.setDate(3, Date.valueOf(v.getFechaVenta())); //Parseo LocalDate a Date           
-            ps.setBoolean(4, true);
-            ps.setInt(5, v.getIdUsuario());
-            int res = ps.executeUpdate();
-                       
+            ps.setInt(1, v.getIdCliente());
+            ps.setDate(2, Date.valueOf(v.getFechaVenta())); //Parseo LocalDate a Date           
+            ps.setInt(3, v.getIdUsuario());
+            ps.setBoolean(4, true);            
+            ps.executeUpdate();
+            
             ResultSet rs = ps.getGeneratedKeys();
-            if (ps.executeUpdate() > 0){
-                resp = true;
-            }
-            while(rs.next()){
+            if (rs.next()){
+                v.setIdVenta(rs.getInt(1));
                 iDColVar = rs.getBigDecimal(1);
                 idDetalleRegistro = iDColVar.intValue();
+                resp = true;
             }
-            //ps.close();
+            ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla Ventas" + ex.getMessage());

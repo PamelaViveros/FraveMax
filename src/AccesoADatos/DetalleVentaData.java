@@ -53,19 +53,21 @@ public class DetalleVentaData {
         
         boolean resp = false;
         Connection con = Conexion.getConexion();
-        String sql = "INSERT INTO `detalleventa`(`Cantidad`, `idVenta`, `PrecioVenta`, `idProducto`, `SubTotal`, `Descuento`, `TotalPagar`, `Estado`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-       System.out.println(sql);
+        String sql = "INSERT INTO `DetalleVenta`(`Cantidad`, `idVenta`, `PrecioVenta`, `idProducto`, `SubTotal`, `Descuento`, `TotalPagar`, `Estado`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+       
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);System.out.println("000");
-            ps.setInt(1, dv.getCantidad());System.out.println("1");
-            ps.setInt(2, dv.getIdVenta());System.out.println("2");
-            ps.setDouble(3, dv.getPrecioUnitario());System.out.println("3");
-            ps.setInt(4, dv.getIdProducto());System.out.println("4");
-            ps.setDouble(5, dv.getSubTotal());System.out.println("5");
-            ps.setDouble(6, dv.getDescuento());System.out.println("6");
-            ps.setDouble(7, dv.getTotalPagar());System.out.println("7");
-            //ps.setDouble(7, dv.getEstado());System.out.println("8");
-                     
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, dv.getCantidad());
+            ps.setInt(2, dv.getIdVenta());
+            ps.setDouble(3, dv.getPrecioUnitario());
+            ps.setInt(4, dv.getIdProducto());
+            ps.setDouble(5, dv.getSubTotal());
+            ps.setDouble(6, dv.getDescuento());
+            ps.setDouble(7, dv.getTotalPagar());
+            ps.setInt(8, 1);
+                                 
+            ResultSet rs = ps.getGeneratedKeys();
             
             if (ps.executeUpdate() > 0) {
                 resp = true;
@@ -73,7 +75,7 @@ public class DetalleVentaData {
             
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en Guardar Detalle en la BD: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al guardar Detalle de venta." + ex.getMessage());
         }
         return resp;
     }
@@ -82,8 +84,8 @@ public class DetalleVentaData {
     
         DetalleVenta dv =new DetalleVenta();
         
-        String sql = "SELECT idVenta , idProducto , PrecioVenta , Cantidad, SubTotal, Descuento, TotalPagar"
-                + " FROM DetalleVenta WHERE idDetalleVent = ? ";
+        String sql = "SELECT idDetalleVent, idVenta , idProducto , PrecioVenta , Cantidad, SubTotal, Descuento, TotalPagar"
+                + " FROM F WHERE idVenta = ? LIMIT 1";
     
         PreparedStatement ps = null;
         
@@ -95,7 +97,7 @@ public class DetalleVentaData {
             if(rs.next()){
             
                 
-                dv.setIdDetalleVenta(id);
+                dv.setIdDetalleVenta(rs.getInt("idDetalleVent"));
                 dv.setCantidad(rs.getInt("Cantidad"));
                 dv.setIdVenta(rs.getInt("idventa"));
                 dv.setPrecioUnitario(rs.getDouble("PrecioVenta"));

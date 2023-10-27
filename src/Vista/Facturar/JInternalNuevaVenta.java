@@ -13,18 +13,13 @@ import static AccesoADatos.UsuarioData.uActivo;
 import AccesoADatos.VentaData;
 import Entidades.DetalleVenta;
 import Entidades.Venta;
-import Vista.JfrmLogin;
-import com.sun.jndi.cosnaming.CNCtx;
 import java.awt.Dimension;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -538,7 +533,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                     venta.setFechaVenta(fechaHoy);
                     venta.setIdUsuario(idUsuario);
                     venta.setEstado(true);
-                    System.out.println("USUARIO ID: " + idUsuario);
+                    
                     if (vData.cargarVenta(venta)) {
                         
                         JOptionPane.showMessageDialog(null, "¡Venta Cargada exitosamente!");
@@ -547,9 +542,9 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                         pdf.FacturaPDF();
                         
                         for (DetalleVenta elem : listaProductos) {
-                            //detalleVenta.setIdDetalleVenta(0);
+                            detalleVenta.setIdVenta(venta.getIdVenta());
+                            detalleVenta.setIdProducto(elem.getIdProducto());
                             detalleVenta.setCantidad(elem.getCantidad());
-                            detalleVenta.setIdVenta(elem.getIdVenta());
                             detalleVenta.setPrecioUnitario(elem.getPrecioUnitario());
                             detalleVenta.setIdProducto(elem.getIdProducto());                                                      
                             detalleVenta.setSubTotal(elem.getSubTotal());
@@ -633,7 +628,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private void cargarCBCliente() throws SQLException {
 
         Connection con = Conexion.getConexion();
-        String sql = "SELECT * FROM `Cliente`";
+        String sql = "SELECT * FROM `Cliente` WHERE Estado = 1";
         Statement st;
 
         try {
@@ -663,7 +658,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private void cargarCBProductos() throws SQLException {
 
         Connection con = Conexion.getConexion();
-        String sql = "SELECT * FROM Producto";
+        String sql = "SELECT * FROM Producto WHERE Estado = 1";
         Statement st;
 
         try {
@@ -678,12 +673,11 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                 jCB_Producto.addItem(rs.getString("NombreProducto") + " " + rs.getString("Descripcion"));
                 
             }
-            con.close();
 
         } catch (SQLException e) {
             System.out.println("Error al cargar Producto " + e);
         } finally{
-            Conexion.cerrarConexion(con);
+            //Conexion.cerrarConexion(con);
         }
 
     }
@@ -719,7 +713,6 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
                 precioUnitario = rs.getDouble("PrecioActual");
                
             }
-            //con.close();
 
         } catch (SQLException e) {
             System.out.println("Error al cargar Producto " + e);
@@ -767,7 +760,7 @@ public class JInternalNuevaVenta extends javax.swing.JInternalFrame {
     private void obtenerIdClienteSeleccionado(){
         
         try {
-            String sql = "SELECT * FROM cliente WHERE concat (Apellido,' ',Nombre) = '" + this.jCB_Cliente.getSelectedItem() + "'";
+            String sql = "SELECT * FROM Cliente WHERE concat (Apellido,' ',Nombre) = '" + this.jCB_Cliente.getSelectedItem() + "'";
             Connection con = Conexion.getConexion();
             Statement st = con.createStatement();
             

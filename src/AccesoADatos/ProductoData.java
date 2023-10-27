@@ -218,12 +218,10 @@ public class ProductoData {
             ps.setInt(2, idProducto);
 
             int exito = ps.executeUpdate();
-            if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Stock actualizado. Restante: " + stock);
-            } else{
+            if (exito == 0) {
                 JOptionPane.showMessageDialog(null, "Error al actualizar el Stock");
             }
-             ps.close();
+            ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto " + ex.getMessage());
