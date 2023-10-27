@@ -50,9 +50,8 @@ public class PDFventa {
                 nombreCliente = rs.getString("Nombre") + " " + rs.getString("Apellido");
                 dni_cliente = String.valueOf(rs.getInt("Dni"));
                 telefono = String.valueOf(rs.getInt("Telefono"));
-                direccion_cliente = rs.getString("Direccion");
+                direccion_cliente = rs.getString("Domicilio");
             }
-            con.close();
         } catch (SQLException e) {
             System.out.println("Error al recibir datos del Cliente" + e);
         }
@@ -193,7 +192,7 @@ public class PDFventa {
             ///Precio Final
             Paragraph p_final = new Paragraph();
             p_final.add(Chunk.NEWLINE);
-            p_final.add("Total a Pagar: " + JInternalNuevaVenta.jtxt_total_A_Pagar);
+            p_final.add("Total a Pagar: " + JInternalNuevaVenta.jtxt_total_A_Pagar.getText());
             p_final.setAlignment(Element.ALIGN_RIGHT);
             doc.add(p_final);
             
