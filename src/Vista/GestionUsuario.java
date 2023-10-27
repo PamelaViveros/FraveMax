@@ -45,82 +45,65 @@ public class GestionUsuario extends javax.swing.JInternalFrame {
         bEliminar = new javax.swing.JButton();
         bModificar = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
+        jLabel3_wallpaper = new javax.swing.JLabel();
 
+        setClosable(true);
+        setIconifiable(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Stencil", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gestion de Usuarios");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 20, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Seleccione un usuario");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 160, -1));
 
         jcbUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbUsuariosActionPerformed(evt);
             }
         });
+        getContentPane().add(jcbUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 55, 260, -1));
 
+        bEliminar.setBackground(new java.awt.Color(204, 0, 0));
+        bEliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bEliminar.setForeground(new java.awt.Color(255, 255, 255));
         bEliminar.setText("Eliminar");
+        bEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bEliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(bEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 80, 28));
 
+        bModificar.setBackground(new java.awt.Color(0, 153, 51));
+        bModificar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bModificar.setText("Modificar");
+        bModificar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bModificarActionPerformed(evt);
             }
         });
+        getContentPane().add(bModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 80, 28));
 
+        bSalir.setBackground(new java.awt.Color(153, 204, 255));
+        bSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bSalir.setText("Salir");
+        bSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSalirActionPerformed(evt);
             }
         });
+        getContentPane().add(bSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 80, 28));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(210, 210, 210)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bEliminar)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jcbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(bModificar)
-                        .addGap(60, 60, 60)
-                        .addComponent(bSalir)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bEliminar, bModificar, bSalir});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jcbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bEliminar)
-                    .addComponent(bModificar)
-                    .addComponent(bSalir))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
+        jLabel3_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/fondo3.jpg"))); // NOI18N
+        getContentPane().add(jLabel3_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, 490, 270));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -171,6 +154,7 @@ public class GestionUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3_wallpaper;
     private javax.swing.JComboBox<Usuario> jcbUsuarios;
     // End of variables declaration//GEN-END:variables
 
