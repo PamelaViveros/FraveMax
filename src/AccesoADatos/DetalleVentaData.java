@@ -85,7 +85,7 @@ public class DetalleVentaData {
         DetalleVenta dv =new DetalleVenta();
         
         String sql = "SELECT idDetalleVent, idVenta , idProducto , PrecioVenta , Cantidad, SubTotal, Descuento, TotalPagar"
-                + " FROM F WHERE idVenta = ? LIMIT 1";
+                + " FROM DetalleVenta WHERE idVenta = ? LIMIT 1";
     
         PreparedStatement ps = null;
         
