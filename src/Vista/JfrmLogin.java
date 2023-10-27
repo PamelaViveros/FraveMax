@@ -316,7 +316,7 @@ public class JfrmLogin extends javax.swing.JFrame {
         try {
             Connection con = Conexion.getConexion();
             
-            String sql = "SELECT * FROM usuario WHERE Password = '" + usuario.getPassword() + "'";
+            String sql = "SELECT * FROM Usuario WHERE Password = '" + usuario.getPassword() + "'";
             
             Statement st = con.createStatement();            
             ResultSet rs = st.executeQuery(sql);           
