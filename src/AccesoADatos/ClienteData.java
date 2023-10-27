@@ -218,6 +218,7 @@ public class ClienteData {
     }
     
     public List<Cliente> listaClientes(){
+        clientes = new ArrayList<Cliente>();
         
         String sql = "SELECT * FROM `Cliente` WHERE `Estado`= 1";        
         PreparedStatement ps = null;
@@ -283,7 +284,7 @@ public class ClienteData {
     public boolean actualizarDatoCliente(Cliente c, int idCliente){  //// Para GestionCliente
         boolean resp = false;
         String sql = "UPDATE `Cliente` SET Apellido=?, Nombre=?, Dni=?, Domicilio = ?, "
-                + "Telefono = ?, Estado = ? WHERE idCliente = '" + idCliente + "'";
+                + "Telefono = ?, Estado = ? WHERE idCliente = ?";
         
         
         try {
@@ -291,15 +292,16 @@ public class ClienteData {
             
             ps.setString(1, c.getApellido());
             ps.setString(2, c.getNombre());
-            ps.setString(3, c.getDomicilio());
-            ps.setInt(4, c.getDni());
+            ps.setInt(3, c.getDni());
+            ps.setString(4, c.getDomicilio());
             ps.setInt(5, c.getTelefono());
             ps.setBoolean(6, c.isEstadoCliente());
+            ps.setInt(7, idCliente);
             
             if (ps.executeUpdate() > 0){
                 resp = true;
             }
-            con.close();
+            ps.close();
         } catch (SQLException ex) {
             System.out.println("Error al actualizar Cliente" + ex);
         }
@@ -307,7 +309,6 @@ public class ClienteData {
     }
     
     public void bajaDeCliente(int dni){
-        
         String sql = "UPDATE `Cliente` SET Estado = 0 WHERE Dni = ?";
         
         try {
@@ -328,15 +329,18 @@ public class ClienteData {
     
     public boolean eliminar(int idCliente){ /////Para GestionCliente
         boolean resp = false;
+        String sql = "UPDATE `Cliente` SET Estado = 0 WHERE idCliente = ?";
+        
         try {
-            PreparedStatement ps = con.prepareStatement("DELETE FROM cliente WHERE idCliente = '" + idCliente + "'");
-            ps.executeUpdate();
-            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idCliente);
+
             if (ps.executeUpdate() > 0){
                 resp = true;
             }
-        } catch (SQLException e) {
-            System.out.println("Error al eliminar Cliente" + e);
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Clientes" + ex.getMessage());
         }
         return resp;
     }

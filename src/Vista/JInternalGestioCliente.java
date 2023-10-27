@@ -1,22 +1,13 @@
 package Vista;
 
 import AccesoADatos.ClienteData;
-import static AccesoADatos.ClienteData.clientes;
-import AccesoADatos.Conexion;
 import Entidades.Cliente;
-import com.itextpdf.text.pdf.security.SecurityConstants;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,9 +17,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JInternalGestioCliente extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modelo = new DefaultTableModel();
-   ClienteData cData;
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
     
+    ClienteData cData;
     private int idCliente = 0;
 
     public JInternalGestioCliente() throws SQLException {
@@ -181,47 +177,37 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "¡Complete los campos!");
         } else {
             Cliente c = new Cliente();
-            ClienteData cData;
-            try {
-                cData = new ClienteData();
+            c.setApellido(jtxt_apellido.getText().trim());
+            c.setNombre(jtxt_nombre.getText().trim());
+            c.setDni(Integer.parseInt(jtxt_dni.getText().trim()));
+            c.setDomicilio(jtxt_direccion.getText().trim());
+            c.setTelefono(Integer.parseInt(jtxt_telefono.getText().trim()));
 
-                c.setApellido(jtxt_apellido.getText().trim());
-                c.setNombre(jtxt_nombre.getText().trim());
-                c.setDni(Integer.parseInt(jtxt_dni.getText().trim()));
-                c.setDomicilio(jtxt_direccion.getText().trim());
-                c.setTelefono(Integer.parseInt(jtxt_telefono.getText().trim()));
-
-                if (cData.actualizarDatoCliente(c, idCliente)) {
-                    JOptionPane.showMessageDialog(null, "Datos Actualizados");
-                    this.llenarTablaCliente();
-                    this.limpiarTxt();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al Actualizar");
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error" + ex);
+            if (cData.actualizarDatoCliente(c, idCliente)) {
+                JOptionPane.showMessageDialog(null, "Datos Actualizados");
+                this.borrarFilas();
+                this.llenarTablaCliente();
+                this.limpiarTxt();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al Actualizar");
             }
-
         }
 
     }//GEN-LAST:event_jButton_actualizarActionPerformed
 
     private void jButton_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EliminarActionPerformed
-        try {
-            if (idCliente == 0) {
-                JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
+        if (idCliente == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
+        } else {
+            if (cData.eliminar(idCliente)) {
+                JOptionPane.showMessageDialog(null, "Cliente Eliminado del Sistema");
+                this.borrarFilas();
+                this.llenarTablaCliente();
+                this.limpiarTxt();
             } else {
-                if (!cData.eliminar(idCliente)) {
-                    JOptionPane.showMessageDialog(null, "Cliente Eliminado del Sistema");
-                    this.llenarTablaCliente();
-                    this.limpiarTxt();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al Eliminar Cliente");
-                    this.limpiarTxt();
-                }
+                JOptionPane.showMessageDialog(null, "Error al Eliminar Cliente");
+                this.limpiarTxt();
             }
-        } catch (SQLException e) {
-            System.out.println("Error " + e);
         }
     }//GEN-LAST:event_jButton_EliminarActionPerformed
 
@@ -264,34 +250,32 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
         encabezado.add("Dni");
         encabezado.add("Domicílio");
         encabezado.add("Telefono");
-        encabezado.add("Estado");
 
         for (Object col : encabezado) {
             modelo.addColumn(col);
         }
         this.jTable_cliente.setModel(modelo);
     }
+    
+    private void borrarFilas() {
+        int filas = jTable_cliente.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
 
-    private void llenarTablaCliente() throws SQLException {
+    private void llenarTablaCliente() {
+        List<Cliente> clientes = cData.listaClientes();
 
-        Connection con = Conexion.getConexion();
-        String sql = "SELECT * FROM cliente";
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
-            while (rs.next()) {
-                
-                Object f[] = new Object[7];
-                
-                for (int i = 0; i < 7; i++) {
-                    f[i] = rs.getObject(i + 1);
-                }
-                modelo.addRow(f);
-            }
-            con.close();
-        } catch (SQLException e) {
-            System.out.println("Error al llenar Tabla Cliente" + e);
+        for (Cliente cliente: clientes) {
+            modelo.addRow(new Object[]{
+                cliente.getIdCliente(),
+                cliente.getNombre(),
+                cliente.getApellido(),
+                cliente.getDni(),
+                cliente.getDomicilio(),
+                cliente.getTelefono(),
+            });
         }
 
         jTable_cliente.addMouseListener(new MouseAdapter() {
@@ -310,24 +294,12 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
     }
 
     private void datosSeleccionados(int idCliente) {
+        Cliente cliente = cData.buscarClienteXid(idCliente);
 
-        try {
-            Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement(
-                    "SELECT * FROM cliente WHERE idCliente = '" + idCliente + "'");
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                jtxt_apellido.setText(rs.getString("Apellido"));
-                jtxt_nombre.setText(rs.getString("Nombre"));                
-                jtxt_dni.setText(rs.getString("Dni"));
-                jtxt_direccion.setText(rs.getString("Domicilio"));
-                jtxt_telefono.setText(rs.getString("Telefono"));
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println("Error al seleccionar Cliente " + e);
-        }
-
+        jtxt_apellido.setText(cliente.getApellido());
+        jtxt_nombre.setText(cliente.getNombre());                
+        jtxt_dni.setText(cliente.getDni() + "");
+        jtxt_direccion.setText(cliente.getDomicilio());
+        jtxt_telefono.setText(cliente.getTelefono() + "");
     }
 }
