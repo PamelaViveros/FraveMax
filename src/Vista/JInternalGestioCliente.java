@@ -199,7 +199,7 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
         if (idCliente == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
         } else {
-            if (cData.eliminar(idCliente)) {
+            if (cData.bajaDeCliente2(idCliente)) {
                 JOptionPane.showMessageDialog(null, "Cliente Eliminado del Sistema");
                 this.borrarFilas();
                 this.llenarTablaCliente();
@@ -298,8 +298,8 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
 
         jtxt_apellido.setText(cliente.getApellido());
         jtxt_nombre.setText(cliente.getNombre());                
-        jtxt_dni.setText(cliente.getDni() + "");
+        jtxt_dni.setText(String.valueOf(cliente.getDni()));
         jtxt_direccion.setText(cliente.getDomicilio());
-        jtxt_telefono.setText(cliente.getTelefono() + "");
+        jtxt_telefono.setText(String.valueOf(cliente.getTelefono()));
     }
 }

@@ -327,7 +327,7 @@ public class ClienteData {
         }
     }
     
-    public boolean eliminar(int idCliente){ /////Para GestionCliente
+    public boolean bajaDeCliente2(int idCliente){ /////Para GestionCliente
         boolean resp = false;
         String sql = "UPDATE `Cliente` SET Estado = 0 WHERE idCliente = ?";
         
