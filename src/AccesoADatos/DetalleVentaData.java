@@ -67,8 +67,7 @@ public class DetalleVentaData {
             ps.setDouble(7, dv.getTotalPagar());
             ps.setInt(8, 1);
                                  
-            ResultSet rs = ps.getGeneratedKeys();
-            
+                       
             if (ps.executeUpdate() > 0) {
                 resp = true;
             }
