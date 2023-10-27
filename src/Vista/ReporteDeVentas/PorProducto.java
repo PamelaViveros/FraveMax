@@ -76,8 +76,10 @@ public class PorProducto extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Ventas por producto");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(26, 43, 61));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bEliminarVenta.setText("Eliminar");
         bEliminarVenta.addActionListener(new java.awt.event.ActionListener() {
@@ -85,6 +87,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
                 bEliminarVentaActionPerformed(evt);
             }
         });
+        jPanel1.add(bEliminarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 229, -1, -1));
 
         VerDetalle.setText("Ver Detalle");
         VerDetalle.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +95,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
                 VerDetalleActionPerformed(evt);
             }
         });
+        jPanel1.add(VerDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 229, -1, -1));
 
         bSalir.setText("Salir");
         bSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -99,14 +103,20 @@ public class PorProducto extends javax.swing.JInternalFrame {
                 bSalirActionPerformed(evt);
             }
         });
+        jPanel1.add(bSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 229, -1, -1));
 
-        jLabel2.setText("Seleccione producto");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Seleccione producto:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 145, 20));
 
         jcbProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbProductosActionPerformed(evt);
             }
         });
+        jPanel1.add(jcbProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 18, 302, -1));
 
         tListaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,63 +136,10 @@ public class PorProducto extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tListaVentas);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcbProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(bEliminarVenta)
-                        .addGap(38, 38, 38)
-                        .addComponent(VerDetalle)
-                        .addGap(57, 57, 57)
-                        .addComponent(bSalir)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jcbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bEliminarVenta)
-                    .addComponent(VerDetalle)
-                    .addComponent(bSalir))
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 57, -1, 154));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel1))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 270));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 267, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

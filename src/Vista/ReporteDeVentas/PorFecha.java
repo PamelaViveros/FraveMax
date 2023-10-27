@@ -72,10 +72,13 @@ public class PorFecha extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Ventas por fecha");
         setToolTipText("");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(69, 99, 99));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Seleccione fecha de venta");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 31, -1, -1));
 
         tListaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,12 +98,19 @@ public class PorFecha extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tListaVentas);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 78, 583, 187));
+
+        Salir.setBackground(new java.awt.Color(153, 0, 0));
+        Salir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Salir.setForeground(new java.awt.Color(255, 255, 255));
         Salir.setText("Salir");
+        Salir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirActionPerformed(evt);
             }
         });
+        jPanel1.add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 90, 30));
 
         jcFecha.setDateFormatString("dd/MM/yyyy");
         jcFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -108,72 +118,32 @@ public class PorFecha extends javax.swing.JInternalFrame {
                 jcFechaPropertyChange(evt);
             }
         });
+        jPanel1.add(jcFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 19, 292, -1));
 
+        EliminarVenta.setBackground(new java.awt.Color(153, 0, 0));
+        EliminarVenta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        EliminarVenta.setForeground(new java.awt.Color(255, 255, 255));
         EliminarVenta.setText("Eliminar");
+        EliminarVenta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         EliminarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EliminarVentaActionPerformed(evt);
             }
         });
+        jPanel1.add(EliminarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 90, 30));
 
+        VerDetalle.setBackground(new java.awt.Color(153, 255, 255));
+        VerDetalle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         VerDetalle.setText("Ver Detalle");
+        VerDetalle.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         VerDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerDetalleActionPerformed(evt);
             }
         });
+        jPanel1.add(VerDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 290, 100, 30));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                        .addComponent(jcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addComponent(EliminarVenta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(VerDetalle)
-                        .addGap(14, 14, 14)
-                        .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel2))
-                    .addComponent(jcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Salir)
-                    .addComponent(EliminarVenta)
-                    .addComponent(VerDetalle))
-                .addGap(120, 120, 120))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 342));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
