@@ -55,7 +55,6 @@ public class JfrmLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7_wallpaper1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -63,7 +62,6 @@ public class JfrmLogin extends javax.swing.JFrame {
         jtUsuario = new javax.swing.JTextField();
         jpPassword = new javax.swing.JPasswordField();
         jbIniciarSesion = new javax.swing.JButton();
-        jLabel7_wallpaper2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -76,7 +74,7 @@ public class JfrmLogin extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 204, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Gestion de Ventas");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 94, -1, -1));
@@ -88,9 +86,6 @@ public class JfrmLogin extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/carrito1.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 173, 136, -1));
-
-        jLabel7_wallpaper1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/Fondo_def1.jpg"))); // NOI18N
-        jPanel1.add(jLabel7_wallpaper1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 500));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 500));
 
@@ -135,9 +130,6 @@ public class JfrmLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jbIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 375, 176, 37));
-
-        jLabel7_wallpaper2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imag/Fondo_def.jpg"))); // NOI18N
-        jPanel2.add(jLabel7_wallpaper2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 500));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 350, 500));
 
@@ -218,8 +210,6 @@ public class JfrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7_wallpaper1;
-    private javax.swing.JLabel jLabel7_wallpaper2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jbIniciarSesion;
