@@ -7,6 +7,7 @@ package Vista.ReporteDeVentas;
 
 import AccesoADatos.ClienteData;
 import AccesoADatos.DetalleVentaData;
+import static AccesoADatos.DetalleVentaData.detalles;
 import AccesoADatos.ProductoData;
 import static AccesoADatos.ProductoData.productos;
 import AccesoADatos.VentaData;
@@ -30,11 +31,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PorProducto extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modelo = new DefaultTableModel(){
+    DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
-        return false;
-    }
+            return false;
+        }
     };
     VentaData vData;
     DetalleVentaData dvData;
@@ -47,12 +48,11 @@ public class PorProducto extends javax.swing.JInternalFrame {
         this.pData = new ProductoData();
         this.dvData = new DetalleVentaData();
         this.vData = new VentaData();
-        initComponents(); 
+        initComponents();
         cabecera();
         pData.listarProductos();
         CargaCombo();
-       
-        
+
     }
 
     /**
@@ -127,7 +127,7 @@ public class PorProducto extends javax.swing.JInternalFrame {
                 jcbProductosActionPerformed(evt);
             }
         });
-        jPanel1.add(jcbProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 18, 302, -1));
+        jPanel1.add(jcbProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 302, -1));
 
         tListaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -147,9 +147,9 @@ public class PorProducto extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tListaVentas);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 57, -1, 154));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 154));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 270));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 280));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 267, -1, -1));
 
         pack();
@@ -160,42 +160,40 @@ public class PorProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void jcbProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProductosActionPerformed
-       
+
         borrarFilas();
         CargaTablaxProd();
-         VerDetalle.setEnabled(false);
-        
+        VerDetalle.setEnabled(false);
+
     }//GEN-LAST:event_jcbProductosActionPerformed
 
     private void bEliminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarVentaActionPerformed
-         int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+        int idVenta = Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(), 0).toString());
         vData.eliminarVenta(idVenta);
-         borrarFilas();
+        borrarFilas();
         CargaTablaxProd();
         VerDetalle.setEnabled(false);
     }//GEN-LAST:event_bEliminarVentaActionPerformed
 
     private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
-         int sel=tListaVentas.getSelectedRowCount();
-          if (sel==1) {
-           int id= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
-            
-            
-            VerDetalle verDetalle = null;
-             try {
-                 verDetalle = new VerDetalle(id);
-             } catch (SQLException ex) {
-                 Logger.getLogger(PorProducto.class.getName()).log(Level.SEVERE, null, ex);
-             }
+        int sel = tListaVentas.getSelectedRowCount();
+        if (sel == 1) {
+            int id = Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(), 1).toString());
 
-        
-         jDesktopPaneMenu.add(verDetalle);
-        verDetalle.setVisible(true); 
-        }else{
-              JOptionPane.showMessageDialog(rootPane,"Seleccione solo una fila para ver su detalle");
-              
-          }
- 
+            VerDetalle verDetalle = null;
+            try {
+                verDetalle = new VerDetalle(id);
+            } catch (SQLException ex) {
+                Logger.getLogger(PorProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            jDesktopPaneMenu.add(verDetalle);
+            verDetalle.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleccione solo una fila para ver su detalle");
+
+        }
+
     }//GEN-LAST:event_VerDetalleActionPerformed
 
     private void tListaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tListaVentasMouseClicked
@@ -216,7 +214,8 @@ public class PorProducto extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void cabecera() {
-        modelo.addColumn("id Venta"); 
+        modelo.addColumn("id Venta");
+        modelo.addColumn("Nº Detalle");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Nombre Cliente");
         modelo.addColumn("id Cliente");
@@ -225,43 +224,46 @@ public class PorProducto extends javax.swing.JInternalFrame {
         tListaVentas.setModel(modelo);
     }
 
-    
-
     public void CargaCombo() {
 
         for (Producto producto : productos) {
             jcbProductos.addItem(producto);
         }
-        
+
         productos.clear();
 
     }
 
     public void CargaTablaxProd() {
         Producto prod = (Producto) jcbProductos.getSelectedItem();
-        int id=prod.getIdProducto();
+        int id = prod.getIdProducto();
         vData.porProducto(id);
 
         for (Venta venta : ventas) {
-            DetalleVenta dv= dvData.detallarVenta(venta.getIdVenta());
-            Cliente c=cData.buscarClienteXid(venta.getIdCliente());
-           LocalDate fecha=venta.getFechaVenta();
-            String fechaOk=fecha.format(dateTimeFormatter);
+            dvData.detalles(venta.getIdVenta());
+            Cliente c = cData.buscarClienteXid(venta.getIdCliente());
+            LocalDate fecha = venta.getFechaVenta();
+            String fechaOk = fecha.format(dateTimeFormatter);
+
+            for (DetalleVenta detalle : detalles) {
                 modelo.addRow(new Object[]{
                     venta.getIdVenta(),
-                    dv.getCantidad(),
-                     c.getApellido()+" "+c.getNombre(),
+                    detalle.getIdDetalleVenta(),
+                    detalle.getCantidad(),
+                    c.getApellido() + " " + c.getNombre(),
                     venta.getIdCliente(),
                     fechaOk
                 });
+            }
+            detalles.clear();
         }
 
         ventas.clear();
     }
 
     public void borrarFilas() {
-        int f = (tListaVentas.getRowCount() -1);
-       for (; f >=0; f--) {
+        int f = (tListaVentas.getRowCount() - 1);
+        for (; f >= 0; f--) {
             modelo.removeRow(f);
         }
     }

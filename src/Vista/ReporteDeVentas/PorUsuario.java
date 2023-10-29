@@ -186,7 +186,7 @@ public class PorUsuario extends javax.swing.JInternalFrame {
     private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
         int sel=tListaVentas.getSelectedRowCount();
           if (sel==1) {
-           int id= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+           int id= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),1).toString());
             
             
             VerDetalle verDetalle = null;
@@ -234,8 +234,8 @@ public void cargaCombo(){
 public void cabecera(){
     
     modelo.addColumn("id Venta");
+    modelo.addColumn("Nº Detalle");
         modelo.addColumn("idCliente");
-        modelo.addColumn("idDetalleVent");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Nombre producto");
         modelo.addColumn("Fecha de venta");
@@ -257,6 +257,7 @@ public void cargaTablaxUsuario(){
             Producto prod=pData.buscarPorId(detalle.getIdProducto());
                 modelo.addRow(new Object[]{
                 venta.getIdVenta(),
+                    detalle.getIdDetalleVenta(),
                 venta.getIdCliente(),
                 detalle.getIdDetalleVenta(),    
                 detalle.getCantidad(),

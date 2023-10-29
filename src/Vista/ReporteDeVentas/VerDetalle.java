@@ -5,10 +5,12 @@
  */
 package Vista.ReporteDeVentas;
 
+import AccesoADatos.ClienteData;
 import AccesoADatos.DetalleVentaData;
 import AccesoADatos.ProductoData;
 import AccesoADatos.UsuarioData;
 import AccesoADatos.VentaData;
+import Entidades.Cliente;
 import Entidades.DetalleVenta;
 import Entidades.Producto;
 import Entidades.Usuario;
@@ -31,8 +33,10 @@ public class VerDetalle extends javax.swing.JInternalFrame {
     DetalleVentaData dvData;
     ProductoData pData;
     UsuarioData uData;
+    ClienteData cData;
     
     public VerDetalle(int id) throws SQLException {
+        this.cData = new ClienteData();
         this.uData = new UsuarioData();
         this.pData = new ProductoData();
         this.dvData = new DetalleVentaData();
@@ -77,6 +81,8 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         tDescuento = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         tSubtotal = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        tCliente = new javax.swing.JTextField();
 
         setClosable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -85,21 +91,25 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("id Producto:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 56, 130, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Cantidad:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 102, 130, 20));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Nombre:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 56, 90, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Descripcion:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 102, 90, -1));
@@ -111,7 +121,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         jPanel1.add(tCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 96, 49, 30));
 
         tNombreProd.setEditable(false);
-        jPanel1.add(tNombreProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 50, 223, -1));
+        jPanel1.add(tNombreProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 50, 220, -1));
 
         jScrollPane1.setEnabled(false);
 
@@ -123,6 +133,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 96, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Fecha de venta:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 240, 130, 20));
@@ -131,6 +142,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         jPanel1.add(tFechaV, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 234, 90, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("id/ Usuario:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 286, 130, 20));
@@ -139,6 +151,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         jPanel1.add(tUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 199, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Precio unitario:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 148, 130, 20));
@@ -147,12 +160,13 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         jPanel1.add(tPUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 142, 90, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Precio Total:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 292, 90, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 90, -1));
 
         tPtotal.setEditable(false);
-        jPanel1.add(tPtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 286, 125, 30));
+        jPanel1.add(tPtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 130, 30));
 
         Titulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Titulo.setForeground(new java.awt.Color(0, 0, 102));
@@ -172,20 +186,30 @@ public class VerDetalle extends javax.swing.JInternalFrame {
         jPanel1.add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 335, 80, 40));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Descuento:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 234, 90, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 90, -1));
 
         tDescuento.setEditable(false);
-        jPanel1.add(tDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 228, 125, 30));
+        jPanel1.add(tDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, 130, 30));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Subtotal:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 194, 130, 20));
 
         tSubtotal.setEditable(false);
         jPanel1.add(tSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 188, 90, 30));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
+        jLabel11.setText("Cliente:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, 60, -1));
+
+        tCliente.setEditable(false);
+        jPanel1.add(tCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 220, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 392));
 
@@ -202,6 +226,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -213,6 +238,7 @@ public class VerDetalle extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField tCant;
+    private javax.swing.JTextField tCliente;
     private javax.swing.JTextArea tDescProd;
     private javax.swing.JTextField tDescuento;
     private javax.swing.JTextField tFechaV;
@@ -226,24 +252,29 @@ public class VerDetalle extends javax.swing.JInternalFrame {
 
 public void seteo(){
     
-    Titulo.setText("Detalle de la venta Nº "+id);
+    Titulo.setText("Detalle de venta Nº "+id);
    
     
-    DetalleVenta dv = dvData.detallarVenta(id);
-    System.out.println(dv.toString());
+    DetalleVenta dv = dvData.ventaDetallada(id);
+   
      Venta v = vData.buscarVenta(dv.getIdVenta());
+     
      int idUser=v.getIdUsuario();
     Usuario u = uData.buscarUsuario(idUser);
-    System.out.println(v.toString());
+    
+    Cliente c=cData.buscarClienteXid(v.getIdCliente());
+   
     prod = pData.buscarPorId(dv.getIdProducto());
-    System.out.println(prod.toString());
+    
     LocalDate fecha=v.getFechaVenta();
    String fechaOk = fecha.format(dateTimeFormatter); 
+   
    
     tIdProd.setText(prod.getIdProducto() + "");  //id producto
     tNombreProd.setText(prod.getNombreProducto() + "");  //Nombre prod
     tPUnit.setText(prod.getPrecioActual() + "");    //  Precio unitario
     tDescProd.setText(prod.getDescripcion() + "");  //Descripcion
+    tCliente.setText(c.toString());
     tCant.setText(dv.getCantidad() + "");   //Cantidad
     tFechaV.setText(fechaOk);    //Fecha de venta
     tSubtotal.setText((prod.getPrecioActual()*dv.getCantidad()+""));

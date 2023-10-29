@@ -6,6 +6,7 @@
 package Vista.ReporteDeVentas;
 
 import AccesoADatos.DetalleVentaData;
+import static AccesoADatos.DetalleVentaData.detalles;
 import AccesoADatos.ProductoData;
 import AccesoADatos.UsuarioData;
 import AccesoADatos.VentaData;
@@ -29,11 +30,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PorFecha extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modelo = new DefaultTableModel(){
+    DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
-        return false;
-    }
+            return false;
+        }
     };
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     UsuarioData uData;
@@ -98,7 +99,7 @@ public class PorFecha extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tListaVentas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 78, 583, 187));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 583, 187));
 
         Salir.setBackground(new java.awt.Color(153, 0, 0));
         Salir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -143,7 +144,7 @@ public class PorFecha extends javax.swing.JInternalFrame {
         });
         jPanel1.add(VerDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 290, 100, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 342));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 342));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -170,21 +171,21 @@ public class PorFecha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcFechaPropertyChange
 
     private void EliminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVentaActionPerformed
-         int idVenta= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
+        int idVenta = Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(), 0).toString());
         vData.eliminarVenta(idVenta);
         try {
             borrarFilas();
-        cargaTabla();
+            cargaTabla();
         } catch (Exception e) {
-        cargaTodo();}
+            cargaTodo();
+        }
     }//GEN-LAST:event_EliminarVentaActionPerformed
 
     private void VerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleActionPerformed
-        int sel=tListaVentas.getSelectedRowCount();
-          if (sel==1) {
-           int id= Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(),0).toString());
-            
-            
+        int sel = tListaVentas.getSelectedRowCount();
+        if (sel == 1) {
+            int id = Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(), 1).toString());
+
             VerDetalle verDetalle = null;
             try {
                 verDetalle = new VerDetalle(id);
@@ -192,13 +193,12 @@ public class PorFecha extends javax.swing.JInternalFrame {
                 Logger.getLogger(PorFecha.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        
-         jDesktopPaneMenu.add(verDetalle);
-        verDetalle.setVisible(true); 
-        }else{
-              JOptionPane.showMessageDialog(rootPane,"Seleccione solo una fila para ver su detalle");
-              
-          }
+            jDesktopPaneMenu.add(verDetalle);
+            verDetalle.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleccione solo una fila para ver su detalle");
+
+        }
 
     }//GEN-LAST:event_VerDetalleActionPerformed
 
@@ -220,6 +220,7 @@ public class PorFecha extends javax.swing.JInternalFrame {
 
     public void cabecera() {
         modelo.addColumn("id Venta");
+        modelo.addColumn("Nº Detalle");
         modelo.addColumn("idCliente");
         modelo.addColumn("Producto");
         modelo.addColumn("Cantidad");
@@ -235,22 +236,26 @@ public class PorFecha extends javax.swing.JInternalFrame {
         dia = jcFecha.getCalendar().get(Calendar.DAY_OF_MONTH);
         LocalDate fecha = LocalDate.of(año, (mes + 1), dia);
 
-String fechaOk = fecha.format(dateTimeFormatter);  //17-02-2022
+        String fechaOk = fecha.format(dateTimeFormatter);  //17-02-2022
         if (año != 0 && mes != -1 && dia != 0) {
             vData.buscarVentasxFecha(fecha);
 
             for (Venta venta : ventas) {
-                DetalleVenta dv = dvData.detallarVenta(venta.getIdVenta());
-                Producto prod = pData.buscarPorId(dv.getIdProducto());
-                modelo.addRow(new Object[]{
-                    venta.getIdVenta(),
-                    venta.getIdCliente(),
-                    prod.getNombreProducto(),
-                    dv.getCantidad(),
-                    venta.getIdUsuario(),
-                    fechaOk
-                });
+                dvData.detalles(venta.getIdVenta());
+                for (DetalleVenta detalle : detalles) {
+                    Producto prod = pData.buscarPorId(detalle.getIdProducto());
+                    modelo.addRow(new Object[]{
+                        venta.getIdVenta(),
+                        detalle.getIdDetalleVenta(),
+                        venta.getIdCliente(),
+                        prod.getNombreProducto(),
+                        detalle.getCantidad(),
+                        venta.getIdUsuario(),
+                        fechaOk
+                    });
+                }
             }
+            detalles.clear();
         }
         ventas.clear();
 
@@ -259,21 +264,27 @@ String fechaOk = fecha.format(dateTimeFormatter);  //17-02-2022
     public void cargaTodo() {
         vData.listarVentas();
 
-String fechaOk;
+        String fechaOk;
         for (Venta venta : ventas) {
-            DetalleVenta dv = dvData.detallarVenta(venta.getIdVenta());
-            Producto prod = pData.buscarPorId(dv.getIdProducto());
-            LocalDate fecha=venta.getFechaVenta();
-            fechaOk=fecha.format(dateTimeFormatter);
-            modelo.addRow(new Object[]{
-                venta.getIdVenta(),
-                venta.getIdCliente(),
-                prod.getNombreProducto(),
-                dv.getCantidad(),
-                venta.getIdUsuario(),
-                 fechaOk
-               
-            });
+            dvData.detalles(venta.getIdVenta());
+
+            LocalDate fecha = venta.getFechaVenta();
+            fechaOk = fecha.format(dateTimeFormatter);
+
+            for (DetalleVenta detalle : detalles) {
+                Producto prod = pData.buscarPorId(detalle.getIdProducto());
+                modelo.addRow(new Object[]{
+                    venta.getIdVenta(),
+                    detalle.getIdDetalleVenta(),
+                    venta.getIdCliente(),
+                    prod.getNombreProducto(),
+                    detalle.getCantidad(),
+                    venta.getIdUsuario(),
+                    fechaOk
+
+                });
+            }
+            detalles.clear();
         }
         ventas.clear();
     }

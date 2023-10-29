@@ -121,6 +121,45 @@ public class DetalleVentaData {
         return dv;
     }
     
+    public DetalleVenta ventaDetallada(int idDetalle){
+    
+        DetalleVenta dv =new DetalleVenta();
+        
+        String sql = "SELECT idDetalleVent,  idVenta , idProducto , PrecioVenta , Cantidad, SubTotal, Descuento, TotalPagar"
+                + " FROM DetalleVenta WHERE idDetalleVent = ? LIMIT 1";
+    
+        PreparedStatement ps = null;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idDetalle);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+            
+                
+                dv.setIdDetalleVenta(rs.getInt("idDetalleVent"));
+                dv.setCantidad(rs.getInt("Cantidad"));
+                dv.setIdVenta(rs.getInt("idventa"));
+                dv.setPrecioUnitario(rs.getDouble("PrecioVenta"));
+                dv.setIdProducto(rs.getInt("idProducto"));
+                dv.setSubTotal(rs.getDouble("SubTotal"));
+                dv.setDescuento(rs.getDouble("Descuento"));
+                dv.setTotalPagar(rs.getDouble("TotalPagar"));
+            
+            } else {
+            
+                JOptionPane.showMessageDialog(null, "No existe el detalle que busca.");
+            
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al entrar a la tabla detalleventa. " + ex);
+        }
+        
+        return dv;
+    }
+    
     public void eliminarDetalleVenta(int id){
         
         String sql = "UPDATE DetalleVenta SET Estado = 0 WHERE idDetalleVenta = ? ";
@@ -143,7 +182,7 @@ public class DetalleVentaData {
     
     public List detalles( int idVenta){
         
-        String sql="SELECT * FROM DetalleVenta WHERE idVenta=?";
+        String sql="SELECT * FROM DetalleVenta WHERE idVenta=? AND Estado=1";
         PreparedStatement ps=null;
         
 

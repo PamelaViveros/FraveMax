@@ -99,7 +99,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return  idCliente + ", " + apellido + ", " + nombre + ", " + dni;
+        return  idCliente + "- " + apellido + ", " + nombre + ", " + dni;
     }
       
 }

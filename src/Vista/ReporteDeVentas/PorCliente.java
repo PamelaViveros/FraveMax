@@ -123,7 +123,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
             tListaVentas.getColumnModel().getColumn(3).setPreferredWidth(79);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 64, 367, 164));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 400, 164));
 
         jButton1.setBackground(new java.awt.Color(153, 0, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -160,7 +160,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
         });
         jPanel1.add(EliminarV, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 90, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 300));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -176,7 +176,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
 
         int sel = tListaVentas.getSelectedRowCount();
         if (sel == 1) {
-            int id = Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(), 0).toString());
+            int id = Integer.parseInt(tListaVentas.getValueAt(tListaVentas.getSelectedRow(), 1).toString());
 
             VerDetalle verDetalle = null;
             try {
@@ -224,7 +224,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
 
     private void cabecera() {
         modelo.addColumn("ID Venta");
-        modelo.addColumn("ID Detalle");
+        modelo.addColumn("Nº Detalle");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Nombre producto");
         modelo.addColumn("Fecha de venta");
@@ -256,7 +256,7 @@ public class PorCliente extends javax.swing.JInternalFrame {
             for (DetalleVenta detalle : detalles) {
                 
                 Producto prod = pData.buscarPorId(detalle.getIdProducto());
-                System.out.println(detalle.toString());
+                
                 modelo.addRow(new Object[]{
                     venta.getIdVenta(),
                     detalle.getIdDetalleVenta(),
