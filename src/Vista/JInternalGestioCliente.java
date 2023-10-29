@@ -245,8 +245,8 @@ public class JInternalGestioCliente extends javax.swing.JInternalFrame {
     private void encabezadoTabla() {
         ArrayList<Object> encabezado = new ArrayList<>();
         encabezado.add("ID");
-        encabezado.add("Apellido");
         encabezado.add("Nombre");
+        encabezado.add("Apellido");
         encabezado.add("Dni");
         encabezado.add("Domicílio");
         encabezado.add("Telefono");
