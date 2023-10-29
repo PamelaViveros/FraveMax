@@ -305,29 +305,16 @@ public class JfrmLogin extends javax.swing.JFrame {
     public void ObtenerDdatosDeUsuarioReg() throws SQLException {
         idUsuarioReg = 0;
         ApellUsuario = "";
-        try {
-            Connection con = Conexion.getConexion();
+        UsuarioData uData = new UsuarioData();
+        Usuario u = uData.buscarPorPassword(usuario.getPassword());
+        if (u!= null ){
+            idUsuarioReg = u.getIdUsuario();
+            ApellUsuario= u.getApellido();
+            usuario.setIdUsuario(idUsuarioReg);
+            usuario.setApellido(ApellUsuario);
             
-            String sql = "SELECT * FROM Usuario WHERE Password = '" + usuario.getPassword() + "'";
-            
-            Statement st = con.createStatement();            
-            ResultSet rs = st.executeQuery(sql);           
-            
-            while (rs.next()) {             
-                
-                idUsuarioReg = rs.getInt("idUsuario");
-                ApellUsuario = rs.getString("Apellido");
-                
-                    //////////////////////////   
-                
-                usuario.setIdUsuario(idUsuarioReg);
-                usuario.setApellido(ApellUsuario);                                 
-            }
-            //con.close();
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener datos de Usuario " + e);
-        } 
+        }
+         
         
     }
 

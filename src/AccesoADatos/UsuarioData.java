@@ -152,28 +152,27 @@ boolean resp =false;
         return usuarios;
     }
 
-    public boolean loginUsuario(Usuario obj) throws SQLException {
+    public boolean loginUsuario(Usuario obj) {
 
         boolean resp = false;
 
-        Connection con = Conexion.getConexion();
+      
         String sql = "SELECT * FROM `Usuario` WHERE"
-                + " `Apellido` = '" + obj.getApellido() + "' AND `Password` = '" + obj.getPassword() + "' AND Estado=1";
+                + " `Apellido` = ? AND `Password` = ? AND Estado=1";
 
-        Statement st;
+        
         try {
-
-            st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setString(1,obj.getApellido());
+             ps.setString(2, obj.getPassword());
+             ResultSet rs =ps.executeQuery();
+             
             if (rs.next()){
                   uActivo.setIdUsuario(rs.getInt("idUsuario"));
                 uActivo.setApellido(rs.getString("Apellido")); 
                 resp = true;
             }
-//            while (rs.next()) {
-//              
-//               
-//            }
+            ps.close();
 
         } catch (Exception e) {
             System.out.println("Error al Iniciar Sesión");
@@ -218,11 +217,13 @@ boolean resp =false;
 
     public boolean  buscarUsuario(String apellido, String nombre, String password) {
         boolean res=true;
-         String sql = "SELECT * FROM Usuario WHERE Apellido ='"+apellido+"' AND Nombre='"+nombre+"' AND Password= '"+password+"'AND Estado=1;";
+         String sql = "SELECT * FROM Usuario WHERE Apellido = ? AND Nombre= ? AND Password= ? AND Estado=1;";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
-           
+            ps.setString(1, apellido);
+            ps.setString(2, nombre);
+            ps.setString(3, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 usuario.setIdUsuario(rs.getInt("idUsuario"));
@@ -237,5 +238,26 @@ boolean resp =false;
         }
         
         return res;
+    }
+    public Usuario buscarPorPassword(String password){
+        Usuario u = null;
+        String sql = "SELECT * FROM Usuario WHERE Password = ? AND Estado = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, password);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setApellido(rs.getString("Apellido"));
+                usuario.setNombre(rs.getString("Nombre"));
+                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+          JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla usuario");
+        }
+        return usuario;
+        
     }
 }
