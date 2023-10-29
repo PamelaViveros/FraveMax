@@ -160,6 +160,7 @@ public class GestionUsuario extends javax.swing.JInternalFrame {
 
 public void cargaCombo(){
     uData.listarUsuarios();
+    jcbUsuarios.removeAllItems();
     for (Usuario usuario : usuarios) {
         jcbUsuarios.addItem(usuario);
     }
