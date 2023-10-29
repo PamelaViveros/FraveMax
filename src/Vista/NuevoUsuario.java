@@ -256,6 +256,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
                         tNombre.setBackground(Color.green);
                         tPass.setBackground(Color.green);
                         tCpass.setBackground(Color.green);
+                        limpiar();
                     }
                 }
             }
